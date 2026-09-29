@@ -46,6 +46,7 @@ jobs:
         env:
           MINDTRAIL_HOME: ${{ runner.temp }}/mindtrail
           MINDTRAIL_EMBEDDER: hashing
+          MINDTRAIL_RERANKER: none
         run: |
           mindtrail doctor
           mindtrail remember "CI smoke test memory" --scope personal

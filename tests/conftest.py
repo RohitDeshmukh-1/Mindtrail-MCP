@@ -21,6 +21,13 @@ class FakeClock:
         self.now += timedelta(**kwargs)
 
 
+@pytest.fixture(autouse=True)
+def _offline_models(monkeypatch: pytest.MonkeyPatch) -> None:
+    """Keep tests hermetic: never download or load neural models unless a test opts in."""
+    monkeypatch.setenv("MINDTRAIL_EMBEDDER", "hashing")
+    monkeypatch.setenv("MINDTRAIL_RERANKER", "none")
+
+
 @pytest.fixture
 def clock() -> FakeClock:
     return FakeClock()

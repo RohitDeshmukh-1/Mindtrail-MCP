@@ -28,8 +28,9 @@ from mindtrail.core.models import (
     utcnow,
     validate_space_id,
 )
-from mindtrail.core.text import build_fts_query
+from mindtrail.core.text import build_fts_query, content_hash
 from mindtrail.embeddings import EmbeddingProvider, create_embedder
+from mindtrail.embeddings.rerankers import Reranker, create_reranker, sigmoid
 from mindtrail.memory.context import build_context
 from mindtrail.memory.retrieval import RankingWeights, rank
 from mindtrail.memory.safety import find_secrets
@@ -60,9 +61,11 @@ class MemoryService:
         weights: RankingWeights | None = None,
         clock: Callable[[], datetime] = utcnow,
         candidate_limit: int = 50,
+        reranker: Reranker | None = None,
     ) -> None:
         self._repo = repository
         self._embedder = embedder
+        self._reranker = reranker
         self._tenant = tenant_id
         self._default_space = validate_space_id(default_space)
         self._weights = weights or RankingWeights()
@@ -76,6 +79,7 @@ class MemoryService:
             SQLiteMemoryRepository(config.db_path),
             create_embedder(config.embedder, cache_dir=config.model_dir),
             default_space=config.default_space,
+            reranker=create_reranker(config.reranker, cache_dir=config.model_dir),
         )
 
     @property
@@ -89,11 +93,16 @@ class MemoryService:
     def now(self) -> datetime:
         return self._clock()
 
+    @property
+    def reranker_model(self) -> str | None:
+        return self._reranker.model_name if self._reranker else None
+
     def warm_up(self) -> None:
-        """Load the embedding model now rather than on the first query."""
-        warm = getattr(self._embedder, "warm_up", None)
-        if callable(warm):
-            warm()
+        """Load the embedding and reranking models now rather than on the first query."""
+        for component in (self._embedder, self._reranker):
+            warm = getattr(component, "warm_up", None)
+            if callable(warm):
+                warm()
 
     def close(self) -> None:
         self._repo.close()
@@ -161,6 +170,55 @@ class MemoryService:
             deduplicated=deduplicated,
             superseded_id=replaced.id if replaced is not None else None,
         )
+
+    def remember_many(
+        self, items: Sequence[dict[str, Any]], *, batch_size: int = 64
+    ) -> list[RememberResult]:
+        """Store many memories with batched embedding (for imports).
+
+        Each item takes the keyword arguments of ``remember`` except ``supersedes``. Validation,
+        the secret filter and duplicate merging apply exactly as for ``remember``; the first
+        invalid item raises before anything is stored.
+        """
+        now = self._clock()
+        records: list[MemoryRecord] = []
+        for item in items:
+            if "supersedes" in item:
+                raise InvalidMemoryError("remember_many does not support 'supersedes'")
+            fields = {**item, "memory_type": item.get("memory_type", MemoryType.SEMANTIC)}
+            fields["space_id"] = item.get("space_id") or self._default_space
+            record = self._build(tenant_id=self._tenant, created_at=now, updated_at=now, **fields)
+            self._reject_secrets(record)
+            records.append(record)
+
+        results: list[RememberResult | None] = [None] * len(records)
+        fresh: dict[tuple[str, str], int] = {}  # (space, content hash) -> index of first copy
+        pending: list[int] = []
+        for index, record in enumerate(records):
+            key = (record.space_id, content_hash(record.content))
+            if key in fresh:
+                first = records[fresh[key]]
+                results[index] = RememberResult(memory=first, deduplicated=True)
+                continue
+            existing = self._repo.find_active_duplicate(
+                self._tenant, record.space_id, record.content, now
+            )
+            if existing is not None:
+                merged = existing.model_copy(update={"updated_at": now})
+                self._repo.update(merged)
+                results[index] = RememberResult(memory=merged, deduplicated=True)
+                continue
+            fresh[key] = index
+            pending.append(index)
+
+        for start in range(0, len(pending), batch_size):
+            chunk = pending[start : start + batch_size]
+            vectors = self._embed_many([records[i].content for i in chunk])
+            for i, vector in zip(chunk, vectors, strict=True):
+                blob = None if vector is None else np.asarray(vector, np.float32).tobytes()
+                self._repo.add(records[i], blob, self._embedder.model_name if blob else None)
+                results[i] = RememberResult(memory=records[i])
+        return [r for r in results if r is not None]
 
     def update_memory(
         self,
@@ -269,21 +327,51 @@ class MemoryService:
             memory_types=types,
         )
 
+        limit = max(1, min(limit, MAX_SEARCH_LIMIT))
         similarities = self._similarities(query, scope)
-        keyword_ids = self._keyword_candidates(query, scope, similarities)
+        if self._reranker is not None:
+            reranked = self._reranked_search(query, scope, similarities)
+            if reranked is not None:
+                return reranked[:limit]
+
+        # Without a reranker, strict gates decide relevance directly.
         vector_floor = self._weights.vector_min_similarity
         if vector_floor is None:
             vector_floor = self._embedder.min_similarity
-        vector_hits = sorted(
-            ((mid, sim) for mid, sim in similarities.items() if sim >= vector_floor),
-            key=lambda item: item[1],
-            reverse=True,
-        )[: self._candidate_limit]
+        keyword_ids = self._keyword_candidates(query, scope, similarities, support_gate=True)
+        vector_hits = self._vector_candidates(similarities, vector_floor)
+        records = self._repo.get_many(self._tenant, _union(keyword_ids, vector_hits))
+        return rank(records, keyword_ids, vector_hits, self._weights, scope.now)[:limit]
 
-        candidate_ids = list(dict.fromkeys([*keyword_ids, *(mid for mid, _ in vector_hits)]))
-        records = self._repo.get_many(self._tenant, candidate_ids)
-        hits = rank(records, keyword_ids, vector_hits, self._weights, scope.now)
-        return hits[: max(1, min(limit, MAX_SEARCH_LIMIT))]
+    def _reranked_search(
+        self, query: str, scope: ScopeFilter, similarities: dict[str, float]
+    ) -> list[SearchHit] | None:
+        """Loose hybrid candidates, rescored by the cross-encoder. None if the reranker fails."""
+        assert self._reranker is not None
+        floor = self._weights.rerank_candidate_similarity
+        if floor is None:
+            floor = self._embedder.candidate_similarity
+        keyword_ids = self._keyword_candidates(query, scope, similarities, support_gate=False)
+        vector_hits = self._vector_candidates(similarities, floor)
+        records = self._repo.get_many(self._tenant, _union(keyword_ids, vector_hits))
+        pool = rank(records, keyword_ids, vector_hits, self._weights, scope.now)
+        pool = pool[: self._weights.rerank_depth]
+        if not pool:
+            return []
+        try:
+            scores = self._reranker.score(query, [hit.memory.content for hit in pool])
+        except Exception:
+            logger.exception("reranker failed; falling back to hybrid ranking")
+            return None
+        min_score = self._weights.rerank_min_score
+        if min_score is None:
+            min_score = self._reranker.min_score
+        relevance = {
+            str(hit.memory.id): sigmoid(score)
+            for hit, score in zip(pool, scores, strict=True)
+            if score >= min_score
+        }
+        return rank(records, keyword_ids, vector_hits, self._weights, scope.now, relevance)
 
     def recall(self, query: str, *, space_id: str | None = None, limit: int = 5) -> list[SearchHit]:
         return self.search(query, space_ids=[space_id] if space_id else None, limit=limit)
@@ -339,8 +427,20 @@ class MemoryService:
             return None, None
         return np.asarray(vector, dtype=np.float32).tobytes(), self._embedder.model_name
 
+    def _vector_candidates(
+        self, similarities: dict[str, float], floor: float
+    ) -> list[tuple[str, float]]:
+        hits = [(mid, sim) for mid, sim in similarities.items() if sim >= floor]
+        hits.sort(key=lambda item: item[1], reverse=True)
+        return hits[: self._candidate_limit]
+
     def _keyword_candidates(
-        self, query: str, scope: ScopeFilter, similarities: dict[str, float]
+        self,
+        query: str,
+        scope: ScopeFilter,
+        similarities: dict[str, float],
+        *,
+        support_gate: bool,
     ) -> list[str]:
         match = build_fts_query(query)
         if match is None:
@@ -351,6 +451,8 @@ class MemoryService:
             best = keyword[0][1]
             floor = self._weights.keyword_relative_floor
             keyword = [(mid, score) for mid, score in keyword if score / best >= floor]
+        if not support_gate:
+            return [mid for mid, _ in keyword]
         support = self._weights.keyword_min_similarity
         if support is None:
             support = self._embedder.keyword_support_similarity
@@ -361,6 +463,14 @@ class MemoryService:
             for mid, _ in keyword
             if not similarities or mid not in similarities or similarities[mid] >= support
         ]
+
+    def _embed_many(self, contents: list[str]) -> list[Any]:
+        """Batch embedding; on failure every item is stored without a vector (see above)."""
+        try:
+            return list(self._embedder.embed_documents(contents))
+        except Exception:
+            logger.exception("batch embedding failed; memories stored without vectors")
+            return [None] * len(contents)
 
     def _similarities(self, query: str, scope: ScopeFilter) -> dict[str, float]:
         """Cosine similarity of the query to every in-scope memory with a current vector."""
@@ -375,3 +485,7 @@ class MemoryService:
         matrix = np.stack([np.frombuffer(blob, dtype=np.float32) for _, blob in rows])
         scores = matrix @ query_vector
         return {row[0]: float(score) for row, score in zip(rows, scores, strict=True)}
+
+
+def _union(keyword_ids: Sequence[str], vector_hits: Sequence[tuple[str, float]]) -> list[str]:
+    return list(dict.fromkeys([*keyword_ids, *(mid for mid, _ in vector_hits)]))

@@ -12,6 +12,7 @@ import logging
 import os
 import sqlite3
 import sys
+import threading
 from collections.abc import Callable, Sequence
 from pathlib import Path
 
@@ -79,6 +80,13 @@ def _print_records(records: Sequence[MemoryRecord], as_json: bool) -> None:
         print(f"            id={record.id}")
 
 
+def _warm_up(service: MemoryService) -> None:
+    try:
+        service.warm_up()
+    except Exception:
+        logging.getLogger(__name__).exception("model warm-up failed; will retry on first use")
+
+
 # -- commands ------------------------------------------------------------------------------
 
 
@@ -93,6 +101,9 @@ def cmd_serve(args: argparse.Namespace) -> int:
     server = create_server(
         service, project_space=_project_space(), profile="full" if profile == "full" else "core"
     )
+    # Load (or, if `mindtrail init` was skipped, download) models while the client is still
+    # connecting, so the agent's first recall doesn't stall. Tool calls wait on the same lock.
+    threading.Thread(target=_warm_up, args=(service,), daemon=True).start()
     try:
         server.run("stdio")
     finally:
@@ -105,14 +116,15 @@ def cmd_init(args: argparse.Namespace) -> int:
     try:
         stats = service.stats()
         model = service.embedding_model
-        if model.startswith("fastembed"):
-            print(f"Preparing embedding model ({model}); the first run downloads it...")
+        if model.startswith("fastembed") or service.reranker_model:
+            print("Preparing models; the first run downloads them...")
             service.warm_up()
         reindexed = service.reindex_embeddings()
     finally:
         service.close()
     print(f"Mindtrail is ready. Data: {config.db_path} ({stats['total']} memories)")
     print(f"Embeddings: {model}" + (f" (indexed {reindexed} memories)" if reindexed else ""))
+    print(f"Reranker:   {service.reranker_model or 'none'}")
     if not model.startswith("fastembed"):
         print('Tip: pipx install "mindtrail[semantic]" for recall by meaning, not just words.')
     print()
@@ -279,11 +291,24 @@ def cmd_reindex(args: argparse.Namespace) -> int:
 
 def cmd_bench(args: argparse.Namespace) -> int:
     from mindtrail.embeddings import create_embedder
+    from mindtrail.embeddings.rerankers import create_reranker
     from mindtrail.evaluation import load_dataset, run_benchmark
+    from mindtrail.evaluation.locomo import fetch_locomo, run_locomo
 
-    embedder = create_embedder(args.embedder, cache_dir=MindtrailConfig.from_env().model_dir)
+    config = MindtrailConfig.from_env()
+    embedder = create_embedder(args.embedder, cache_dir=config.model_dir)
+    reranker = create_reranker(args.reranker, cache_dir=config.model_dir)
     for source in args.dataset:
-        report = run_benchmark(load_dataset(source), embedder, k=args.k)
+        if source.startswith("locomo"):
+            split = source.partition(":")[2] or "test"
+            path = fetch_locomo(config.home / "benchmarks")
+            locomo = run_locomo(path, embedder, reranker=reranker, split=split)
+            print(locomo.to_markdown() + "\n")
+            if args.json:
+                path = args.json.with_stem(f"{args.json.stem}-locomo-{split}")
+                path.write_text(locomo.model_dump_json(indent=2), encoding="utf-8")
+            continue
+        report = run_benchmark(load_dataset(source), embedder, k=args.k, reranker=reranker)
         print(report.to_markdown() + "\n")
         if args.failures:
             for result in report.failures():
@@ -361,9 +386,13 @@ def build_parser() -> argparse.ArgumentParser:
         "--dataset",
         nargs="+",
         default=["dev", "holdout"],
-        help="bundled dataset names (dev, holdout) or paths to dataset files",
+        help="bundled datasets (dev, holdout, holdout-v2), locomo[:dev|test|all] "
+        "(downloaded; CC BY-NC 4.0), or paths to dataset files",
     )
     p.add_argument("--embedder", choices=["auto", "hashing", "fastembed"], default="auto")
+    p.add_argument(
+        "--reranker", default="auto", help="auto, none, or a fastembed cross-encoder model id"
+    )
     p.add_argument("-k", type=int, default=5)
     p.add_argument("--json", type=Path, help="write the full report as JSON")
     p.add_argument("--failures", action="store_true", help="list queries that missed")
