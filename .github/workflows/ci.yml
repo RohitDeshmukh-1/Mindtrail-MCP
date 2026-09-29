@@ -51,6 +51,30 @@ jobs:
           mindtrail remember "CI smoke test memory" --scope personal
           mindtrail recall "smoke test"
 
+  semantic:
+    name: retrieval benchmark (neural embeddings)
+    runs-on: ubuntu-latest
+    env:
+      MINDTRAIL_HOME: ${{ runner.temp }}/mindtrail
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - uses: actions/cache@v4
+        with:
+          path: ${{ runner.temp }}/mindtrail/models
+          key: fastembed-bge-small-en-v1.5
+      - run: pip install -e ".[dev,semantic]"
+      - run: mindtrail init --client claude-code  # downloads the model into the cache
+      - run: pytest tests/evaluation
+      - run: mindtrail bench --embedder fastembed --json bench.json >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: benchmark-results
+          path: bench-*.json
+
   build:
     runs-on: ubuntu-latest
     steps:

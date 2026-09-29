@@ -46,7 +46,7 @@ the vector later. No LLM call is involved.
   PostgreSQL + pgvector comes next for hosted, multi-tenant use behind the same repository
   interface.
 - **Hashing embedder by default:** installs in seconds with no downloads. The neural model is
-  one extra away (`mindtrail[local-embeddings]`).
+  one extra away (`mindtrail[semantic]`).
 - **Three default tools:** a small, distinct tool surface makes agents call memory tools
   more reliably. Power users can opt into the full set.
 - **Project identity from the git remote:** the same repo gets the same memory in every tool

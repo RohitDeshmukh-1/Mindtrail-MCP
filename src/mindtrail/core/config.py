@@ -28,6 +28,10 @@ class MindtrailConfig:
     def db_path(self) -> Path:
         return self.home / "mindtrail.db"
 
+    @property
+    def model_dir(self) -> Path:
+        return self.home / "models"
+
     @classmethod
     def from_env(cls) -> MindtrailConfig:
         home = Path(os.environ.get("MINDTRAIL_HOME") or Path.home() / ".mindtrail").expanduser()

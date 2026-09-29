@@ -20,7 +20,12 @@ class EmbeddingProvider(Protocol):
 
     @property
     def min_similarity(self) -> float:
-        """Cosine similarity below which a vector match is treated as irrelevant."""
+        """Cosine similarity at which a memory is relevant on vector evidence alone."""
+        ...
+
+    @property
+    def keyword_support_similarity(self) -> float:
+        """Minimum cosine similarity that confirms a keyword match is not incidental."""
         ...
 
     def embed_documents(self, texts: Sequence[str]) -> Matrix: ...
