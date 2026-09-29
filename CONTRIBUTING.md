@@ -1,11 +1,11 @@
-# Contributing to CogMem
+# Contributing to Mindtrail
 
 Thanks for helping. Small, focused pull requests get reviewed fastest.
 
 ## Setup
 
 ```bash
-git clone https://github.com/OWNER/cogmem && cd cogmem
+git clone https://github.com/OWNER/mindtrail && cd mindtrail
 python -m venv .venv
 source .venv/bin/activate          # Windows: .venv\Scripts\activate
 pip install -e ".[dev]"

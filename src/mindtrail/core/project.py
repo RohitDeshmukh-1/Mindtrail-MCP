@@ -67,8 +67,8 @@ def find_repo_root(start: Path) -> Path | None:
 
 
 def detect_project(start: Path | None = None) -> Project | None:
-    """The current project, from ``COGMEM_PROJECT`` or the enclosing git repository."""
-    if override := os.environ.get("COGMEM_PROJECT", "").strip():
+    """The current project, from ``MINDTRAIL_PROJECT`` or the enclosing git repository."""
+    if override := os.environ.get("MINDTRAIL_PROJECT", "").strip():
         name = _slug(override)
         return Project(name=name, space_id=f"project:{name}", root=None)
 

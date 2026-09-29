@@ -12,9 +12,9 @@ from pathlib import Path
 from typing import Any
 from uuid import UUID
 
-from cogmem.core.models import MemoryRecord
-from cogmem.core.text import content_hash
-from cogmem.storage.interfaces import ScopeFilter
+from mindtrail.core.models import MemoryRecord
+from mindtrail.core.text import content_hash
+from mindtrail.storage.interfaces import ScopeFilter
 
 # Fixed-width UTC timestamps so SQL string comparison matches chronological order.
 _TS_FORMAT = "%Y-%m-%dT%H:%M:%S.%f+00:00"

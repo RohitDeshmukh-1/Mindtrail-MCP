@@ -1,4 +1,4 @@
-"""Use the CogMem engine directly from Python, without MCP.
+"""Use the Mindtrail engine directly from Python, without MCP.
 
 Run: python examples/python_quickstart.py
 """
@@ -6,9 +6,9 @@ Run: python examples/python_quickstart.py
 import tempfile
 from pathlib import Path
 
-from cogmem import CogMemConfig, MemoryService
+from mindtrail import MemoryService, MindtrailConfig
 
-memory = MemoryService.from_config(CogMemConfig(home=Path(tempfile.mkdtemp())))
+memory = MemoryService.from_config(MindtrailConfig(home=Path(tempfile.mkdtemp())))
 
 memory.remember("The API is built with FastAPI and PostgreSQL", space_id="project:shop")
 memory.remember("Run tests with `pytest -x`", space_id="project:shop")

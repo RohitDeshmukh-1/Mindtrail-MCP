@@ -1,4 +1,4 @@
-"""Domain models shared by every CogMem interface (MCP, REST, SDK, CLI)."""
+"""Domain models shared by every Mindtrail interface (MCP, REST, SDK, CLI)."""
 
 from __future__ import annotations
 

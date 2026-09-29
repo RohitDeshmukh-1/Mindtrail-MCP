@@ -3,14 +3,14 @@ from pathlib import Path
 
 import pytest
 
-from cogmem.cli.main import main
+from mindtrail.cli.main import main
 
 
 @pytest.fixture(autouse=True)
 def _isolated_home(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Path:
-    monkeypatch.setenv("COGMEM_HOME", str(tmp_path / "home"))
-    monkeypatch.setenv("COGMEM_EMBEDDER", "hashing")
-    monkeypatch.setenv("COGMEM_PROJECT", "cli-test")
+    monkeypatch.setenv("MINDTRAIL_HOME", str(tmp_path / "home"))
+    monkeypatch.setenv("MINDTRAIL_EMBEDDER", "hashing")
+    monkeypatch.setenv("MINDTRAIL_PROJECT", "cli-test")
     return tmp_path
 
 
@@ -56,4 +56,4 @@ def test_doctor_and_init_succeed(capsys: pytest.CaptureFixture[str]) -> None:
     assert "ERR" not in capsys.readouterr().out
     assert main(["init"]) == 0
     out = capsys.readouterr().out
-    assert "claude mcp add cogmem" in out and "mcpServers" in out
+    assert "claude mcp add mindtrail" in out and "mcpServers" in out

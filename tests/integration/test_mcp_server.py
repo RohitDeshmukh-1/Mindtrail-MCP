@@ -7,8 +7,8 @@ from typing import Any
 import pytest
 from mcp import Client
 
-from cogmem.mcp.server import create_server
-from cogmem.memory.service import MemoryService
+from mindtrail.mcp.server import create_server
+from mindtrail.memory.service import MemoryService
 
 pytestmark = pytest.mark.anyio
 PROJECT = "project:demo-1234abcd"

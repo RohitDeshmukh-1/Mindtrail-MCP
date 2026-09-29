@@ -1,11 +1,13 @@
 <div align="center">
 
-# 🧠 CogMem
+# 🧭 Mindtrail
 
-**Persistent memory for AI coding agents. Tell your agent something once, and every future
-session remembers it.**
+**Leave a trail your AI agents can follow.**
 
-[![CI](https://github.com/OWNER/cogmem/actions/workflows/ci.yml/badge.svg)](https://github.com/OWNER/cogmem/actions/workflows/ci.yml)
+Persistent, local-first memory for coding agents over MCP. Tell your agent something once,
+and every future session remembers it.
+
+[![CI](https://github.com/OWNER/mindtrail/actions/workflows/ci.yml/badge.svg)](https://github.com/OWNER/mindtrail/actions/workflows/ci.yml)
 [![Python 3.11+](https://img.shields.io/badge/python-3.11%2B-blue)](https://www.python.org/)
 [![MCP](https://img.shields.io/badge/MCP-compatible-8A2BE2)](https://modelcontextprotocol.io)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
@@ -15,7 +17,7 @@ session remembers it.**
 ---
 
 Every new agent session starts from zero. You explain your conventions again, re-state your
-preferences, and re-describe decisions you made last week. **CogMem gives your agents a shared,
+preferences, and re-describe decisions you made last week. **Mindtrail gives your agents a shared,
 long-term memory** through the [Model Context Protocol](https://modelcontextprotocol.io), so
 what one session learns, every later session (in any tool) can recall.
 
@@ -35,12 +37,12 @@ what one session learns, every later session (in any tool) can recall.
 ## Quickstart
 
 ```bash
-pipx install cogmem-mcp                               # or: uv tool install cogmem-mcp
-claude mcp add cogmem --scope user -- cogmem serve    # Claude Code
+pipx install mindtrail                                     # or: uv tool install mindtrail
+claude mcp add mindtrail --scope user -- mindtrail serve   # Claude Code
 ```
 
 Cursor, VS Code, Codex and custom clients are covered in
-**[docs/integrations.md](docs/integrations.md)**, or run `cogmem init` to print each config.
+**[docs/integrations.md](docs/integrations.md)**, or run `mindtrail init` to print each config.
 
 Then try it:
 
@@ -52,7 +54,7 @@ Session 2 › Write a commit message for these changes.
 
 ## How it works
 
-Your agent gets three tools, and CogMem's server instructions tell it when to use them:
+Your agent gets three tools, and Mindtrail's server instructions tell it when to use them:
 
 | Tool | What it does |
 |---|---|
@@ -60,7 +62,7 @@ Your agent gets three tools, and CogMem's server instructions tell it when to us
 | `recall` | Find relevant memories from the current project plus your personal space. Returns nothing when nothing relevant exists. |
 | `forget` | Permanently delete a memory. |
 
-Set `COGMEM_TOOLS=full` for four more: `search_memory` (filters by space, type and validity),
+Set `MINDTRAIL_TOOLS=full` for four more: `search_memory` (filters by space, type and validity),
 `get_context` (a prompt-ready block within a token budget), `update_memory` (edits with
 version history) and `get_memory`.
 
@@ -70,12 +72,12 @@ windows, version history and hybrid ranking. See **[docs/architecture.md](docs/a
 ## Manage memory from the terminal
 
 ```bash
-cogmem recall "how do we deploy?"     # search project + personal memory
-cogmem remember "Staging is at staging.example.com" --scope project
-cogmem list                           # newest first
-cogmem forget <id>                    # permanent delete
-cogmem export -o memories.jsonl       # everything you've stored, as JSON Lines
-cogmem doctor                         # diagnose the install
+mindtrail recall "how do we deploy?"   # search project + personal memory
+mindtrail remember "Staging is at staging.example.com" --scope project
+mindtrail list                         # newest first
+mindtrail forget <id>                  # permanent delete
+mindtrail export -o memories.jsonl     # everything you've stored, as JSON Lines
+mindtrail doctor                       # diagnose the install
 ```
 
 ## Better semantic recall
@@ -85,14 +87,14 @@ ship?" → "deploys go through GitHub Actions"), install the local neural model.
 and needs no API key:
 
 ```bash
-pipx install "cogmem-mcp[local-embeddings]"
-cogmem reindex
+pipx install "mindtrail[local-embeddings]"
+mindtrail reindex
 ```
 
 ## Use it from Python
 
 ```python
-from cogmem import MemoryService
+from mindtrail import MemoryService
 
 memory = MemoryService.from_config()
 memory.remember("The API uses FastAPI and PostgreSQL", space_id="project:shop")
@@ -101,8 +103,8 @@ print(memory.get_context("add a new endpoint", space_ids=["project:shop"]).text)
 
 ## Privacy and security
 
-Everything stays in `~/.cogmem/cogmem.db` on your machine. CogMem refuses writes that look like
-API keys, tokens or private keys. `forget` overwrites deleted data on disk, and recalled memories
+Everything stays in `~/.mindtrail/mindtrail.db` on your machine. Mindtrail refuses writes that
+look like API keys, tokens or private keys. `forget` overwrites deleted data on disk, and recalled memories
 are marked as untrusted reference data so agents don't follow instructions stored inside them.
 See [SECURITY.md](SECURITY.md) to report issues.
 
@@ -121,7 +123,7 @@ Details: [IMPLEMENTATION_STATUS.md](IMPLEMENTATION_STATUS.md).
 ## Contributing
 
 Issues and PRs are welcome. Read [CONTRIBUTING.md](CONTRIBUTING.md) to get set up; the whole
-suite runs in about 15 seconds. If CogMem saves you from re-explaining your codebase, a ⭐
+suite runs in about 15 seconds. If Mindtrail saves you from re-explaining your codebase, a ⭐
 helps others find it.
 
 ## License

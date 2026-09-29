@@ -8,7 +8,7 @@ from datetime import datetime
 from typing import Any, Protocol
 from uuid import UUID
 
-from cogmem.core.models import MemoryRecord, MemoryType
+from mindtrail.core.models import MemoryRecord, MemoryType
 
 
 @dataclass(frozen=True)

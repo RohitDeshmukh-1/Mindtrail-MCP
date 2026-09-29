@@ -1,7 +1,7 @@
 """Offline, dependency-free embedder based on feature hashing.
 
 It captures lexical overlap (words plus character trigrams), not deep semantics. It exists so
-CogMem works with zero downloads; install the ``local-embeddings`` extra for a neural model.
+Mindtrail works with zero downloads; install the ``local-embeddings`` extra for a neural model.
 """
 
 from __future__ import annotations
@@ -11,8 +11,8 @@ from collections.abc import Sequence
 
 import numpy as np
 
-from cogmem.core.text import STOPWORDS, tokenize
-from cogmem.embeddings.base import Matrix, Vector
+from mindtrail.core.text import STOPWORDS, tokenize
+from mindtrail.embeddings.base import Matrix, Vector
 
 _WORD_WEIGHT = 1.0
 _TRIGRAM_WEIGHT = 0.4

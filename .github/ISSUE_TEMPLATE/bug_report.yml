@@ -19,7 +19,7 @@ body:
   - type: textarea
     id: doctor
     attributes:
-      label: Output of `cogmem doctor`
+      label: Output of `mindtrail doctor`
       render: text
     validations:
       required: true
@@ -27,5 +27,5 @@ body:
     id: logs
     attributes:
       label: Relevant logs
-      description: Run with `COGMEM_LOG_LEVEL=DEBUG`. Remove anything private first.
+      description: Run with `MINDTRAIL_LOG_LEVEL=DEBUG`. Remove anything private first.
       render: text

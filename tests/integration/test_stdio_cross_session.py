@@ -1,6 +1,6 @@
 """The Phase 1 exit criterion: store in one agent session, recall in a separate one.
 
-Each session launches `python -m cogmem serve` as a real subprocess over stdio, the same way
+Each session launches `python -m mindtrail serve` as a real subprocess over stdio, the same way
 Claude Code, Cursor or Codex launch it.
 """
 
@@ -23,8 +23,12 @@ def anyio_backend() -> str:
 def _server(home: Path, project: str) -> StdioServerParameters:
     return StdioServerParameters(
         command=sys.executable,
-        args=["-m", "cogmem", "serve"],
-        env={"COGMEM_HOME": str(home), "COGMEM_EMBEDDER": "hashing", "COGMEM_PROJECT": project},
+        args=["-m", "mindtrail", "serve"],
+        env={
+            "MINDTRAIL_HOME": str(home),
+            "MINDTRAIL_EMBEDDER": "hashing",
+            "MINDTRAIL_PROJECT": project,
+        },
     )
 
 

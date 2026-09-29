@@ -2,12 +2,12 @@ from pathlib import Path
 
 import pytest
 
-from cogmem.core.project import detect_project, normalize_remote
+from mindtrail.core.project import detect_project, normalize_remote
 
 
 @pytest.fixture(autouse=True)
 def _no_override(monkeypatch: pytest.MonkeyPatch) -> None:
-    monkeypatch.delenv("COGMEM_PROJECT", raising=False)
+    monkeypatch.delenv("MINDTRAIL_PROJECT", raising=False)
 
 
 def _repo(root: Path, remote: str | None = None) -> Path:
@@ -55,6 +55,6 @@ def test_no_repo_means_no_project(tmp_path: Path) -> None:
 
 
 def test_env_override(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
-    monkeypatch.setenv("COGMEM_PROJECT", "Acme Web")
+    monkeypatch.setenv("MINDTRAIL_PROJECT", "Acme Web")
     project = detect_project(tmp_path)
     assert project and project.space_id == "project:acme-web"

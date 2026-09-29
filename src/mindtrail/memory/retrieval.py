@@ -11,7 +11,7 @@ from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
 from datetime import datetime
 
-from cogmem.core.models import MemoryRecord, SearchHit
+from mindtrail.core.models import MemoryRecord, SearchHit
 
 
 @dataclass(frozen=True)

@@ -7,5 +7,5 @@ personal attacks and discriminatory language are not tolerated in issues, pull r
 discussions or any other project space.
 
 Report unacceptable behavior privately to the maintainers through
-[GitHub security advisories](https://github.com/OWNER/cogmem/security/advisories/new) or by
+[GitHub security advisories](https://github.com/OWNER/mindtrail/security/advisories/new) or by
 contacting a maintainer directly. Reports are handled confidentially.
