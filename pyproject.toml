@@ -1,0 +1,73 @@
+[build-system]
+requires = ["hatchling>=1.25"]
+build-backend = "hatchling.build"
+
+[project]
+name = "cogmem-mcp"
+version = "0.1.0.dev0"
+description = "Persistent, local-first memory for AI coding agents over MCP."
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "CogMem contributors" }]
+keywords = ["mcp", "memory", "ai-agents", "llm", "claude-code", "cursor", "rag"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Software Development :: Libraries",
+    "Typing :: Typed",
+]
+dependencies = [
+    "pydantic>=2.7,<3",
+    "numpy>=1.26",
+    "mcp>=2.2,<3",
+]
+
+[project.urls]
+Homepage = "https://github.com/OWNER/cogmem"
+Documentation = "https://github.com/OWNER/cogmem/tree/main/docs"
+Issues = "https://github.com/OWNER/cogmem/issues"
+Changelog = "https://github.com/OWNER/cogmem/blob/main/CHANGELOG.md"
+
+[project.scripts]
+cogmem = "cogmem.cli.main:main"
+
+[project.optional-dependencies]
+local-embeddings = ["fastembed>=0.4"]
+dev = ["pytest>=8", "ruff>=0.6", "mypy>=1.11", "pre-commit>=3.7"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/cogmem"]
+
+[tool.hatch.build.targets.sdist]
+include = ["src/cogmem", "tests", "README.md", "LICENSE", "CHANGELOG.md"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src", "."]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "SIM", "RUF"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+mypy_path = "src"
+plugins = ["pydantic.mypy"]
+
+[[tool.mypy.overrides]]
+module = ["fastembed.*"]
+ignore_missing_imports = true
