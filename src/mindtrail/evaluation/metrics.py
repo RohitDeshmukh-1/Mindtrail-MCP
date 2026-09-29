@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import math
+import random
 from collections.abc import Collection, Sequence
 
 
@@ -36,3 +37,21 @@ def percentile(values: Sequence[float], pct: float) -> float:
     ordered = sorted(values)
     rank = max(1, math.ceil(pct / 100 * len(ordered)))
     return ordered[rank - 1]
+
+
+def bootstrap_ci(
+    values: Sequence[float], *, resamples: int = 2000, confidence: float = 0.95, seed: int = 0
+) -> tuple[float, float]:
+    """Percentile bootstrap confidence interval for the mean of per-query ``values``.
+
+    Seeded, so reported intervals are reproducible.
+    """
+    if not values:
+        return (0.0, 0.0)
+    rng = random.Random(seed)
+    n = len(values)
+    means = sorted(sum(rng.choices(values, k=n)) / n for _ in range(resamples))
+    tail = (1 - confidence) / 2
+    low = means[int(tail * resamples)]
+    high = means[min(resamples - 1, int((1 - tail) * resamples))]
+    return (low, high)

@@ -27,6 +27,7 @@ def _server(home: Path, project: str) -> StdioServerParameters:
         env={
             "MINDTRAIL_HOME": str(home),
             "MINDTRAIL_EMBEDDER": "hashing",
+            "MINDTRAIL_RERANKER": "none",
             "MINDTRAIL_PROJECT": project,
         },
     )

@@ -9,7 +9,11 @@ from pydantic import BaseModel, Field, model_validator
 from mindtrail.core.models import MemoryType
 
 Category = Literal["lexical", "paraphrase", "temporal", "isolation", "negative"]
-BUNDLED = {"dev": "retrieval_v1.json", "holdout": "retrieval_holdout_v1.json"}
+BUNDLED = {
+    "dev": "retrieval_v1.json",
+    "holdout": "retrieval_holdout_v1.json",
+    "holdout-v2": "retrieval_holdout_v2.json",
+}
 
 
 class BenchMemory(BaseModel):

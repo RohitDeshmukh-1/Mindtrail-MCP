@@ -35,6 +35,10 @@ class HashingEmbedder:
     def keyword_support_similarity(self) -> float:
         return 0.10
 
+    @property
+    def candidate_similarity(self) -> float:
+        return 0.05
+
     def embed_documents(self, texts: Sequence[str]) -> Matrix:
         return np.stack([self._embed(text) for text in texts]) if texts else self._empty()
 
