@@ -87,9 +87,23 @@ ship?" → "deploys go through GitHub Actions"), install the local neural model.
 and needs no API key:
 
 ```bash
-pipx install "mindtrail[local-embeddings]"
-mindtrail reindex
+pipx install "mindtrail[semantic]"
+mindtrail init        # downloads the model once (~65 MB) and re-indexes existing memories
 ```
+
+## Benchmarks
+
+On a held-out set of 39 developer-memory questions that was never used for tuning
+([methodology](benchmarks/README.md)):
+
+| | recall@1 | recall@5 | paraphrase recall@5 | correctly says "nothing stored" | stale/foreign leaks |
+|---|---:|---:|---:|---:|---:|
+| default install | 64% | 75% | 46% | 82% | **0%** |
+| `mindtrail[semantic]` | **79%** | **89%** | **77%** | **91%** | **0%** |
+
+This is a small, synthetic retrieval benchmark written by us; it is not a claim about
+end-to-end agent performance. Run `mindtrail bench` to reproduce it, or add your own
+dataset.
 
 ## Use it from Python
 

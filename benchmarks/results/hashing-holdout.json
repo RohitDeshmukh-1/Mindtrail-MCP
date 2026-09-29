@@ -1,0 +1,556 @@
+{
+  "dataset": "mindtrail-retrieval-holdout v1",
+  "embedder": "hashing-v1-512",
+  "k": 5,
+  "overall": {
+    "queries": 39,
+    "recall_at_1": 0.6428571428571429,
+    "recall_at_k": 0.75,
+    "mrr": 0.6964285714285714,
+    "ndcg_at_k": 0.7104567593112276,
+    "abstention": 0.8181818181818182,
+    "violations": 0.0,
+    "latency_p50_ms": 0.76,
+    "latency_p95_ms": 1.36
+  },
+  "by_category": {
+    "lexical": {
+      "queries": 12,
+      "recall_at_1": 0.9166666666666666,
+      "recall_at_k": 1.0,
+      "mrr": 0.9583333333333334,
+      "ndcg_at_k": 0.9692441461309548,
+      "abstention": null,
+      "violations": null,
+      "latency_p50_ms": 0.76,
+      "latency_p95_ms": 1.39
+    },
+    "paraphrase": {
+      "queries": 13,
+      "recall_at_1": 0.3076923076923077,
+      "recall_at_k": 0.46153846153846156,
+      "mrr": 0.38461538461538464,
+      "ndcg_at_k": 0.4047584236263781,
+      "abstention": null,
+      "violations": null,
+      "latency_p50_ms": 0.82,
+      "latency_p95_ms": 1.36
+    },
+    "temporal": {
+      "queries": 4,
+      "recall_at_1": 1.0,
+      "recall_at_k": 1.0,
+      "mrr": 1.0,
+      "ndcg_at_k": 1.0,
+      "abstention": 1.0,
+      "violations": 0.0,
+      "latency_p50_ms": 0.72,
+      "latency_p95_ms": 0.98
+    },
+    "isolation": {
+      "queries": 4,
+      "recall_at_1": null,
+      "recall_at_k": null,
+      "mrr": null,
+      "ndcg_at_k": null,
+      "abstention": 0.75,
+      "violations": 0.0,
+      "latency_p50_ms": 0.61,
+      "latency_p95_ms": 1.3
+    },
+    "negative": {
+      "queries": 6,
+      "recall_at_1": null,
+      "recall_at_k": null,
+      "mrr": null,
+      "ndcg_at_k": null,
+      "abstention": 0.8333333333333334,
+      "violations": null,
+      "latency_p50_ms": 0.61,
+      "latency_p95_ms": 0.89
+    }
+  },
+  "results": [
+    {
+      "id": "HL01",
+      "category": "lexical",
+      "query": "what UI toolkit does the Android app use",
+      "retrieved": [
+        "a1",
+        "a2"
+      ],
+      "relevant": [
+        "a1"
+      ],
+      "forbidden": [],
+      "latency_ms": 1.3930000022810418
+    },
+    {
+      "id": "HL02",
+      "category": "lexical",
+      "query": "how are crash reports collected",
+      "retrieved": [
+        "a3"
+      ],
+      "relevant": [
+        "a3"
+      ],
+      "forbidden": [],
+      "latency_ms": 0.9233000018866733
+    },
+    {
+      "id": "HL03",
+      "category": "lexical",
+      "query": "how are push notifications sent",
+      "retrieved": [
+        "a5"
+      ],
+      "relevant": [
+        "a5"
+      ],
+      "forbidden": [],
+      "latency_ms": 0.7538999998359941
+    },
+    {
+      "id": "HL04",
+      "category": "lexical",
+      "query": "which languages need localizable strings",
+      "retrieved": [
+        "a6"
+      ],
+      "relevant": [
+        "a6"
+      ],
+      "forbidden": [],
+      "latency_ms": 0.8207999999285676
+    },
+    {
+      "id": "HL05",
+      "category": "lexical",
+      "query": "when must screenshot tests be re-recorded",
+      "retrieved": [
+        "a8"
+      ],
+      "relevant": [
+        "a8"
+      ],
+      "forbidden": [],
+      "latency_ms": 0.7875999981479254
+    },
+    {
+      "id": "HL06",
+      "category": "lexical",
+      "query": "which warehouse do we use",
+      "retrieved": [
+        "d1"
+      ],
+      "relevant": [
+        "d1"
+      ],
+      "forbidden": [],
+      "latency_ms": 0.7398000016110018
+    },
+    {
+      "id": "HL07",
+      "category": "lexical",
+      "query": "where are the Airflow DAGs",
+      "retrieved": [
+        "d2"
+      ],
+      "relevant": [
+        "d2"
+      ],
+      "forbidden": [],
+      "latency_ms": 0.7040999989840202
+    },
+    {
+      "id": "HL08",
+      "category": "lexical",
+      "query": "what tests do dbt models need",
+      "retrieved": [
+        "d7",
+        "d3",
+        "d1"
+      ],
+      "relevant": [
+        "d3"
+      ],
+      "forbidden": [],
+      "latency_ms": 1.1732999992091209
+    },
+    {
+      "id": "HL09",
+      "category": "lexical",
+      "query": "where do raw Segment events land",
+      "retrieved": [
+        "d4"
+      ],
+      "relevant": [
+        "d4"
+      ],
+      "forbidden": [],
+      "latency_ms": 0.7594000016979408
+    },
+    {
+      "id": "HL10",
+      "category": "lexical",
+      "query": "where is Terraform state stored",
+      "retrieved": [
+        "i1"
+      ],
+      "relevant": [
+        "i1"
+      ],
+      "forbidden": [],
+      "latency_ms": 0.7552999995823484
+    },
+    {
+      "id": "HL11",
+      "category": "lexical",
+      "query": "which region runs production",
+      "retrieved": [
+        "i4"
+      ],
+      "relevant": [
+        "i4"
+      ],
+      "forbidden": [],
+      "latency_ms": 0.7468999974662438
+    },
+    {
+      "id": "HL12",
+      "category": "lexical",
+      "query": "how are container images scanned",
+      "retrieved": [
+        "i6"
+      ],
+      "relevant": [
+        "i6"
+      ],
+      "forbidden": [],
+      "latency_ms": 0.6792999993194826
+    },
+    {
+      "id": "HP01",
+      "category": "paraphrase",
+      "query": "how do we ship builds to Apple's store",
+      "retrieved": [
+        "a4",
+        "a11"
+      ],
+      "relevant": [
+        "a4"
+      ],
+      "forbidden": [],
+      "latency_ms": 0.8964999979070853
+    },
+    {
+      "id": "HP02",
+      "category": "paraphrase",
+      "query": "how can testers get pre-release versions",
+      "retrieved": [
+        "a4",
+        "a11"
+      ],
+      "relevant": [
+        "a11"
+      ],
+      "forbidden": [],
+      "latency_ms": 0.8122999970510136
+    },
+    {
+      "id": "HP03",
+      "category": "paraphrase",
+      "query": "how does the phone app work without a connection",
+      "retrieved": [
+        "a4",
+        "a1"
+      ],
+      "relevant": [
+        "a7"
+      ],
+      "forbidden": [],
+      "latency_ms": 0.938299999688752
+    },
+    {
+      "id": "HP04",
+      "category": "paraphrase",
+      "query": "what is the oldest iPhone OS version we support",
+      "retrieved": [],
+      "relevant": [
+        "a2"
+      ],
+      "forbidden": [],
+      "latency_ms": 0.609200000326382
+    },
+    {
+      "id": "HP05",
+      "category": "paraphrase",
+      "query": "how do I check only the transformations I touched",
+      "retrieved": [
+        "d1",
+        "d7"
+      ],
+      "relevant": [
+        "d7"
+      ],
+      "forbidden": [],
+      "latency_ms": 0.821699999505654
+    },
+    {
+      "id": "HP06",
+      "category": "paraphrase",
+      "query": "how is sensitive customer information hidden in the warehouse",
+      "retrieved": [
+        "d1"
+      ],
+      "relevant": [
+        "d6"
+      ],
+      "forbidden": [],
+      "latency_ms": 0.8218000002671033
+    },
+    {
+      "id": "HP07",
+      "category": "paraphrase",
+      "query": "what tool do business users look at charts in",
+      "retrieved": [
+        "d5"
+      ],
+      "relevant": [
+        "d5"
+      ],
+      "forbidden": [],
+      "latency_ms": 1.2203999976918567
+    },
+    {
+      "id": "HP08",
+      "category": "paraphrase",
+      "query": "where should API passwords and credentials live",
+      "retrieved": [],
+      "relevant": [
+        "i3"
+      ],
+      "forbidden": [],
+      "latency_ms": 0.680800003465265
+    },
+    {
+      "id": "HP09",
+      "category": "paraphrase",
+      "query": "who gets woken up when something breaks at night",
+      "retrieved": [],
+      "relevant": [
+        "i5"
+      ],
+      "forbidden": [],
+      "latency_ms": 0.54689999888069
+    },
+    {
+      "id": "HP10",
+      "category": "paraphrase",
+      "query": "how do infrastructure edits get rolled out after review",
+      "retrieved": [
+        "i2"
+      ],
+      "relevant": [
+        "i2"
+      ],
+      "forbidden": [],
+      "latency_ms": 0.8381000006920658
+    },
+    {
+      "id": "HP11",
+      "category": "paraphrase",
+      "query": "which programming language should code samples be in",
+      "retrieved": [],
+      "relevant": [
+        "u1"
+      ],
+      "forbidden": [],
+      "latency_ms": 0.6647999980486929
+    },
+    {
+      "id": "HP12",
+      "category": "paraphrase",
+      "query": "how should I structure my explanations",
+      "retrieved": [
+        "u2"
+      ],
+      "relevant": [
+        "u2"
+      ],
+      "forbidden": [],
+      "latency_ms": 0.7189999996626284
+    },
+    {
+      "id": "HP13",
+      "category": "paraphrase",
+      "query": "any accessibility concerns when proposing a colour palette",
+      "retrieved": [],
+      "relevant": [
+        "u3"
+      ],
+      "forbidden": [],
+      "latency_ms": 1.3639999997394625
+    },
+    {
+      "id": "HT01",
+      "category": "temporal",
+      "query": "what is the minimum Android SDK level",
+      "retrieved": [
+        "a10"
+      ],
+      "relevant": [
+        "a10"
+      ],
+      "forbidden": [
+        "a9"
+      ],
+      "latency_ms": 0.9759000022313558
+    },
+    {
+      "id": "HT02",
+      "category": "temporal",
+      "query": "who owns the nightly revenue job",
+      "retrieved": [
+        "d9"
+      ],
+      "relevant": [
+        "d9"
+      ],
+      "forbidden": [
+        "d8"
+      ],
+      "latency_ms": 0.8476000002701767
+    },
+    {
+      "id": "HT03",
+      "category": "temporal",
+      "query": "are backfills paused right now",
+      "retrieved": [],
+      "relevant": [],
+      "forbidden": [
+        "d10"
+      ],
+      "latency_ms": 0.589600000239443
+    },
+    {
+      "id": "HT04",
+      "category": "temporal",
+      "query": "is SDK 26 still supported",
+      "retrieved": [
+        "a10"
+      ],
+      "relevant": [
+        "a10"
+      ],
+      "forbidden": [
+        "a9"
+      ],
+      "latency_ms": 0.7235999983095098
+    },
+    {
+      "id": "HI01",
+      "category": "isolation",
+      "query": "how are push notifications sent",
+      "retrieved": [],
+      "relevant": [],
+      "forbidden": [
+        "a5"
+      ],
+      "latency_ms": 0.6084000015107449
+    },
+    {
+      "id": "HI02",
+      "category": "isolation",
+      "query": "where are the Airflow DAGs",
+      "retrieved": [],
+      "relevant": [],
+      "forbidden": [
+        "d2"
+      ],
+      "latency_ms": 0.5149999997229315
+    },
+    {
+      "id": "HI03",
+      "category": "isolation",
+      "query": "where is Terraform state stored",
+      "retrieved": [
+        "d7"
+      ],
+      "relevant": [],
+      "forbidden": [
+        "i1"
+      ],
+      "latency_ms": 0.6812999999965541
+    },
+    {
+      "id": "HI04",
+      "category": "isolation",
+      "query": "what UI toolkit does the Android app use",
+      "retrieved": [],
+      "relevant": [],
+      "forbidden": [
+        "a1"
+      ],
+      "latency_ms": 1.2998999991395976
+    },
+    {
+      "id": "HN01",
+      "category": "negative",
+      "query": "what is the marketing budget for the launch",
+      "retrieved": [],
+      "relevant": [],
+      "forbidden": [],
+      "latency_ms": 0.8512000022165012
+    },
+    {
+      "id": "HN02",
+      "category": "negative",
+      "query": "which JavaScript bundler does the website use",
+      "retrieved": [],
+      "relevant": [],
+      "forbidden": [],
+      "latency_ms": 0.6782999989809468
+    },
+    {
+      "id": "HN03",
+      "category": "negative",
+      "query": "what is the dress code for the offsite",
+      "retrieved": [],
+      "relevant": [],
+      "forbidden": [],
+      "latency_ms": 0.5020000025979243
+    },
+    {
+      "id": "HN04",
+      "category": "negative",
+      "query": "how do I request a new laptop",
+      "retrieved": [],
+      "relevant": [],
+      "forbidden": [],
+      "latency_ms": 0.5450999997265171
+    },
+    {
+      "id": "HN05",
+      "category": "negative",
+      "query": "what GPU cluster trains the recommendation model",
+      "retrieved": [
+        "d7",
+        "d3"
+      ],
+      "relevant": [],
+      "forbidden": [],
+      "latency_ms": 0.8892000005289447
+    },
+    {
+      "id": "HN06",
+      "category": "negative",
+      "query": "which payment provider handles refunds",
+      "retrieved": [],
+      "relevant": [],
+      "forbidden": [],
+      "latency_ms": 0.6071999996493105
+    }
+  ]
+}

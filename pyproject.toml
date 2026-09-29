@@ -40,7 +40,7 @@ Changelog = "https://github.com/OWNER/mindtrail/blob/main/CHANGELOG.md"
 mindtrail = "mindtrail.cli.main:main"
 
 [project.optional-dependencies]
-local-embeddings = ["fastembed>=0.4"]
+semantic = ["fastembed>=0.4"]
 dev = ["pytest>=8", "ruff>=0.6", "mypy>=1.11", "pre-commit>=3.7"]
 
 [tool.hatch.build.targets.wheel]

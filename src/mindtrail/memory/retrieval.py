@@ -22,6 +22,13 @@ class RankingWeights:
     recency: float = 0.2
     recency_half_life_days: float = 30.0
     rrf_k: int = 60
+    # Candidate gates (None = the embedder's calibrated default):
+    # - keyword hits below this fraction of the best BM25 score are dropped;
+    # - keyword hits whose vector similarity is below keyword_min_similarity are dropped;
+    # - vector hits must reach vector_min_similarity.
+    keyword_relative_floor: float = 0.4
+    keyword_min_similarity: float | None = None
+    vector_min_similarity: float | None = None
 
 
 def rank(

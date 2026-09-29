@@ -104,9 +104,18 @@ def cmd_init(args: argparse.Namespace) -> int:
     service, config = _open()
     try:
         stats = service.stats()
+        model = service.embedding_model
+        if model.startswith("fastembed"):
+            print(f"Preparing embedding model ({model}); the first run downloads it...")
+            service.warm_up()
+        reindexed = service.reindex_embeddings()
     finally:
         service.close()
-    print(f"Mindtrail is ready. Data: {config.db_path} ({stats['total']} memories)\n")
+    print(f"Mindtrail is ready. Data: {config.db_path} ({stats['total']} memories)")
+    print(f"Embeddings: {model}" + (f" (indexed {reindexed} memories)" if reindexed else ""))
+    if not model.startswith("fastembed"):
+        print('Tip: pipx install "mindtrail[semantic]" for recall by meaning, not just words.')
+    print()
     for client in [args.client] if args.client else CLIENTS:
         print(f"-- {client} " + "-" * (60 - len(client)))
         print(_client_setup(client) + "\n")
@@ -149,7 +158,11 @@ def cmd_doctor(args: argparse.Namespace) -> int:
             model = service.embedding_model
         finally:
             service.close()
-        hint = "" if model.startswith("fastembed") else " (install [local-embeddings] for semantic)"
+        hint = (
+            ""
+            if model.startswith("fastembed")
+            else " (install mindtrail[semantic] for better recall)"
+        )
         return model + hint
 
     def mcp_sdk() -> str:
@@ -264,6 +277,32 @@ def cmd_reindex(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_bench(args: argparse.Namespace) -> int:
+    from mindtrail.embeddings import create_embedder
+    from mindtrail.evaluation import load_dataset, run_benchmark
+
+    embedder = create_embedder(args.embedder, cache_dir=MindtrailConfig.from_env().model_dir)
+    for source in args.dataset:
+        report = run_benchmark(load_dataset(source), embedder, k=args.k)
+        print(report.to_markdown() + "\n")
+        if args.failures:
+            for result in report.failures():
+                print(
+                    f"  {result.id:<5} {result.query!r}\n"
+                    f"        got {result.retrieved}  want {result.relevant}"
+                    + (f"  forbid {result.forbidden}" if result.forbidden else "")
+                )
+            print()
+        if args.json:
+            path = (
+                args.json
+                if len(args.dataset) == 1
+                else args.json.with_stem(f"{args.json.stem}-{Path(source).stem}")
+            )
+            path.write_text(report.model_dump_json(indent=2), encoding="utf-8")
+    return 0
+
+
 # -- parser --------------------------------------------------------------------------------
 
 
@@ -316,6 +355,19 @@ def build_parser() -> argparse.ArgumentParser:
     p = sub.add_parser("export", help="export all memories as JSON Lines")
     p.add_argument("-o", "--output", type=Path)
     p.set_defaults(fn=cmd_export)
+
+    p = sub.add_parser("bench", help="run the retrieval benchmark")
+    p.add_argument(
+        "--dataset",
+        nargs="+",
+        default=["dev", "holdout"],
+        help="bundled dataset names (dev, holdout) or paths to dataset files",
+    )
+    p.add_argument("--embedder", choices=["auto", "hashing", "fastembed"], default="auto")
+    p.add_argument("-k", type=int, default=5)
+    p.add_argument("--json", type=Path, help="write the full report as JSON")
+    p.add_argument("--failures", action="store_true", help="list queries that missed")
+    p.set_defaults(fn=cmd_bench)
 
     p = sub.add_parser("reindex", help="embed memories missing a vector for the current model")
     p.set_defaults(fn=cmd_reindex)

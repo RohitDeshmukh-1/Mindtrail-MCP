@@ -1,0 +1,1338 @@
+{
+  "dataset": "mindtrail-retrieval v1",
+  "embedder": "fastembed:BAAI/bge-small-en-v1.5",
+  "k": 5,
+  "overall": {
+    "queries": 92,
+    "recall_at_1": 0.7397260273972602,
+    "recall_at_k": 0.8904109589041096,
+    "mrr": 0.8036529680365296,
+    "ndcg_at_k": 0.8258298427592979,
+    "abstention": 0.8947368421052632,
+    "violations": 0.0,
+    "latency_p50_ms": 10.34,
+    "latency_p95_ms": 12.78
+  },
+  "by_category": {
+    "lexical": {
+      "queries": 30,
+      "recall_at_1": 0.9,
+      "recall_at_k": 1.0,
+      "mrr": 0.95,
+      "ndcg_at_k": 0.9630929753571458,
+      "abstention": null,
+      "violations": null,
+      "latency_p50_ms": 9.96,
+      "latency_p95_ms": 11.1
+    },
+    "paraphrase": {
+      "queries": 30,
+      "recall_at_1": 0.4666666666666667,
+      "recall_at_k": 0.7333333333333333,
+      "mrr": 0.5722222222222223,
+      "ndcg_at_k": 0.6130929753571458,
+      "abstention": null,
+      "violations": 0.0,
+      "latency_p50_ms": 10.72,
+      "latency_p95_ms": 12.78
+    },
+    "temporal": {
+      "queries": 10,
+      "recall_at_1": 1.0,
+      "recall_at_k": 1.0,
+      "mrr": 1.0,
+      "ndcg_at_k": 1.0,
+      "abstention": null,
+      "violations": 0.0,
+      "latency_p50_ms": 10.17,
+      "latency_p95_ms": 14.21
+    },
+    "isolation": {
+      "queries": 10,
+      "recall_at_1": 1.0,
+      "recall_at_k": 1.0,
+      "mrr": 1.0,
+      "ndcg_at_k": 1.0,
+      "abstention": 0.7142857142857143,
+      "violations": 0.0,
+      "latency_p50_ms": 9.23,
+      "latency_p95_ms": 9.85
+    },
+    "negative": {
+      "queries": 12,
+      "recall_at_1": null,
+      "recall_at_k": null,
+      "mrr": null,
+      "ndcg_at_k": null,
+      "abstention": 1.0,
+      "violations": null,
+      "latency_p50_ms": 10.76,
+      "latency_p95_ms": 12.75
+    }
+  },
+  "results": [
+    {
+      "id": "L01",
+      "category": "lexical",
+      "query": "which web framework does the backend use",
+      "retrieved": [
+        "s10",
+        "s1",
+        "s4"
+      ],
+      "relevant": [
+        "s1"
+      ],
+      "forbidden": [],
+      "latency_ms": 11.366300001100171
+    },
+    {
+      "id": "L02",
+      "category": "lexical",
+      "query": "how are database migrations managed",
+      "retrieved": [
+        "s3",
+        "s2"
+      ],
+      "relevant": [
+        "s3"
+      ],
+      "forbidden": [],
+      "latency_ms": 11.101799998868955
+    },
+    {
+      "id": "L03",
+      "category": "lexical",
+      "query": "where do Stripe webhooks go",
+      "retrieved": [
+        "s10",
+        "s5",
+        "p10"
+      ],
+      "relevant": [
+        "s5"
+      ],
+      "forbidden": [],
+      "latency_ms": 10.31669999792939
+    },
+    {
+      "id": "L04",
+      "category": "lexical",
+      "query": "how do I run the unit tests",
+      "retrieved": [
+        "s7",
+        "s6",
+        "p6"
+      ],
+      "relevant": [
+        "s7"
+      ],
+      "forbidden": [],
+      "latency_ms": 10.190200002398342
+    },
+    {
+      "id": "L05",
+      "category": "lexical",
+      "query": "how do deployments to Fly.io work",
+      "retrieved": [
+        "s8",
+        "s1",
+        "s6"
+      ],
+      "relevant": [
+        "s8"
+      ],
+      "forbidden": [],
+      "latency_ms": 10.577699998975731
+    },
+    {
+      "id": "L06",
+      "category": "lexical",
+      "query": "what format do API errors use",
+      "retrieved": [
+        "s19",
+        "s13",
+        "s10",
+        "s1",
+        "p6"
+      ],
+      "relevant": [
+        "s13"
+      ],
+      "forbidden": [],
+      "latency_ms": 9.96350000059465
+    },
+    {
+      "id": "L07",
+      "category": "lexical",
+      "query": "what is the feature flag for the new checkout",
+      "retrieved": [
+        "s14",
+        "s21"
+      ],
+      "relevant": [
+        "s14"
+      ],
+      "forbidden": [],
+      "latency_ms": 10.806599999341415
+    },
+    {
+      "id": "L08",
+      "category": "lexical",
+      "query": "staging environment URL",
+      "retrieved": [
+        "s15",
+        "s4",
+        "s8"
+      ],
+      "relevant": [
+        "s15"
+      ],
+      "forbidden": [],
+      "latency_ms": 9.668799997598398
+    },
+    {
+      "id": "L09",
+      "category": "lexical",
+      "query": "where are product images stored",
+      "retrieved": [
+        "s11"
+      ],
+      "relevant": [
+        "s11"
+      ],
+      "forbidden": [],
+      "latency_ms": 10.212099998170743
+    },
+    {
+      "id": "L10",
+      "category": "lexical",
+      "query": "what broker do background jobs use",
+      "retrieved": [
+        "s12"
+      ],
+      "relevant": [
+        "s12"
+      ],
+      "forbidden": [],
+      "latency_ms": 9.473099999013357
+    },
+    {
+      "id": "L11",
+      "category": "lexical",
+      "query": "where does the training data live",
+      "retrieved": [
+        "m1",
+        "m7",
+        "m16",
+        "m3",
+        "m13"
+      ],
+      "relevant": [
+        "m1"
+      ],
+      "forbidden": [],
+      "latency_ms": 9.819999999308493
+    },
+    {
+      "id": "L12",
+      "category": "lexical",
+      "query": "which experiment tracking tool do we use",
+      "retrieved": [
+        "m3",
+        "m16"
+      ],
+      "relevant": [
+        "m3"
+      ],
+      "forbidden": [],
+      "latency_ms": 9.893800001009367
+    },
+    {
+      "id": "L13",
+      "category": "lexical",
+      "query": "where are hyperparameters defined",
+      "retrieved": [
+        "m4"
+      ],
+      "relevant": [
+        "m4"
+      ],
+      "forbidden": [],
+      "latency_ms": 10.969300001306692
+    },
+    {
+      "id": "L14",
+      "category": "lexical",
+      "query": "how do I run the training pipeline",
+      "retrieved": [
+        "m7",
+        "m2",
+        "m1",
+        "m16",
+        "m3"
+      ],
+      "relevant": [
+        "m7"
+      ],
+      "forbidden": [],
+      "latency_ms": 10.376199999882374
+    },
+    {
+      "id": "L15",
+      "category": "lexical",
+      "query": "what random seed do we use",
+      "retrieved": [
+        "m10"
+      ],
+      "relevant": [
+        "m10"
+      ],
+      "forbidden": [],
+      "latency_ms": 9.573799998179311
+    },
+    {
+      "id": "L16",
+      "category": "lexical",
+      "query": "where are model artifacts registered",
+      "retrieved": [
+        "m8",
+        "m16",
+        "m13"
+      ],
+      "relevant": [
+        "m8"
+      ],
+      "forbidden": [],
+      "latency_ms": 9.010999998281477
+    },
+    {
+      "id": "L17",
+      "category": "lexical",
+      "query": "which crate parses command line arguments",
+      "retrieved": [
+        "c1",
+        "c3",
+        "c7",
+        "c2",
+        "c5"
+      ],
+      "relevant": [
+        "c1"
+      ],
+      "forbidden": [],
+      "latency_ms": 9.904599999572383
+    },
+    {
+      "id": "L18",
+      "category": "lexical",
+      "query": "what is the minimum supported Rust version",
+      "retrieved": [
+        "c4",
+        "c1",
+        "c2"
+      ],
+      "relevant": [
+        "c4"
+      ],
+      "forbidden": [],
+      "latency_ms": 10.199100001045736
+    },
+    {
+      "id": "L19",
+      "category": "lexical",
+      "query": "how are release binaries built",
+      "retrieved": [
+        "c2",
+        "c1",
+        "c3",
+        "c4"
+      ],
+      "relevant": [
+        "c2"
+      ],
+      "forbidden": [],
+      "latency_ms": 9.383500000694767
+    },
+    {
+      "id": "L20",
+      "category": "lexical",
+      "query": "where do integration tests live",
+      "retrieved": [
+        "c5"
+      ],
+      "relevant": [
+        "c5"
+      ],
+      "forbidden": [],
+      "latency_ms": 9.05359999887878
+    },
+    {
+      "id": "L21",
+      "category": "lexical",
+      "query": "where is the config file read from",
+      "retrieved": [
+        "c6"
+      ],
+      "relevant": [
+        "c6"
+      ],
+      "forbidden": [],
+      "latency_ms": 10.5610999999044
+    },
+    {
+      "id": "L22",
+      "category": "lexical",
+      "query": "what editor does the user use",
+      "retrieved": [
+        "p5",
+        "p1",
+        "p3",
+        "p4"
+      ],
+      "relevant": [
+        "p5"
+      ],
+      "forbidden": [],
+      "latency_ms": 10.359299998526694
+    },
+    {
+      "id": "L23",
+      "category": "lexical",
+      "query": "what shell does the user use",
+      "retrieved": [
+        "p2"
+      ],
+      "relevant": [
+        "p2"
+      ],
+      "forbidden": [],
+      "latency_ms": 9.648200000810903
+    },
+    {
+      "id": "L24",
+      "category": "lexical",
+      "query": "does the user want type hints",
+      "retrieved": [
+        "p3",
+        "p6",
+        "p1",
+        "p10",
+        "p4"
+      ],
+      "relevant": [
+        "p3"
+      ],
+      "forbidden": [],
+      "latency_ms": 10.438999997859355
+    },
+    {
+      "id": "L25",
+      "category": "lexical",
+      "query": "how big should pull requests be",
+      "retrieved": [
+        "p10"
+      ],
+      "relevant": [
+        "p10"
+      ],
+      "forbidden": [],
+      "latency_ms": 9.828800000832416
+    },
+    {
+      "id": "L26",
+      "category": "lexical",
+      "query": "what frontend build tool is used",
+      "retrieved": [
+        "s4",
+        "s10",
+        "s1"
+      ],
+      "relevant": [
+        "s4"
+      ],
+      "forbidden": [],
+      "latency_ms": 9.995399999752408
+    },
+    {
+      "id": "L27",
+      "category": "lexical",
+      "query": "how should commit messages be written",
+      "retrieved": [
+        "s9"
+      ],
+      "relevant": [
+        "s9"
+      ],
+      "forbidden": [],
+      "latency_ms": 9.633199999370845
+    },
+    {
+      "id": "L28",
+      "category": "lexical",
+      "query": "what serves the model endpoint",
+      "retrieved": [
+        "m9",
+        "m12",
+        "m16",
+        "m8"
+      ],
+      "relevant": [
+        "m9"
+      ],
+      "forbidden": [],
+      "latency_ms": 9.91760000033537
+    },
+    {
+      "id": "L29",
+      "category": "lexical",
+      "query": "which error handling crates are used",
+      "retrieved": [
+        "c3",
+        "c7",
+        "c1",
+        "c2"
+      ],
+      "relevant": [
+        "c3"
+      ],
+      "forbidden": [],
+      "latency_ms": 9.942700002284255
+    },
+    {
+      "id": "L30",
+      "category": "lexical",
+      "query": "how is data labeling done",
+      "retrieved": [
+        "m13",
+        "m1"
+      ],
+      "relevant": [
+        "m13"
+      ],
+      "forbidden": [],
+      "latency_ms": 10.141200000362005
+    },
+    {
+      "id": "P01",
+      "category": "paraphrase",
+      "query": "what language and toolkit power the server side",
+      "retrieved": [
+        "s4"
+      ],
+      "relevant": [
+        "s1"
+      ],
+      "forbidden": [],
+      "latency_ms": 10.453099999722326
+    },
+    {
+      "id": "P02",
+      "category": "paraphrase",
+      "query": "how do I update my local tables to the newest structure",
+      "retrieved": [
+        "s24",
+        "s3",
+        "s2"
+      ],
+      "relevant": [
+        "s3"
+      ],
+      "forbidden": [],
+      "latency_ms": 12.328400000114925
+    },
+    {
+      "id": "P03",
+      "category": "paraphrase",
+      "query": "where does the card processor send its event callbacks",
+      "retrieved": [
+        "s10"
+      ],
+      "relevant": [
+        "s5"
+      ],
+      "forbidden": [],
+      "latency_ms": 10.71560000127647
+    },
+    {
+      "id": "P04",
+      "category": "paraphrase",
+      "query": "how do we ship a new version to production",
+      "retrieved": [
+        "s24",
+        "s14",
+        "s11"
+      ],
+      "relevant": [
+        "s8"
+      ],
+      "forbidden": [],
+      "latency_ms": 10.992299998179078
+    },
+    {
+      "id": "P05",
+      "category": "paraphrase",
+      "query": "is it ok to charge customers directly from browser code",
+      "retrieved": [
+        "s10",
+        "s5"
+      ],
+      "relevant": [
+        "s10"
+      ],
+      "forbidden": [],
+      "latency_ms": 11.18040000073961
+    },
+    {
+      "id": "P06",
+      "category": "paraphrase",
+      "query": "which queue system handles asynchronous work like sending receipts",
+      "retrieved": [
+        "p10",
+        "s5",
+        "s12"
+      ],
+      "relevant": [
+        "s12"
+      ],
+      "forbidden": [],
+      "latency_ms": 12.138999998569489
+    },
+    {
+      "id": "P07",
+      "category": "paraphrase",
+      "query": "how should the server report failures to clients",
+      "retrieved": [
+        "p6",
+        "s13"
+      ],
+      "relevant": [
+        "s13"
+      ],
+      "forbidden": [],
+      "latency_ms": 10.399900002084905
+    },
+    {
+      "id": "P08",
+      "category": "paraphrase",
+      "query": "where are the pictures of items hosted",
+      "retrieved": [
+        "s11"
+      ],
+      "relevant": [
+        "s11"
+      ],
+      "forbidden": [],
+      "latency_ms": 11.413000000175089
+    },
+    {
+      "id": "P09",
+      "category": "paraphrase",
+      "query": "what convention do we follow when describing changes in git",
+      "retrieved": [
+        "s9",
+        "s8"
+      ],
+      "relevant": [
+        "s9"
+      ],
+      "forbidden": [],
+      "latency_ms": 11.662499997328268
+    },
+    {
+      "id": "P10",
+      "category": "paraphrase",
+      "query": "what does the client-side UI use",
+      "retrieved": [
+        "s4"
+      ],
+      "relevant": [
+        "s4"
+      ],
+      "forbidden": [],
+      "latency_ms": 10.153100000025006
+    },
+    {
+      "id": "P11",
+      "category": "paraphrase",
+      "query": "which deep learning library do we fit networks with",
+      "retrieved": [
+        "m12"
+      ],
+      "relevant": [
+        "m2"
+      ],
+      "forbidden": [],
+      "latency_ms": 11.104799999884563
+    },
+    {
+      "id": "P12",
+      "category": "paraphrase",
+      "query": "where do we log runs and compare results",
+      "retrieved": [
+        "m7",
+        "p6",
+        "m15"
+      ],
+      "relevant": [
+        "m3"
+      ],
+      "forbidden": [],
+      "latency_ms": 10.418500001833308
+    },
+    {
+      "id": "P13",
+      "category": "paraphrase",
+      "query": "what score do we quote when reporting model quality",
+      "retrieved": [
+        "m3",
+        "p6",
+        "m5",
+        "m8"
+      ],
+      "relevant": [
+        "m5"
+      ],
+      "forbidden": [],
+      "latency_ms": 10.917700001300545
+    },
+    {
+      "id": "P14",
+      "category": "paraphrase",
+      "query": "can I use the usual dataframe library when building inputs",
+      "retrieved": [
+        "m6",
+        "m1",
+        "m7",
+        "p3"
+      ],
+      "relevant": [
+        "m6"
+      ],
+      "forbidden": [],
+      "latency_ms": 19.59319999878062
+    },
+    {
+      "id": "P15",
+      "category": "paraphrase",
+      "query": "what is the simplest reference model we compare against",
+      "retrieved": [
+        "m12",
+        "m16",
+        "m2",
+        "m3"
+      ],
+      "relevant": [
+        "m12"
+      ],
+      "forbidden": [
+        "m11"
+      ],
+      "latency_ms": 10.910400000284426
+    },
+    {
+      "id": "P16",
+      "category": "paraphrase",
+      "query": "where should exploratory scratch work go",
+      "retrieved": [],
+      "relevant": [
+        "m14"
+      ],
+      "forbidden": [],
+      "latency_ms": 10.069100000691833
+    },
+    {
+      "id": "P17",
+      "category": "paraphrase",
+      "query": "how do we keep results repeatable",
+      "retrieved": [
+        "p1",
+        "p6",
+        "m10",
+        "p10",
+        "m3"
+      ],
+      "relevant": [
+        "m10"
+      ],
+      "forbidden": [],
+      "latency_ms": 10.222600001725368
+    },
+    {
+      "id": "P18",
+      "category": "paraphrase",
+      "query": "who annotates the examples",
+      "retrieved": [
+        "m13"
+      ],
+      "relevant": [
+        "m13"
+      ],
+      "forbidden": [],
+      "latency_ms": 9.476799998083152
+    },
+    {
+      "id": "P19",
+      "category": "paraphrase",
+      "query": "how do we produce downloadable executables for each operating system",
+      "retrieved": [
+        "c2"
+      ],
+      "relevant": [
+        "c2"
+      ],
+      "forbidden": [],
+      "latency_ms": 11.819600000308128
+    },
+    {
+      "id": "P20",
+      "category": "paraphrase",
+      "query": "which linter has to be clean before I share my branch",
+      "retrieved": [],
+      "relevant": [
+        "c7"
+      ],
+      "forbidden": [],
+      "latency_ms": 11.201600002095802
+    },
+    {
+      "id": "P21",
+      "category": "paraphrase",
+      "query": "what is the oldest compiler release we must support",
+      "retrieved": [
+        "c4",
+        "c2"
+      ],
+      "relevant": [
+        "c4"
+      ],
+      "forbidden": [],
+      "latency_ms": 10.705400000006193
+    },
+    {
+      "id": "P22",
+      "category": "paraphrase",
+      "query": "what handles concurrency and non-blocking IO",
+      "retrieved": [
+        "c3",
+        "c8",
+        "c1"
+      ],
+      "relevant": [
+        "c8"
+      ],
+      "forbidden": [],
+      "latency_ms": 10.437700002512429
+    },
+    {
+      "id": "P23",
+      "category": "paraphrase",
+      "query": "how much detail should responses have",
+      "retrieved": [
+        "s13",
+        "p10",
+        "p1"
+      ],
+      "relevant": [
+        "p1"
+      ],
+      "forbidden": [],
+      "latency_ms": 8.962899999460205
+    },
+    {
+      "id": "P24",
+      "category": "paraphrase",
+      "query": "which operating system is the developer on",
+      "retrieved": [],
+      "relevant": [
+        "p2"
+      ],
+      "forbidden": [],
+      "latency_ms": 9.061400000064168
+    },
+    {
+      "id": "P25",
+      "category": "paraphrase",
+      "query": "can I pull in a new third-party package",
+      "retrieved": [
+        "p4",
+        "p10",
+        "m14"
+      ],
+      "relevant": [
+        "p4"
+      ],
+      "forbidden": [],
+      "latency_ms": 10.469700002431637
+    },
+    {
+      "id": "P26",
+      "category": "paraphrase",
+      "query": "should I reproduce a defect with a check before patching it",
+      "retrieved": [
+        "p6"
+      ],
+      "relevant": [
+        "p6"
+      ],
+      "forbidden": [],
+      "latency_ms": 11.4343999994162
+    },
+    {
+      "id": "P27",
+      "category": "paraphrase",
+      "query": "should docs say colour or color",
+      "retrieved": [
+        "p9"
+      ],
+      "relevant": [
+        "p9"
+      ],
+      "forbidden": [],
+      "latency_ms": 9.58619999801158
+    },
+    {
+      "id": "P28",
+      "category": "paraphrase",
+      "query": "does the developer's code editor use modal editing",
+      "retrieved": [
+        "p5",
+        "s4"
+      ],
+      "relevant": [
+        "p5"
+      ],
+      "forbidden": [],
+      "latency_ms": 12.776400002621813
+    },
+    {
+      "id": "P29",
+      "category": "paraphrase",
+      "query": "where is the original dataset kept",
+      "retrieved": [
+        "m1",
+        "m6",
+        "m13"
+      ],
+      "relevant": [
+        "m1"
+      ],
+      "forbidden": [],
+      "latency_ms": 10.62150000143447
+    },
+    {
+      "id": "P30",
+      "category": "paraphrase",
+      "query": "how can I try a half-finished feature in production safely",
+      "retrieved": [
+        "s24",
+        "p6",
+        "s14"
+      ],
+      "relevant": [
+        "s14"
+      ],
+      "forbidden": [],
+      "latency_ms": 12.022999999317108
+    },
+    {
+      "id": "T01",
+      "category": "temporal",
+      "query": "when does the release freeze start",
+      "retrieved": [
+        "s17"
+      ],
+      "relevant": [
+        "s17"
+      ],
+      "forbidden": [
+        "s16"
+      ],
+      "latency_ms": 9.573100000125123
+    },
+    {
+      "id": "T02",
+      "category": "temporal",
+      "query": "which formatter do we use",
+      "retrieved": [
+        "s19"
+      ],
+      "relevant": [
+        "s19"
+      ],
+      "forbidden": [
+        "s18"
+      ],
+      "latency_ms": 9.519100000034086
+    },
+    {
+      "id": "T03",
+      "category": "temporal",
+      "query": "where is the checkout conversion dashboard",
+      "retrieved": [
+        "s21",
+        "s14"
+      ],
+      "relevant": [
+        "s21"
+      ],
+      "forbidden": [
+        "s20"
+      ],
+      "latency_ms": 14.039500001672423
+    },
+    {
+      "id": "T04",
+      "category": "temporal",
+      "query": "can I deploy to production right now",
+      "retrieved": [
+        "s24"
+      ],
+      "relevant": [
+        "s24"
+      ],
+      "forbidden": [
+        "s23"
+      ],
+      "latency_ms": 14.213899998139823
+    },
+    {
+      "id": "T05",
+      "category": "temporal",
+      "query": "what is the baseline model",
+      "retrieved": [
+        "m12",
+        "m16",
+        "m3"
+      ],
+      "relevant": [
+        "m12"
+      ],
+      "forbidden": [
+        "m11"
+      ],
+      "latency_ms": 10.04829999874346
+    },
+    {
+      "id": "T06",
+      "category": "temporal",
+      "query": "what timezone is the user in",
+      "retrieved": [
+        "p8"
+      ],
+      "relevant": [
+        "p8"
+      ],
+      "forbidden": [
+        "p7"
+      ],
+      "latency_ms": 10.171099998842692
+    },
+    {
+      "id": "T07",
+      "category": "temporal",
+      "query": "is Black still used for formatting",
+      "retrieved": [
+        "s19"
+      ],
+      "relevant": [
+        "s19"
+      ],
+      "forbidden": [
+        "s18"
+      ],
+      "latency_ms": 10.171999998419778
+    },
+    {
+      "id": "T08",
+      "category": "temporal",
+      "query": "is logistic regression still our baseline",
+      "retrieved": [
+        "m12",
+        "m3",
+        "m5"
+      ],
+      "relevant": [
+        "m12"
+      ],
+      "forbidden": [
+        "m11"
+      ],
+      "latency_ms": 10.668899998563575
+    },
+    {
+      "id": "T09",
+      "category": "temporal",
+      "query": "are production deploys paused for the Postgres upgrade",
+      "retrieved": [
+        "s24",
+        "s6",
+        "s3",
+        "s8",
+        "s15"
+      ],
+      "relevant": [
+        "s24"
+      ],
+      "forbidden": [
+        "s23"
+      ],
+      "latency_ms": 13.096499998937361
+    },
+    {
+      "id": "T10",
+      "category": "temporal",
+      "query": "what timezone should I use when scheduling with the user",
+      "retrieved": [
+        "p8"
+      ],
+      "relevant": [
+        "p8"
+      ],
+      "forbidden": [
+        "p7"
+      ],
+      "latency_ms": 12.242099997820333
+    },
+    {
+      "id": "I01",
+      "category": "isolation",
+      "query": "how are payments processed",
+      "retrieved": [],
+      "relevant": [],
+      "forbidden": [
+        "s5",
+        "s10"
+      ],
+      "latency_ms": 8.59909999780939
+    },
+    {
+      "id": "I02",
+      "category": "isolation",
+      "query": "what database does the backend use",
+      "retrieved": [],
+      "relevant": [],
+      "forbidden": [
+        "s2"
+      ],
+      "latency_ms": 9.50360000206274
+    },
+    {
+      "id": "I03",
+      "category": "isolation",
+      "query": "which GPU do we train on",
+      "retrieved": [],
+      "relevant": [],
+      "forbidden": [
+        "m2"
+      ],
+      "latency_ms": 9.503400000539841
+    },
+    {
+      "id": "I04",
+      "category": "isolation",
+      "query": "which crate parses command line arguments",
+      "retrieved": [],
+      "relevant": [],
+      "forbidden": [
+        "c1"
+      ],
+      "latency_ms": 9.231399999407586
+    },
+    {
+      "id": "I05",
+      "category": "isolation",
+      "query": "how do I run the unit tests",
+      "retrieved": [
+        "m15",
+        "m7",
+        "p6"
+      ],
+      "relevant": [
+        "m15"
+      ],
+      "forbidden": [
+        "s7",
+        "c5"
+      ],
+      "latency_ms": 9.341199998743832
+    },
+    {
+      "id": "I06",
+      "category": "isolation",
+      "query": "how do we deploy",
+      "retrieved": [
+        "m16"
+      ],
+      "relevant": [
+        "m16"
+      ],
+      "forbidden": [
+        "s8"
+      ],
+      "latency_ms": 8.136000000376953
+    },
+    {
+      "id": "I07",
+      "category": "isolation",
+      "query": "what is the staging environment URL",
+      "retrieved": [],
+      "relevant": [],
+      "forbidden": [
+        "s15"
+      ],
+      "latency_ms": 8.694100000866456
+    },
+    {
+      "id": "I08",
+      "category": "isolation",
+      "query": "where are hyperparameter configs defined",
+      "retrieved": [
+        "s7"
+      ],
+      "relevant": [],
+      "forbidden": [
+        "m4"
+      ],
+      "latency_ms": 9.478399999352405
+    },
+    {
+      "id": "I09",
+      "category": "isolation",
+      "query": "where is training data versioned",
+      "retrieved": [
+        "c4"
+      ],
+      "relevant": [],
+      "forbidden": [
+        "m1"
+      ],
+      "latency_ms": 9.158599998045247
+    },
+    {
+      "id": "I10",
+      "category": "isolation",
+      "query": "how do integration tests work",
+      "retrieved": [
+        "s6",
+        "s7",
+        "p6"
+      ],
+      "relevant": [
+        "s6"
+      ],
+      "forbidden": [
+        "c5"
+      ],
+      "latency_ms": 9.849399997619912
+    },
+    {
+      "id": "N01",
+      "category": "negative",
+      "query": "what is the company's parental leave policy",
+      "retrieved": [],
+      "relevant": [],
+      "forbidden": [],
+      "latency_ms": 10.339100001147017
+    },
+    {
+      "id": "N02",
+      "category": "negative",
+      "query": "which GraphQL client does the mobile app use",
+      "retrieved": [],
+      "relevant": [],
+      "forbidden": [],
+      "latency_ms": 10.600699999486096
+    },
+    {
+      "id": "N03",
+      "category": "negative",
+      "query": "how do I configure the Kafka cluster",
+      "retrieved": [],
+      "relevant": [],
+      "forbidden": [],
+      "latency_ms": 11.151099999551661
+    },
+    {
+      "id": "N04",
+      "category": "negative",
+      "query": "what is the Wi-Fi password in the office",
+      "retrieved": [],
+      "relevant": [],
+      "forbidden": [],
+      "latency_ms": 10.79079999908572
+    },
+    {
+      "id": "N05",
+      "category": "negative",
+      "query": "who is the on-call manager this week",
+      "retrieved": [],
+      "relevant": [],
+      "forbidden": [],
+      "latency_ms": 10.386799996922491
+    },
+    {
+      "id": "N06",
+      "category": "negative",
+      "query": "what is a good pizza place near the office",
+      "retrieved": [],
+      "relevant": [],
+      "forbidden": [],
+      "latency_ms": 10.218300001724856
+    },
+    {
+      "id": "N07",
+      "category": "negative",
+      "query": "how do I rotate the Kubernetes TLS certificates",
+      "retrieved": [],
+      "relevant": [],
+      "forbidden": [],
+      "latency_ms": 12.698899998213165
+    },
+    {
+      "id": "N08",
+      "category": "negative",
+      "query": "what color scheme does the marketing site use",
+      "retrieved": [],
+      "relevant": [],
+      "forbidden": [],
+      "latency_ms": 10.760400000435766
+    },
+    {
+      "id": "N09",
+      "category": "negative",
+      "query": "which Terraform modules manage the VPC",
+      "retrieved": [],
+      "relevant": [],
+      "forbidden": [],
+      "latency_ms": 11.307999997370644
+    },
+    {
+      "id": "N10",
+      "category": "negative",
+      "query": "what is the budget for next quarter",
+      "retrieved": [],
+      "relevant": [],
+      "forbidden": [],
+      "latency_ms": 9.336200000689132
+    },
+    {
+      "id": "N11",
+      "category": "negative",
+      "query": "how do I set up the iOS signing certificates",
+      "retrieved": [],
+      "relevant": [],
+      "forbidden": [],
+      "latency_ms": 11.297099998046178
+    },
+    {
+      "id": "N12",
+      "category": "negative",
+      "query": "what are the SLA targets for the search service",
+      "retrieved": [],
+      "relevant": [],
+      "forbidden": [],
+      "latency_ms": 12.74579999881098
+    }
+  ]
+}

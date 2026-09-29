@@ -1,7 +1,7 @@
 """Offline, dependency-free embedder based on feature hashing.
 
 It captures lexical overlap (words plus character trigrams), not deep semantics. It exists so
-Mindtrail works with zero downloads; install the ``local-embeddings`` extra for a neural model.
+Mindtrail works with zero downloads; install the ``semantic`` extra for a neural model.
 """
 
 from __future__ import annotations
@@ -26,9 +26,14 @@ class HashingEmbedder:
     def model_name(self) -> str:
         return f"hashing-v1-{self.dimension}"
 
+    # Calibrated on the bundled retrieval benchmark (see benchmarks/README.md).
     @property
     def min_similarity(self) -> float:
-        return 0.15
+        return 0.30
+
+    @property
+    def keyword_support_similarity(self) -> float:
+        return 0.10
 
     def embed_documents(self, texts: Sequence[str]) -> Matrix:
         return np.stack([self._embed(text) for text in texts]) if texts else self._empty()

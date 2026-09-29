@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import threading
 from collections.abc import Sequence
+from pathlib import Path
 from typing import Any
 
 import numpy as np
@@ -14,9 +15,18 @@ DEFAULT_MODEL = "BAAI/bge-small-en-v1.5"
 
 
 class FastEmbedProvider:
-    def __init__(self, model: str = DEFAULT_MODEL, min_similarity: float = 0.6) -> None:
+    def __init__(
+        self,
+        model: str = DEFAULT_MODEL,
+        # Calibrated on the bundled retrieval benchmark (see benchmarks/README.md).
+        min_similarity: float = 0.65,
+        keyword_support_similarity: float = 0.60,
+        cache_dir: Path | None = None,
+    ) -> None:
         self._model_id = model
+        self._cache_dir = cache_dir
         self._min_similarity = min_similarity
+        self._keyword_support = keyword_support_similarity
         self._model: Any = None
         self._lock = threading.Lock()
 
@@ -28,6 +38,10 @@ class FastEmbedProvider:
     def min_similarity(self) -> float:
         return self._min_similarity
 
+    @property
+    def keyword_support_similarity(self) -> float:
+        return self._keyword_support
+
     def embed_documents(self, texts: Sequence[str]) -> Matrix:
         if not texts:
             return np.zeros((0, 0), dtype=np.float32)
@@ -37,13 +51,18 @@ class FastEmbedProvider:
         vector: Vector = _normalize(np.stack(list(self._load().query_embed(text))))[0]
         return vector
 
+    def warm_up(self) -> None:
+        """Load the model now (downloading it on first use) instead of on the first query."""
+        self._load()
+
     def _load(self) -> Any:
-        # Loaded lazily: the first call downloads the model (~130 MB) into the fastembed cache.
+        # Loaded lazily: the first call downloads the model (~65 MB) into the fastembed cache.
         with self._lock:
             if self._model is None:
                 from fastembed import TextEmbedding
 
-                self._model = TextEmbedding(self._model_id)
+                cache = str(self._cache_dir) if self._cache_dir else None
+                self._model = TextEmbedding(self._model_id, cache_dir=cache)
             return self._model
 
 

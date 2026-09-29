@@ -45,15 +45,38 @@ A transport-independent engine (`MemoryService`) that every interface calls.
 
 **Known limitations**
 - Vector search is a brute-force scan (fine up to tens of thousands of memories per space).
-- The hashing embedder is lexical only. The fastembed path has no automated tests.
 - Project detection uses the server's working directory; MCP roots are not used yet.
 - There is no contradiction detection between different active memories.
 
-## Next — Milestone 3: retrieval evaluation and semantic quality
-- A synthetic benchmark (about 100 cases: recall, paraphrase, temporal, contradiction) with
-  recall@k and MRR, run in CI.
-- Test coverage for the fastembed path, and a measured comparison against the hashing embedder.
-- An agent-behavior check: does an agent call `recall` and `remember` without being prompted?
+## ✅ Milestone 3 — Retrieval evaluation and calibration
+
+- `mindtrail bench` runs two bundled datasets: `dev` (57 memories, 92 queries) and a
+  held-out set (30 memories, 39 queries) written after tuning. Metrics: recall@1/5, MRR,
+  nDCG@5, abstention, stale/foreign leak rate, p50/p95 latency.
+- Calibrated candidate gates (BM25 relative floor, vector support for keyword hits,
+  per-embedder similarity floors). On holdout with bge-small, abstention is 91% and recall@5
+  is 89%.
+- The `[semantic]` extra (fastembed + bge-small, 65 MB) stores its model in
+  `~/.mindtrail/models`; `mindtrail init` pre-downloads it so the first MCP call doesn't stall.
+- CI gates: zero stale/foreign leaks, 100% recall@5 on wording-matched queries, and overall
+  floors just under measured values. A separate CI job runs the neural benchmark and posts
+  the table to the job summary.
+- Results and methodology: [benchmarks/README.md](benchmarks/README.md).
+
+**Verification:** 90 tests pass locally (Windows, Python 3.13), including the neural gates with
+fastembed 0.8.1. `ruff` and `mypy --strict` pass.
+
+**Known limitations**
+- The benchmark is small, synthetic and written by the authors. There is no agent-in-the-loop
+  evaluation yet.
+- The bge-small thresholds are sensitive: a 0.05 step changes abstention sharply.
+- The default install (hashing) is weak on paraphrase (46% recall@5 on holdout).
+
+## Next — Milestone 4: agent-in-the-loop evaluation
+- Scripted multi-session tasks run against a real agent, with and without Mindtrail: does the
+  agent call `recall` and `remember` unprompted, and does task success improve?
+- A decision, informed by that, on whether `[semantic]` should become the default install.
+- Use MCP roots for project detection instead of the server's working directory.
 
 ## Later
 PostgreSQL + pgvector with multi-tenancy, then hosted remote MCP with OAuth and a web memory

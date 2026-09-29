@@ -74,7 +74,7 @@ class MemoryService:
         config = config or MindtrailConfig.from_env()
         return cls(
             SQLiteMemoryRepository(config.db_path),
-            create_embedder(config.embedder),
+            create_embedder(config.embedder, cache_dir=config.model_dir),
             default_space=config.default_space,
         )
 
@@ -88,6 +88,12 @@ class MemoryService:
 
     def now(self) -> datetime:
         return self._clock()
+
+    def warm_up(self) -> None:
+        """Load the embedding model now rather than on the first query."""
+        warm = getattr(self._embedder, "warm_up", None)
+        if callable(warm):
+            warm()
 
     def close(self) -> None:
         self._repo.close()
@@ -263,10 +269,16 @@ class MemoryService:
             memory_types=types,
         )
 
-        match = build_fts_query(query)
-        keyword = self._repo.keyword_search(scope, match, self._candidate_limit) if match else []
-        keyword_ids = [memory_id for memory_id, _ in keyword]
-        vector_hits = self._vector_search(query, scope)
+        similarities = self._similarities(query, scope)
+        keyword_ids = self._keyword_candidates(query, scope, similarities)
+        vector_floor = self._weights.vector_min_similarity
+        if vector_floor is None:
+            vector_floor = self._embedder.min_similarity
+        vector_hits = sorted(
+            ((mid, sim) for mid, sim in similarities.items() if sim >= vector_floor),
+            key=lambda item: item[1],
+            reverse=True,
+        )[: self._candidate_limit]
 
         candidate_ids = list(dict.fromkeys([*keyword_ids, *(mid for mid, _ in vector_hits)]))
         records = self._repo.get_many(self._tenant, candidate_ids)
@@ -327,17 +339,39 @@ class MemoryService:
             return None, None
         return np.asarray(vector, dtype=np.float32).tobytes(), self._embedder.model_name
 
-    def _vector_search(self, query: str, scope: ScopeFilter) -> list[tuple[str, float]]:
+    def _keyword_candidates(
+        self, query: str, scope: ScopeFilter, similarities: dict[str, float]
+    ) -> list[str]:
+        match = build_fts_query(query)
+        if match is None:
+            return []
+        keyword = self._repo.keyword_search(scope, match, self._candidate_limit)
+        if keyword and self._weights.keyword_relative_floor > 0:
+            # bm25() is negative (more negative = better), so the ratio to the best is in (0, 1].
+            best = keyword[0][1]
+            floor = self._weights.keyword_relative_floor
+            keyword = [(mid, score) for mid, score in keyword if score / best >= floor]
+        support = self._weights.keyword_min_similarity
+        if support is None:
+            support = self._embedder.keyword_support_similarity
+        # A keyword hit whose meaning is unrelated to the query (low vector similarity) is an
+        # incidental word match. Memories without a vector keep their keyword hits.
+        return [
+            mid
+            for mid, _ in keyword
+            if not similarities or mid not in similarities or similarities[mid] >= support
+        ]
+
+    def _similarities(self, query: str, scope: ScopeFilter) -> dict[str, float]:
+        """Cosine similarity of the query to every in-scope memory with a current vector."""
         rows = self._repo.embeddings(scope, self._embedder.model_name)
         if not rows:
-            return []
+            return {}
         try:
             query_vector = self._embedder.embed_query(query)
         except Exception:
             logger.exception("query embedding failed; falling back to keyword search")
-            return []
+            return {}
         matrix = np.stack([np.frombuffer(blob, dtype=np.float32) for _, blob in rows])
-        similarities = matrix @ query_vector
-        order = np.argsort(-similarities)[: self._candidate_limit]
-        threshold = self._embedder.min_similarity
-        return [(rows[i][0], float(similarities[i])) for i in order if similarities[i] >= threshold]
+        scores = matrix @ query_vector
+        return {row[0]: float(score) for row, score in zip(rows, scores, strict=True)}

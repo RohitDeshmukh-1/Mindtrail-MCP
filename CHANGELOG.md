@@ -6,7 +6,18 @@ All notable changes are documented here. The format follows
 
 ## [Unreleased]
 
+### Changed
+- Renamed the project from CogMem to **Mindtrail** (package, CLI, `MINDTRAIL_*` variables,
+  `~/.mindtrail`).
+- The `local-embeddings` extra is now `semantic`. Neural models are stored in
+  `~/.mindtrail/models`, and `mindtrail init` pre-downloads them.
+- Retrieval now drops weak keyword matches (below 40% of the best BM25 score, or without vector
+  support) and uses calibrated similarity floors per embedder, so a query with no stored answer
+  is far more likely to return nothing.
+
 ### Added
+- Retrieval benchmark (`mindtrail bench`) with bundled dev and held-out datasets: recall@k,
+  MRR, nDCG, abstention, stale/foreign leak rate and latency. CI gates on the results.
 - Core memory engine: validated immutable memory records, SQLite storage with FTS5, hybrid
   keyword + vector retrieval, token-budgeted context, versioned updates, supersession,
   validity windows, hard/soft deletion and secret filtering on write.
