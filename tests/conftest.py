@@ -5,9 +5,9 @@ from datetime import UTC, datetime, timedelta
 
 import pytest
 
-from cogmem.embeddings import HashingEmbedder
-from cogmem.memory.service import MemoryService
-from cogmem.storage.sqlite import SQLiteMemoryRepository
+from mindtrail.embeddings import HashingEmbedder
+from mindtrail.memory.service import MemoryService
+from mindtrail.storage.sqlite import SQLiteMemoryRepository
 
 
 class FakeClock:

@@ -8,7 +8,7 @@ from typing import Any
 
 import numpy as np
 
-from cogmem.embeddings.base import Matrix, Vector
+from mindtrail.embeddings.base import Matrix, Vector
 
 DEFAULT_MODEL = "BAAI/bge-small-en-v1.5"
 

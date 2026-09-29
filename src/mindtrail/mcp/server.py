@@ -17,17 +17,17 @@ from mcp.server.mcpserver.exceptions import ToolError
 from mcp_types import ToolAnnotations
 from pydantic import BaseModel, Field
 
-from cogmem import __version__
-from cogmem.core.exceptions import CogMemError
-from cogmem.core.models import MemoryRecord, MemoryType, SearchHit
-from cogmem.memory.service import MemoryService
+from mindtrail import __version__
+from mindtrail.core.exceptions import MindtrailError
+from mindtrail.core.models import MemoryRecord, MemoryType, SearchHit
+from mindtrail.memory.service import MemoryService
 
 ToolProfile = Literal["core", "full"]
 Scope = Literal["project", "personal"]
 T = TypeVar("T")
 
 INSTRUCTIONS = """\
-CogMem is persistent memory that survives across sessions and across coding tools.
+Mindtrail is persistent memory that survives across sessions and across coding tools.
 
 - At the start of a task, call `recall` with a short description of the task to load relevant
   preferences, project conventions and past decisions.
@@ -89,7 +89,7 @@ async def _run(fn: Callable[[], T]) -> T:
     """Run a synchronous engine call off the event loop; surface engine errors to the model."""
     try:
         return await anyio.to_thread.run_sync(fn)
-    except CogMemError as exc:
+    except MindtrailError as exc:
         raise ToolError(str(exc)) from exc
 
 
@@ -118,7 +118,7 @@ def create_server(
     def space_for(scope: Scope) -> str:
         return project_space if scope == "project" and project_space else personal
 
-    server = MCPServer(name="cogmem", version=__version__, instructions=INSTRUCTIONS)
+    server = MCPServer(name="mindtrail", version=__version__, instructions=INSTRUCTIONS)
 
     @server.tool(annotations=ToolAnnotations(title="Remember", destructive_hint=False))
     async def remember(

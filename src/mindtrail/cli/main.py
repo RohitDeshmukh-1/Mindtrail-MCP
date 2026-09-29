@@ -1,4 +1,4 @@
-"""``cogmem`` command line: run the MCP server, set up clients, inspect and manage memories.
+"""``mindtrail`` command line: run the MCP server, set up clients, inspect and manage memories.
 
 stdout is reserved for the MCP protocol while ``serve`` runs; all logs go to stderr.
 """
@@ -15,36 +15,39 @@ import sys
 from collections.abc import Callable, Sequence
 from pathlib import Path
 
-from cogmem import __version__
-from cogmem.core.config import CogMemConfig
-from cogmem.core.exceptions import CogMemError
-from cogmem.core.models import MemoryRecord, SearchHit
-from cogmem.core.project import detect_project
-from cogmem.memory.service import MemoryService
+from mindtrail import __version__
+from mindtrail.core.config import MindtrailConfig
+from mindtrail.core.exceptions import MindtrailError
+from mindtrail.core.models import MemoryRecord, SearchHit
+from mindtrail.core.project import detect_project
+from mindtrail.memory.service import MemoryService
 
 CLIENTS = ("claude-code", "cursor", "vscode", "codex")
 
 
 def _client_setup(client: str) -> str:
     """Configuration snippet for connecting ``client`` to the local stdio server."""
-    command, args = "cogmem", ["serve"]
+    command, args = "mindtrail", ["serve"]
     if client == "claude-code":
-        return "claude mcp add cogmem --scope user -- cogmem serve"
+        return "claude mcp add mindtrail --scope user -- mindtrail serve"
     if client == "cursor":
         return "~/.cursor/mcp.json\n" + json.dumps(
-            {"mcpServers": {"cogmem": {"command": command, "args": args}}}, indent=2
+            {"mcpServers": {"mindtrail": {"command": command, "args": args}}}, indent=2
         )
     if client == "vscode":
         return ".vscode/mcp.json\n" + json.dumps(
-            {"servers": {"cogmem": {"type": "stdio", "command": command, "args": args}}}, indent=2
+            {"servers": {"mindtrail": {"type": "stdio", "command": command, "args": args}}},
+            indent=2,
         )
     if client == "codex":
-        return '~/.codex/config.toml\n[mcp_servers.cogmem]\ncommand = "cogmem"\nargs = ["serve"]'
+        return (
+            '~/.codex/config.toml\n[mcp_servers.mindtrail]\ncommand = "mindtrail"\nargs = ["serve"]'
+        )
     raise ValueError(client)
 
 
-def _open() -> tuple[MemoryService, CogMemConfig]:
-    config = CogMemConfig.from_env()
+def _open() -> tuple[MemoryService, MindtrailConfig]:
+    config = MindtrailConfig.from_env()
     return MemoryService.from_config(config), config
 
 
@@ -80,11 +83,11 @@ def _print_records(records: Sequence[MemoryRecord], as_json: bool) -> None:
 
 
 def cmd_serve(args: argparse.Namespace) -> int:
-    from cogmem.mcp.server import create_server
+    from mindtrail.mcp.server import create_server
 
-    profile = args.tools or os.environ.get("COGMEM_TOOLS", "core")
+    profile = args.tools or os.environ.get("MINDTRAIL_TOOLS", "core")
     if profile not in ("core", "full"):
-        print(f"error: COGMEM_TOOLS must be 'core' or 'full', got {profile!r}", file=sys.stderr)
+        print(f"error: MINDTRAIL_TOOLS must be 'core' or 'full', got {profile!r}", file=sys.stderr)
         return 2
     service, _ = _open()
     server = create_server(
@@ -103,7 +106,7 @@ def cmd_init(args: argparse.Namespace) -> int:
         stats = service.stats()
     finally:
         service.close()
-    print(f"CogMem is ready. Data: {config.db_path} ({stats['total']} memories)\n")
+    print(f"Mindtrail is ready. Data: {config.db_path} ({stats['total']} memories)\n")
     for client in [args.client] if args.client else CLIENTS:
         print(f"-- {client} " + "-" * (60 - len(client)))
         print(_client_setup(client) + "\n")
@@ -113,7 +116,7 @@ def cmd_init(args: argparse.Namespace) -> int:
 
 
 def cmd_doctor(args: argparse.Namespace) -> int:
-    config = CogMemConfig.from_env()
+    config = MindtrailConfig.from_env()
     checks: list[tuple[str, bool, str]] = []
 
     def check(name: str, fn: Callable[[], str]) -> None:
@@ -266,9 +269,9 @@ def cmd_reindex(args: argparse.Namespace) -> int:
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
-        prog="cogmem", description="Persistent memory for AI agents, over MCP."
+        prog="mindtrail", description="Persistent memory for AI agents, over MCP."
     )
-    parser.add_argument("--version", action="version", version=f"cogmem {__version__}")
+    parser.add_argument("--version", action="version", version=f"mindtrail {__version__}")
     sub = parser.add_subparsers(dest="command", required=True, metavar="command")
 
     p = sub.add_parser("serve", help="run the MCP server over stdio")
@@ -321,14 +324,14 @@ def build_parser() -> argparse.ArgumentParser:
 
 def main(argv: Sequence[str] | None = None) -> int:
     logging.basicConfig(
-        level=os.environ.get("COGMEM_LOG_LEVEL", "WARNING").upper(),
+        level=os.environ.get("MINDTRAIL_LOG_LEVEL", "WARNING").upper(),
         stream=sys.stderr,
         format="%(levelname)s %(name)s: %(message)s",
     )
     args = build_parser().parse_args(argv)
     try:
         code: int = args.fn(args)
-    except (CogMemError, ValueError) as exc:
+    except (MindtrailError, ValueError) as exc:
         print(f"error: {exc}", file=sys.stderr)
         return 1
     return code

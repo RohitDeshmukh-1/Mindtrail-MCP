@@ -3,14 +3,14 @@ requires = ["hatchling>=1.25"]
 build-backend = "hatchling.build"
 
 [project]
-name = "cogmem-mcp"
+name = "mindtrail"
 version = "0.1.0.dev0"
 description = "Persistent, local-first memory for AI coding agents over MCP."
 readme = "README.md"
 requires-python = ">=3.11"
 license = "MIT"
 license-files = ["LICENSE"]
-authors = [{ name = "CogMem contributors" }]
+authors = [{ name = "Mindtrail contributors" }]
 keywords = ["mcp", "memory", "ai-agents", "llm", "claude-code", "cursor", "rag"]
 classifiers = [
     "Development Status :: 3 - Alpha",
@@ -31,23 +31,23 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/OWNER/cogmem"
-Documentation = "https://github.com/OWNER/cogmem/tree/main/docs"
-Issues = "https://github.com/OWNER/cogmem/issues"
-Changelog = "https://github.com/OWNER/cogmem/blob/main/CHANGELOG.md"
+Homepage = "https://github.com/OWNER/mindtrail"
+Documentation = "https://github.com/OWNER/mindtrail/tree/main/docs"
+Issues = "https://github.com/OWNER/mindtrail/issues"
+Changelog = "https://github.com/OWNER/mindtrail/blob/main/CHANGELOG.md"
 
 [project.scripts]
-cogmem = "cogmem.cli.main:main"
+mindtrail = "mindtrail.cli.main:main"
 
 [project.optional-dependencies]
 local-embeddings = ["fastembed>=0.4"]
 dev = ["pytest>=8", "ruff>=0.6", "mypy>=1.11", "pre-commit>=3.7"]
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/cogmem"]
+packages = ["src/mindtrail"]
 
 [tool.hatch.build.targets.sdist]
-include = ["src/cogmem", "tests", "README.md", "LICENSE", "CHANGELOG.md"]
+include = ["src/mindtrail", "tests", "README.md", "LICENSE", "CHANGELOG.md"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

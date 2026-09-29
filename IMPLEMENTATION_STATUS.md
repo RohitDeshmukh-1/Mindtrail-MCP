@@ -25,7 +25,7 @@ A transport-independent engine (`MemoryService`) that every interface calls.
   errors.
 - Automatic project scoping: the space id comes from the normalized git remote (credentials
   stripped), so the same repo shares memory across tools and clones. Override with
-  `COGMEM_PROJECT`.
+  `MINDTRAIL_PROJECT`.
 - CLI: `serve`, `init`, `doctor`, `remember`, `recall`, `forget`, `list`, `stats`, `export`,
   `reindex`.
 - Repository setup: MIT license, CI (Linux, macOS and Windows × Python 3.11–3.13, plus lint,
@@ -44,8 +44,6 @@ A transport-independent engine (`MemoryService`) that every interface calls.
 - The CI workflow has not run yet because the repo is not on GitHub.
 
 **Known limitations**
-- The PyPI name `cogmem` is taken by an unrelated project. The distribution is `cogmem-mcp`
-  for now; a final name is pending.
 - Vector search is a brute-force scan (fine up to tens of thousands of memories per space).
 - The hashing embedder is lexical only. The fastembed path has no automated tests.
 - Project detection uses the server's working directory; MCP roots are not used yet.

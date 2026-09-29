@@ -14,5 +14,5 @@ All notable changes are documented here. The format follows
 - MCP server over stdio with a three-tool core profile (`remember`, `recall`, `forget`) and a
   `full` profile that adds `search_memory`, `get_context`, `update_memory` and `get_memory`.
 - Automatic project scoping from the git remote, shared across tools working in the same repo.
-- `cogmem` CLI: `serve`, `init`, `doctor`, `remember`, `recall`, `forget`, `list`, `stats`,
+- `mindtrail` CLI: `serve`, `init`, `doctor`, `remember`, `recall`, `forget`, `list`, `stats`,
   `export` and `reindex`.

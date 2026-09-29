@@ -44,12 +44,12 @@ jobs:
       - run: pytest
       - name: CLI smoke test
         env:
-          COGMEM_HOME: ${{ runner.temp }}/cogmem
-          COGMEM_EMBEDDER: hashing
+          MINDTRAIL_HOME: ${{ runner.temp }}/mindtrail
+          MINDTRAIL_EMBEDDER: hashing
         run: |
-          cogmem doctor
-          cogmem remember "CI smoke test memory" --scope personal
-          cogmem recall "smoke test"
+          mindtrail doctor
+          mindtrail remember "CI smoke test memory" --scope personal
+          mindtrail recall "smoke test"
 
   build:
     runs-on: ubuntu-latest

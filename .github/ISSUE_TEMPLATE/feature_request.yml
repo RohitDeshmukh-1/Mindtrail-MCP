@@ -6,7 +6,7 @@ body:
     id: problem
     attributes:
       label: What problem would this solve?
-      description: Describe the situation where CogMem falls short today.
+      description: Describe the situation where Mindtrail falls short today.
     validations:
       required: true
   - type: textarea

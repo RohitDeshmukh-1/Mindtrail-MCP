@@ -3,21 +3,21 @@
 from uuid import UUID
 
 
-class CogMemError(Exception):
-    """Base class for all CogMem errors."""
+class MindtrailError(Exception):
+    """Base class for all Mindtrail errors."""
 
 
-class InvalidMemoryError(CogMemError):
+class InvalidMemoryError(MindtrailError):
     """Input failed validation."""
 
 
-class MemoryNotFoundError(CogMemError):
+class MemoryNotFoundError(MindtrailError):
     def __init__(self, memory_id: UUID | str) -> None:
         super().__init__(f"memory {memory_id} not found")
         self.memory_id = str(memory_id)
 
 
-class SecretDetectedError(CogMemError):
+class SecretDetectedError(MindtrailError):
     """Content looks like it contains a credential; storing it is refused."""
 
     def __init__(self, kinds: list[str]) -> None:

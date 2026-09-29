@@ -16,9 +16,9 @@ from uuid import UUID
 import numpy as np
 from pydantic import ValidationError
 
-from cogmem.core.config import CogMemConfig
-from cogmem.core.exceptions import InvalidMemoryError, MemoryNotFoundError, SecretDetectedError
-from cogmem.core.models import (
+from mindtrail.core.config import MindtrailConfig
+from mindtrail.core.exceptions import InvalidMemoryError, MemoryNotFoundError, SecretDetectedError
+from mindtrail.core.models import (
     DEFAULT_SPACE,
     MemoryContext,
     MemoryRecord,
@@ -28,13 +28,13 @@ from cogmem.core.models import (
     utcnow,
     validate_space_id,
 )
-from cogmem.core.text import build_fts_query
-from cogmem.embeddings import EmbeddingProvider, create_embedder
-from cogmem.memory.context import build_context
-from cogmem.memory.retrieval import RankingWeights, rank
-from cogmem.memory.safety import find_secrets
-from cogmem.storage.interfaces import MemoryRepository, ScopeFilter
-from cogmem.storage.sqlite import SQLiteMemoryRepository
+from mindtrail.core.text import build_fts_query
+from mindtrail.embeddings import EmbeddingProvider, create_embedder
+from mindtrail.memory.context import build_context
+from mindtrail.memory.retrieval import RankingWeights, rank
+from mindtrail.memory.safety import find_secrets
+from mindtrail.storage.interfaces import MemoryRepository, ScopeFilter
+from mindtrail.storage.sqlite import SQLiteMemoryRepository
 
 logger = logging.getLogger(__name__)
 
@@ -70,8 +70,8 @@ class MemoryService:
         self._candidate_limit = candidate_limit
 
     @classmethod
-    def from_config(cls, config: CogMemConfig | None = None) -> MemoryService:
-        config = config or CogMemConfig.from_env()
+    def from_config(cls, config: MindtrailConfig | None = None) -> MemoryService:
+        config = config or MindtrailConfig.from_env()
         return cls(
             SQLiteMemoryRepository(config.db_path),
             create_embedder(config.embedder),

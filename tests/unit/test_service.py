@@ -7,11 +7,11 @@ from uuid import uuid4
 import pytest
 from tests.conftest import FakeClock
 
-from cogmem.core.exceptions import InvalidMemoryError, MemoryNotFoundError, SecretDetectedError
-from cogmem.core.models import MemoryType
-from cogmem.embeddings import HashingEmbedder
-from cogmem.memory.service import MemoryService
-from cogmem.storage.sqlite import SQLiteMemoryRepository
+from mindtrail.core.exceptions import InvalidMemoryError, MemoryNotFoundError, SecretDetectedError
+from mindtrail.core.models import MemoryType
+from mindtrail.embeddings import HashingEmbedder
+from mindtrail.memory.service import MemoryService
+from mindtrail.storage.sqlite import SQLiteMemoryRepository
 
 
 def _contents(hits: list) -> list[str]:  # type: ignore[type-arg]
@@ -27,12 +27,12 @@ def test_remember_and_get_roundtrip(service: MemoryService) -> None:
         memory_type="semantic",
         source="claude-code",
         importance=0.8,
-        metadata={"repo": "cogmem"},
+        metadata={"repo": "mindtrail"},
     )
     assert not result.deduplicated
     fetched = service.get(result.memory.id)
     assert fetched == result.memory
-    assert fetched.metadata == {"repo": "cogmem"}
+    assert fetched.metadata == {"repo": "mindtrail"}
 
 
 def test_exact_duplicates_are_merged(service: MemoryService, clock: FakeClock) -> None:
@@ -241,7 +241,7 @@ def test_get_context_is_budgeted_and_empty_when_irrelevant(seeded: MemoryService
 
 
 def test_memories_survive_restart(tmp_path: Path) -> None:
-    db = tmp_path / "cogmem.db"
+    db = tmp_path / "mindtrail.db"
     first = MemoryService(SQLiteMemoryRepository(db), HashingEmbedder())
     memory = first.remember("Repository convention: use conventional commits").memory
     first.close()

@@ -3,10 +3,10 @@ from datetime import UTC, datetime, timedelta
 import pytest
 from pydantic import ValidationError
 
-from cogmem.core.models import MemoryRecord, validate_space_id
-from cogmem.core.text import build_fts_query, content_hash
-from cogmem.embeddings import HashingEmbedder
-from cogmem.memory.safety import find_secrets
+from mindtrail.core.models import MemoryRecord, validate_space_id
+from mindtrail.core.text import build_fts_query, content_hash
+from mindtrail.embeddings import HashingEmbedder
+from mindtrail.memory.safety import find_secrets
 
 
 def test_content_is_stripped_and_blank_rejected() -> None:
@@ -37,7 +37,7 @@ def test_oversized_metadata_rejected() -> None:
         MemoryRecord(content="x", metadata={"blob": "a" * 5000})
 
 
-@pytest.mark.parametrize("space", ["Repo:CogMem-Core", "project/cogmem", "default"])
+@pytest.mark.parametrize("space", ["Repo:Mindtrail-Core", "project/mindtrail", "default"])
 def test_valid_space_ids_are_normalized(space: str) -> None:
     assert validate_space_id(space) == space.lower()
 

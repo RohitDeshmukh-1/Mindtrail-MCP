@@ -5,9 +5,9 @@ from __future__ import annotations
 import importlib.util
 import logging
 
-from cogmem.core.config import EmbedderKind
-from cogmem.embeddings.base import EmbeddingProvider
-from cogmem.embeddings.hashing import HashingEmbedder
+from mindtrail.core.config import EmbedderKind
+from mindtrail.embeddings.base import EmbeddingProvider
+from mindtrail.embeddings.hashing import HashingEmbedder
 
 logger = logging.getLogger(__name__)
 
@@ -19,7 +19,7 @@ def create_embedder(kind: EmbedderKind = "auto") -> EmbeddingProvider:
     if kind == "hashing":
         return HashingEmbedder()
     if kind == "fastembed" or importlib.util.find_spec("fastembed") is not None:
-        from cogmem.embeddings.fastembed_provider import FastEmbedProvider
+        from mindtrail.embeddings.fastembed_provider import FastEmbedProvider
 
         return FastEmbedProvider()
     logger.info("fastembed not installed; using offline hashing embedder")

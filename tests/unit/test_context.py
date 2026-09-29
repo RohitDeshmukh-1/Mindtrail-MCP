@@ -1,5 +1,5 @@
-from cogmem.core.models import MemoryRecord, SearchHit
-from cogmem.memory.context import build_context
+from mindtrail.core.models import MemoryRecord, SearchHit
+from mindtrail.memory.context import build_context
 
 
 def _hit(content: str, score: float = 1.0) -> SearchHit:

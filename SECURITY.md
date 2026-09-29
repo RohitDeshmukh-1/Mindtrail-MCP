@@ -1,12 +1,12 @@
 # Security Policy
 
-CogMem stores information that AI agents will later read and act on, so we treat memory
+Mindtrail stores information that AI agents will later read and act on, so we treat memory
 isolation and memory poisoning as security issues.
 
 ## Reporting a vulnerability
 
 Please **do not open a public issue**. Report privately through
-[GitHub security advisories](https://github.com/OWNER/cogmem/security/advisories/new).
+[GitHub security advisories](https://github.com/OWNER/mindtrail/security/advisories/new).
 We aim to acknowledge reports within 3 business days.
 
 Especially in scope:
@@ -18,13 +18,13 @@ Especially in scope:
 
 ## Supported versions
 
-CogMem is pre-1.0. Security fixes land on the latest release only.
+Mindtrail is pre-1.0. Security fixes land on the latest release only.
 
-## How CogMem protects your data today
+## How Mindtrail protects your data today
 
-- Local mode keeps everything in one SQLite file under `~/.cogmem`. Nothing leaves your machine.
+- Local mode keeps everything in one SQLite file under `~/.mindtrail`. Nothing leaves your machine.
 - Writes that look like credentials (cloud keys, tokens, private keys) are refused.
 - `forget` deletes permanently, and SQLite `secure_delete` overwrites the freed pages.
 - Recalled memories are labelled as untrusted reference data, so agents should not follow
   instructions found inside them.
-- `cogmem export` gives you every memory as JSON Lines.
+- `mindtrail export` gives you every memory as JSON Lines.
