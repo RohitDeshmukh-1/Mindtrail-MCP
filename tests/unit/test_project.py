@@ -36,10 +36,11 @@ def test_remote_spellings_normalize_identically(url: str) -> None:
 
 def test_same_remote_gives_same_space_across_checkouts(tmp_path: Path) -> None:
     a = _repo(tmp_path / "a" / "repo", "git@github.com:owner/repo.git")
-    b = _repo(tmp_path / "b" / "repo", "https://github.com/owner/repo")
+    b = _repo(tmp_path / "b" / "repo-fork-checkout", "https://github.com/owner/repo")
     pa, pb = detect_project(a), detect_project(b)
     assert pa and pb and pa.space_id == pb.space_id
     assert pa.space_id.startswith("project:repo-")
+    assert pb.name == "repo"
 
 
 def test_detects_from_subdirectory(tmp_path: Path) -> None:

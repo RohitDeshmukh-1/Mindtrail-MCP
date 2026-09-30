@@ -78,6 +78,7 @@ def detect_project(start: Path | None = None) -> Project | None:
     git_path = root / ".git"
     remote = _origin_url(git_path) if git_path.is_dir() else None
     identity = normalize_remote(remote) if remote else str(root).lower()
-    name = _slug(root.name)[:80]
+    # With a remote, the name comes from it too, so clones in differently named folders match.
+    name = _slug(identity.rsplit("/", 1)[-1] if remote else root.name)[:80]
     digest = hashlib.sha256(identity.encode()).hexdigest()[:8]
     return Project(name=name, space_id=f"project:{name}-{digest}", root=root)
