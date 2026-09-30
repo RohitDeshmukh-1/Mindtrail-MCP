@@ -71,7 +71,7 @@ jobs:
       - run: mindtrail init --client claude-code  # downloads the model into the cache
       - run: pytest tests/evaluation
       - run: mindtrail bench --embedder fastembed --json bench.json >> "$GITHUB_STEP_SUMMARY"
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: benchmark-results
           path: bench-*.json
