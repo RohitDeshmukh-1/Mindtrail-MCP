@@ -19,6 +19,7 @@ class MindtrailConfig:
     embedder: EmbedderKind = "auto"
     default_space: str = DEFAULT_SPACE
     reranker: str = "auto"  # "auto", "none" or a fastembed cross-encoder model id
+    embedding_model: str | None = None  # fastembed model id; None = the calibrated default
 
     def __post_init__(self) -> None:
         if self.embedder not in _EMBEDDERS:
@@ -41,4 +42,5 @@ class MindtrailConfig:
             embedder=cast(EmbedderKind, os.environ.get("MINDTRAIL_EMBEDDER", "auto")),
             default_space=os.environ.get("MINDTRAIL_DEFAULT_SPACE", DEFAULT_SPACE),
             reranker=os.environ.get("MINDTRAIL_RERANKER", "auto").strip() or "auto",
+            embedding_model=os.environ.get("MINDTRAIL_EMBEDDING_MODEL", "").strip() or None,
         )

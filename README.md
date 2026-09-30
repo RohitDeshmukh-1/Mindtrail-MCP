@@ -88,18 +88,22 @@ and needs no API key:
 
 ```bash
 pipx install "mindtrail[semantic]"
-mindtrail init        # downloads the model once (~65 MB) and re-indexes existing memories
+mindtrail init        # downloads the model once (~210 MB) and re-indexes existing memories
 ```
+
+For a smaller download (67 MB, somewhat lower recall), set
+`MINDTRAIL_EMBEDDING_MODEL=BAAI/bge-small-en-v1.5`. Memories stored under another model are
+re-embedded automatically the next time the server starts.
 
 ## Benchmarks
 
-On a held-out set of 39 developer-memory questions that was never used for tuning
-([methodology](benchmarks/README.md)):
+On two held-out sets of developer-memory questions (82 in total) that were never used for
+tuning ([methodology](benchmarks/README.md)):
 
 | | recall@1 | recall@5 | paraphrase recall@5 | correctly says "nothing stored" | stale/foreign leaks |
 |---|---:|---:|---:|---:|---:|
-| default install | 64% | 75% | 46% | 82% | **0%** |
-| `mindtrail[semantic]` | **79%** | **89%** | **77%** | **91%** | **0%** |
+| default install | 58–64% | 68–75% | 44–46% | 82–100% | **0%** |
+| `mindtrail[semantic]` | **82–90%** | **93–94%** | **85–89%** | **100%** | **0%** |
 
 This is a small, synthetic retrieval benchmark written by us; it is not a claim about
 end-to-end agent performance. Run `mindtrail bench` to reproduce it, or add your own

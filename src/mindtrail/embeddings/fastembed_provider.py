@@ -12,7 +12,7 @@ import numpy as np
 
 from mindtrail.embeddings.base import Matrix, Vector
 
-DEFAULT_MODEL = "BAAI/bge-small-en-v1.5"
+DEFAULT_MODEL = "BAAI/bge-base-en-v1.5"
 _RETRIEVAL_INSTRUCTION = "Represent this sentence for searching relevant passages: "
 
 
@@ -33,7 +33,15 @@ class ModelProfile:
 
 
 PROFILES: dict[str, ModelProfile] = {
-    "BAAI/bge-small-en-v1.5": ModelProfile(),
+    # Default for mindtrail[semantic] (210 MB): best on every bundled benchmark set.
+    "BAAI/bge-base-en-v1.5": ModelProfile(
+        query_prefix=_RETRIEVAL_INSTRUCTION, min_similarity=0.53, keyword_support=0.50
+    ),
+    # Smaller footprint (67 MB): MINDTRAIL_EMBEDDING_MODEL=BAAI/bge-small-en-v1.5
+    "BAAI/bge-small-en-v1.5": ModelProfile(
+        query_prefix=_RETRIEVAL_INSTRUCTION, min_similarity=0.62, keyword_support=0.57
+    ),
+    "jinaai/jina-embeddings-v2-small-en": ModelProfile(min_similarity=0.74, keyword_support=0.74),
 }
 
 

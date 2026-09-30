@@ -1,35 +1,35 @@
 {
   "dataset": "mindtrail-retrieval v1",
-  "embedder": "hashing-v1-512",
+  "embedder": "fastembed:BAAI/bge-small-en-v1.5",
   "reranker": null,
   "k": 5,
   "overall": {
     "queries": 92,
-    "accuracy": 0.6413043478260869,
-    "recall_at_1": 0.6301369863013698,
-    "recall_at_k": 0.6712328767123288,
-    "mrr": 0.6506849315068494,
-    "ndcg_at_k": 0.6560656063111558,
-    "abstention": 0.6842105263157895,
+    "accuracy": 0.8043478260869565,
+    "recall_at_1": 0.7534246575342466,
+    "recall_at_k": 0.8356164383561644,
+    "mrr": 0.7876712328767124,
+    "ndcg_at_k": 0.7999012227495119,
+    "abstention": 1.0,
     "violations": 0.0,
-    "latency_p50_ms": 0.99,
-    "latency_p95_ms": 1.67,
+    "latency_p50_ms": 116.73,
+    "latency_p95_ms": 238.4,
     "ci": {
       "accuracy": [
-        0.5434782608695652,
-        0.7391304347826086
+        0.717391304347826,
+        0.8804347826086957
       ],
       "recall_at_1": [
-        0.5205479452054794,
-        0.7397260273972602
+        0.6438356164383562,
+        0.8493150684931506
       ],
       "recall_at_k": [
-        0.5616438356164384,
-        0.7808219178082192
+        0.7397260273972602,
+        0.9178082191780822
       ],
       "abstention": [
-        0.47368421052631576,
-        0.8947368421052632
+        1.0,
+        1.0
       ]
     }
   },
@@ -43,8 +43,8 @@
       "ndcg_at_k": 0.9753953169047639,
       "abstention": null,
       "violations": null,
-      "latency_p50_ms": 1.07,
-      "latency_p95_ms": 1.78,
+      "latency_p50_ms": 113.5,
+      "latency_p95_ms": 244.46,
       "ci": {
         "accuracy": [
           0.8333333333333334,
@@ -62,27 +62,27 @@
     },
     "paraphrase": {
       "queries": 30,
-      "accuracy": 0.23333333333333334,
-      "recall_at_1": 0.23333333333333334,
-      "recall_at_k": 0.26666666666666666,
-      "mrr": 0.25,
-      "ndcg_at_k": 0.2543643251190486,
+      "accuracy": 0.5,
+      "recall_at_1": 0.5,
+      "recall_at_k": 0.6333333333333333,
+      "mrr": 0.55,
+      "ndcg_at_k": 0.5710309917857153,
       "abstention": null,
       "violations": 0.0,
-      "latency_p50_ms": 1.02,
-      "latency_p95_ms": 1.58,
+      "latency_p50_ms": 105.86,
+      "latency_p95_ms": 238.4,
       "ci": {
         "accuracy": [
-          0.1,
-          0.4
+          0.3333333333333333,
+          0.6666666666666666
         ],
         "recall_at_1": [
-          0.1,
-          0.4
+          0.3333333333333333,
+          0.6666666666666666
         ],
         "recall_at_k": [
-          0.13333333333333333,
-          0.43333333333333335
+          0.4666666666666667,
+          0.8
         ]
       }
     },
@@ -95,8 +95,8 @@
       "ndcg_at_k": 0.9,
       "abstention": null,
       "violations": 0.0,
-      "latency_p50_ms": 1.08,
-      "latency_p95_ms": 1.29,
+      "latency_p50_ms": 113.47,
+      "latency_p95_ms": 189.8,
       "ci": {
         "accuracy": [
           0.7,
@@ -114,52 +114,52 @@
     },
     "isolation": {
       "queries": 10,
-      "accuracy": 0.6,
-      "recall_at_1": 0.6666666666666666,
-      "recall_at_k": 0.6666666666666666,
-      "mrr": 0.6666666666666666,
-      "ndcg_at_k": 0.6666666666666666,
-      "abstention": 0.5714285714285714,
+      "accuracy": 1.0,
+      "recall_at_1": 1.0,
+      "recall_at_k": 1.0,
+      "mrr": 1.0,
+      "ndcg_at_k": 1.0,
+      "abstention": 1.0,
       "violations": 0.0,
-      "latency_p50_ms": 0.7,
-      "latency_p95_ms": 1.51,
+      "latency_p50_ms": 114.98,
+      "latency_p95_ms": 183.0,
       "ci": {
         "accuracy": [
-          0.3,
-          0.9
+          1.0,
+          1.0
         ],
         "recall_at_1": [
-          0.0,
+          1.0,
           1.0
         ],
         "recall_at_k": [
-          0.0,
+          1.0,
           1.0
         ],
         "abstention": [
-          0.2857142857142857,
-          0.8571428571428571
+          1.0,
+          1.0
         ]
       }
     },
     "negative": {
       "queries": 12,
-      "accuracy": 0.75,
+      "accuracy": 1.0,
       "recall_at_1": null,
       "recall_at_k": null,
       "mrr": null,
       "ndcg_at_k": null,
-      "abstention": 0.75,
+      "abstention": 1.0,
       "violations": null,
-      "latency_p50_ms": 0.79,
-      "latency_p95_ms": 1.94,
+      "latency_p50_ms": 133.29,
+      "latency_p95_ms": 263.66,
       "ci": {
         "accuracy": [
-          0.5,
+          1.0,
           1.0
         ],
         "abstention": [
-          0.5,
+          1.0,
           1.0
         ]
       }
@@ -171,41 +171,43 @@
       "category": "lexical",
       "query": "which web framework does the backend use",
       "retrieved": [
+        "s1",
         "s10",
-        "s1"
+        "s4"
       ],
       "relevant": [
         "s1"
       ],
       "forbidden": [],
-      "latency_ms": 1.7776999993657228
+      "latency_ms": 61.523799999122275
     },
     {
       "id": "L02",
       "category": "lexical",
       "query": "how are database migrations managed",
       "retrieved": [
-        "s3"
+        "s3",
+        "s2"
       ],
       "relevant": [
         "s3"
       ],
       "forbidden": [],
-      "latency_ms": 1.2028999990434386
+      "latency_ms": 177.38850000023376
     },
     {
       "id": "L03",
       "category": "lexical",
       "query": "where do Stripe webhooks go",
       "retrieved": [
-        "s5",
-        "s10"
+        "s10",
+        "s5"
       ],
       "relevant": [
         "s5"
       ],
       "forbidden": [],
-      "latency_ms": 1.4860999981465284
+      "latency_ms": 75.14549999905284
     },
     {
       "id": "L04",
@@ -219,7 +221,7 @@
         "s7"
       ],
       "forbidden": [],
-      "latency_ms": 1.2781000004906673
+      "latency_ms": 149.2485000017041
     },
     {
       "id": "L05",
@@ -232,35 +234,38 @@
         "s8"
       ],
       "forbidden": [],
-      "latency_ms": 1.2835999987146351
+      "latency_ms": 124.9418000006699
     },
     {
       "id": "L06",
       "category": "lexical",
       "query": "what format do API errors use",
       "retrieved": [
-        "s13",
         "s19",
-        "s5"
+        "s13",
+        "s10",
+        "s1",
+        "p6"
       ],
       "relevant": [
         "s13"
       ],
       "forbidden": [],
-      "latency_ms": 1.2634999984584283
+      "latency_ms": 66.30829999994603
     },
     {
       "id": "L07",
       "category": "lexical",
       "query": "what is the feature flag for the new checkout",
       "retrieved": [
-        "s14"
+        "s14",
+        "s21"
       ],
       "relevant": [
         "s14"
       ],
       "forbidden": [],
-      "latency_ms": 0.9633999979996588
+      "latency_ms": 213.29900000273483
     },
     {
       "id": "L08",
@@ -273,7 +278,7 @@
         "s15"
       ],
       "forbidden": [],
-      "latency_ms": 1.1116999994555954
+      "latency_ms": 249.2430999991484
     },
     {
       "id": "L09",
@@ -286,7 +291,7 @@
         "s11"
       ],
       "forbidden": [],
-      "latency_ms": 0.9653000015532598
+      "latency_ms": 69.92729999910807
     },
     {
       "id": "L10",
@@ -299,7 +304,7 @@
         "s12"
       ],
       "forbidden": [],
-      "latency_ms": 0.9991000006266404
+      "latency_ms": 184.9774999973306
     },
     {
       "id": "L11",
@@ -307,13 +312,14 @@
       "query": "where does the training data live",
       "retrieved": [
         "m1",
-        "m7"
+        "m7",
+        "m16"
       ],
       "relevant": [
         "m1"
       ],
       "forbidden": [],
-      "latency_ms": 1.9476999987091403
+      "latency_ms": 77.1145999970031
     },
     {
       "id": "L12",
@@ -326,7 +332,7 @@
         "m3"
       ],
       "forbidden": [],
-      "latency_ms": 1.287100003537489
+      "latency_ms": 60.914099998626625
     },
     {
       "id": "L13",
@@ -339,20 +345,22 @@
         "m4"
       ],
       "forbidden": [],
-      "latency_ms": 1.2256000009074342
+      "latency_ms": 222.90720000091824
     },
     {
       "id": "L14",
       "category": "lexical",
       "query": "how do I run the training pipeline",
       "retrieved": [
-        "m7"
+        "m7",
+        "m1",
+        "m2"
       ],
       "relevant": [
         "m7"
       ],
       "forbidden": [],
-      "latency_ms": 1.022600001306273
+      "latency_ms": 61.68150000303285
     },
     {
       "id": "L15",
@@ -365,20 +373,21 @@
         "m10"
       ],
       "forbidden": [],
-      "latency_ms": 0.9847000001173001
+      "latency_ms": 216.04690000094706
     },
     {
       "id": "L16",
       "category": "lexical",
       "query": "where are model artifacts registered",
       "retrieved": [
-        "m8"
+        "m8",
+        "m16"
       ],
       "relevant": [
         "m8"
       ],
       "forbidden": [],
-      "latency_ms": 0.8529999977326952
+      "latency_ms": 57.935900000302354
     },
     {
       "id": "L17",
@@ -386,40 +395,44 @@
       "query": "which crate parses command line arguments",
       "retrieved": [
         "c1",
-        "p10",
-        "c3"
+        "c3",
+        "c7",
+        "c2"
       ],
       "relevant": [
         "c1"
       ],
       "forbidden": [],
-      "latency_ms": 1.131199998781085
+      "latency_ms": 171.21989999941434
     },
     {
       "id": "L18",
       "category": "lexical",
       "query": "what is the minimum supported Rust version",
       "retrieved": [
-        "c4"
+        "c4",
+        "c1",
+        "c2"
       ],
       "relevant": [
         "c4"
       ],
       "forbidden": [],
-      "latency_ms": 0.8230999992520083
+      "latency_ms": 113.50400000083027
     },
     {
       "id": "L19",
       "category": "lexical",
       "query": "how are release binaries built",
       "retrieved": [
-        "c2"
+        "c2",
+        "c1"
       ],
       "relevant": [
         "c2"
       ],
       "forbidden": [],
-      "latency_ms": 0.938299999688752
+      "latency_ms": 47.234199999365956
     },
     {
       "id": "L20",
@@ -432,7 +445,7 @@
         "c5"
       ],
       "forbidden": [],
-      "latency_ms": 0.7833000017853919
+      "latency_ms": 244.46289999832516
     },
     {
       "id": "L21",
@@ -445,7 +458,7 @@
         "c6"
       ],
       "forbidden": [],
-      "latency_ms": 1.019100000121398
+      "latency_ms": 57.09909999859519
     },
     {
       "id": "L22",
@@ -453,27 +466,27 @@
       "query": "what editor does the user use",
       "retrieved": [
         "p5",
-        "p8"
+        "p1",
+        "p9"
       ],
       "relevant": [
         "p5"
       ],
       "forbidden": [],
-      "latency_ms": 1.242000002093846
+      "latency_ms": 217.68169999995735
     },
     {
       "id": "L23",
       "category": "lexical",
       "query": "what shell does the user use",
       "retrieved": [
-        "p2",
-        "p6"
+        "p2"
       ],
       "relevant": [
         "p2"
       ],
       "forbidden": [],
-      "latency_ms": 1.0681000021577347
+      "latency_ms": 84.9820000003092
     },
     {
       "id": "L24",
@@ -481,13 +494,16 @@
       "query": "does the user want type hints",
       "retrieved": [
         "p3",
-        "p6"
+        "p6",
+        "p1",
+        "p10",
+        "p9"
       ],
       "relevant": [
         "p3"
       ],
       "forbidden": [],
-      "latency_ms": 1.0756999981822446
+      "latency_ms": 206.9216999989294
     },
     {
       "id": "L25",
@@ -500,21 +516,22 @@
         "p10"
       ],
       "forbidden": [],
-      "latency_ms": 0.927200002479367
+      "latency_ms": 75.04649999827961
     },
     {
       "id": "L26",
       "category": "lexical",
       "query": "what frontend build tool is used",
       "retrieved": [
+        "s4",
         "s10",
-        "s4"
+        "s1"
       ],
       "relevant": [
         "s4"
       ],
       "forbidden": [],
-      "latency_ms": 1.2287999998079613
+      "latency_ms": 191.5130000015779
     },
     {
       "id": "L27",
@@ -527,20 +544,22 @@
         "s9"
       ],
       "forbidden": [],
-      "latency_ms": 0.9438000015506987
+      "latency_ms": 85.5995999991137
     },
     {
       "id": "L28",
       "category": "lexical",
       "query": "what serves the model endpoint",
       "retrieved": [
-        "m9"
+        "m9",
+        "m16",
+        "m8"
       ],
       "relevant": [
         "m9"
       ],
       "forbidden": [],
-      "latency_ms": 0.9314000017184298
+      "latency_ms": 138.39410000218777
     },
     {
       "id": "L29",
@@ -553,7 +572,7 @@
         "c3"
       ],
       "forbidden": [],
-      "latency_ms": 0.8421999991696794
+      "latency_ms": 117.6737999994657
     },
     {
       "id": "L30",
@@ -567,7 +586,7 @@
         "m13"
       ],
       "forbidden": [],
-      "latency_ms": 1.403599999321159
+      "latency_ms": 61.77019999813638
     },
     {
       "id": "P01",
@@ -578,18 +597,21 @@
         "s1"
       ],
       "forbidden": [],
-      "latency_ms": 0.9088000006158836
+      "latency_ms": 194.75009999950998
     },
     {
       "id": "P02",
       "category": "paraphrase",
       "query": "how do I update my local tables to the newest structure",
-      "retrieved": [],
+      "retrieved": [
+        "s3",
+        "s2"
+      ],
       "relevant": [
         "s3"
       ],
       "forbidden": [],
-      "latency_ms": 0.8344999987457413
+      "latency_ms": 94.81589999995776
     },
     {
       "id": "P03",
@@ -600,7 +622,7 @@
         "s5"
       ],
       "forbidden": [],
-      "latency_ms": 0.7382000003417488
+      "latency_ms": 135.50019999820506
     },
     {
       "id": "P04",
@@ -608,62 +630,68 @@
       "query": "how do we ship a new version to production",
       "retrieved": [
         "s24",
-        "p4",
-        "s14"
+        "s14",
+        "s11"
       ],
       "relevant": [
         "s8"
       ],
       "forbidden": [],
-      "latency_ms": 1.3551000010920689
+      "latency_ms": 118.74389999866253
     },
     {
       "id": "P05",
       "category": "paraphrase",
       "query": "is it ok to charge customers directly from browser code",
       "retrieved": [
-        "s19",
-        "p5",
-        "p1"
+        "s10",
+        "s5"
       ],
       "relevant": [
         "s10"
       ],
       "forbidden": [],
-      "latency_ms": 1.583799999934854
+      "latency_ms": 75.13110000218148
     },
     {
       "id": "P06",
       "category": "paraphrase",
       "query": "which queue system handles asynchronous work like sending receipts",
-      "retrieved": [],
+      "retrieved": [
+        "p10",
+        "s5"
+      ],
       "relevant": [
         "s12"
       ],
       "forbidden": [],
-      "latency_ms": 1.6958000014710706
+      "latency_ms": 222.22359999796026
     },
     {
       "id": "P07",
       "category": "paraphrase",
       "query": "how should the server report failures to clients",
-      "retrieved": [],
+      "retrieved": [
+        "p6"
+      ],
       "relevant": [
         "s13"
       ],
       "forbidden": [],
-      "latency_ms": 1.3051999994786456
+      "latency_ms": 53.2212999969488
     },
     {
       "id": "P08",
       "category": "paraphrase",
       "query": "where are the pictures of items hosted",
-      "retrieved": [],
+      "retrieved": [
+        "s11"
+      ],
       "relevant": [
         "s11"
       ],
       "forbidden": [],
-      "latency_ms": 1.0419999998703133
+      "latency_ms": 175.1417000014044
     },
     {
       "id": "P09",
@@ -676,18 +704,20 @@
         "s9"
       ],
       "forbidden": [],
-      "latency_ms": 1.2028999990434386
+      "latency_ms": 105.83309999856283
     },
     {
       "id": "P10",
       "category": "paraphrase",
       "query": "what does the client-side UI use",
-      "retrieved": [],
+      "retrieved": [
+        "s4"
+      ],
       "relevant": [
         "s4"
       ],
       "forbidden": [],
-      "latency_ms": 0.9051000015460886
+      "latency_ms": 101.05269999985467
     },
     {
       "id": "P11",
@@ -698,48 +728,51 @@
         "m2"
       ],
       "forbidden": [],
-      "latency_ms": 0.9924000005412381
+      "latency_ms": 176.71740000150749
     },
     {
       "id": "P12",
       "category": "paraphrase",
       "query": "where do we log runs and compare results",
-      "retrieved": [],
+      "retrieved": [
+        "m7",
+        "p6"
+      ],
       "relevant": [
         "m3"
       ],
       "forbidden": [],
-      "latency_ms": 0.8352999975613784
+      "latency_ms": 56.33060000036494
     },
     {
       "id": "P13",
       "category": "paraphrase",
       "query": "what score do we quote when reporting model quality",
       "retrieved": [
-        "m12",
+        "m3",
         "p6",
-        "m16",
-        "m8",
-        "m3"
+        "m5"
       ],
       "relevant": [
         "m5"
       ],
       "forbidden": [],
-      "latency_ms": 1.3367999999900348
+      "latency_ms": 171.45549999986542
     },
     {
       "id": "P14",
       "category": "paraphrase",
       "query": "can I use the usual dataframe library when building inputs",
       "retrieved": [
-        "m6"
+        "m6",
+        "m1",
+        "m7"
       ],
       "relevant": [
         "m6"
       ],
       "forbidden": [],
-      "latency_ms": 1.113399997848319
+      "latency_ms": 105.85640000135754
     },
     {
       "id": "P15",
@@ -747,9 +780,6 @@
       "query": "what is the simplest reference model we compare against",
       "retrieved": [
         "m12",
-        "m16",
-        "m8",
-        "m2",
         "m3"
       ],
       "relevant": [
@@ -758,7 +788,7 @@
       "forbidden": [
         "m11"
       ],
-      "latency_ms": 1.346599998214515
+      "latency_ms": 190.04649999988033
     },
     {
       "id": "P16",
@@ -769,18 +799,22 @@
         "m14"
       ],
       "forbidden": [],
-      "latency_ms": 0.7860999976401217
+      "latency_ms": 101.27769999962766
     },
     {
       "id": "P17",
       "category": "paraphrase",
       "query": "how do we keep results repeatable",
-      "retrieved": [],
+      "retrieved": [
+        "p1",
+        "p10",
+        "p6"
+      ],
       "relevant": [
         "m10"
       ],
       "forbidden": [],
-      "latency_ms": 0.7093000021995977
+      "latency_ms": 172.51910000049975
     },
     {
       "id": "P18",
@@ -793,31 +827,31 @@
         "m13"
       ],
       "forbidden": [],
-      "latency_ms": 1.111900000978494
+      "latency_ms": 85.22509999966132
     },
     {
       "id": "P19",
       "category": "paraphrase",
       "query": "how do we produce downloadable executables for each operating system",
-      "retrieved": [],
+      "retrieved": [
+        "c2"
+      ],
       "relevant": [
         "c2"
       ],
       "forbidden": [],
-      "latency_ms": 1.019100000121398
+      "latency_ms": 67.7624999989348
     },
     {
       "id": "P20",
       "category": "paraphrase",
       "query": "which linter has to be clean before I share my branch",
-      "retrieved": [
-        "p6"
-      ],
+      "retrieved": [],
       "relevant": [
         "c7"
       ],
       "forbidden": [],
-      "latency_ms": 1.1484999995445833
+      "latency_ms": 195.4719000023033
     },
     {
       "id": "P21",
@@ -831,31 +865,36 @@
         "c4"
       ],
       "forbidden": [],
-      "latency_ms": 0.951300000451738
+      "latency_ms": 80.72279999760212
     },
     {
       "id": "P22",
       "category": "paraphrase",
       "query": "what handles concurrency and non-blocking IO",
-      "retrieved": [],
+      "retrieved": [
+        "c3",
+        "c1",
+        "c8"
+      ],
       "relevant": [
         "c8"
       ],
       "forbidden": [],
-      "latency_ms": 0.8152999980666209
+      "latency_ms": 174.12509999849135
     },
     {
       "id": "P23",
       "category": "paraphrase",
       "query": "how much detail should responses have",
       "retrieved": [
-        "s13"
+        "p10",
+        "p1"
       ],
       "relevant": [
         "p1"
       ],
       "forbidden": [],
-      "latency_ms": 0.8698999990883749
+      "latency_ms": 101.45469999770285
     },
     {
       "id": "P24",
@@ -866,68 +905,74 @@
         "p2"
       ],
       "forbidden": [],
-      "latency_ms": 0.8773000008659437
+      "latency_ms": 60.34409999847412
     },
     {
       "id": "P25",
       "category": "paraphrase",
       "query": "can I pull in a new third-party package",
       "retrieved": [
-        "p4"
+        "p4",
+        "p10"
       ],
       "relevant": [
         "p4"
       ],
       "forbidden": [],
-      "latency_ms": 1.2626999996427912
+      "latency_ms": 250.47160000031
     },
     {
       "id": "P26",
       "category": "paraphrase",
       "query": "should I reproduce a defect with a check before patching it",
       "retrieved": [
-        "c7"
+        "p6"
       ],
       "relevant": [
         "p6"
       ],
       "forbidden": [],
-      "latency_ms": 1.2157999990449753
+      "latency_ms": 238.39520000183256
     },
     {
       "id": "P27",
       "category": "paraphrase",
       "query": "should docs say colour or color",
-      "retrieved": [],
+      "retrieved": [
+        "p9"
+      ],
       "relevant": [
         "p9"
       ],
       "forbidden": [],
-      "latency_ms": 0.7867000022088178
+      "latency_ms": 82.69289999952889
     },
     {
       "id": "P28",
       "category": "paraphrase",
       "query": "does the developer's code editor use modal editing",
       "retrieved": [
-        "p5"
+        "p5",
+        "s4"
       ],
       "relevant": [
         "p5"
       ],
       "forbidden": [],
-      "latency_ms": 1.4035000021976884
+      "latency_ms": 199.6962999983225
     },
     {
       "id": "P29",
       "category": "paraphrase",
       "query": "where is the original dataset kept",
-      "retrieved": [],
+      "retrieved": [
+        "m1"
+      ],
       "relevant": [
         "m1"
       ],
       "forbidden": [],
-      "latency_ms": 0.8092000025499146
+      "latency_ms": 87.37180000025546
     },
     {
       "id": "P30",
@@ -935,21 +980,21 @@
       "query": "how can I try a half-finished feature in production safely",
       "retrieved": [
         "s24",
+        "p6",
         "s14"
       ],
       "relevant": [
         "s14"
       ],
       "forbidden": [],
-      "latency_ms": 1.1200999979337212
+      "latency_ms": 161.61020000072313
     },
     {
       "id": "T01",
       "category": "temporal",
       "query": "when does the release freeze start",
       "retrieved": [
-        "s17",
-        "s6"
+        "s17"
       ],
       "relevant": [
         "s17"
@@ -957,7 +1002,7 @@
       "forbidden": [
         "s16"
       ],
-      "latency_ms": 1.0823999982676469
+      "latency_ms": 116.72729999918374
     },
     {
       "id": "T02",
@@ -970,7 +1015,7 @@
       "forbidden": [
         "s18"
       ],
-      "latency_ms": 0.6813999971200246
+      "latency_ms": 46.954099998401944
     },
     {
       "id": "T03",
@@ -986,15 +1031,14 @@
       "forbidden": [
         "s20"
       ],
-      "latency_ms": 0.9620999990147538
+      "latency_ms": 176.79730000236304
     },
     {
       "id": "T04",
       "category": "temporal",
       "query": "can I deploy to production right now",
       "retrieved": [
-        "s24",
-        "p8"
+        "s24"
       ],
       "relevant": [
         "s24"
@@ -1002,7 +1046,7 @@
       "forbidden": [
         "s23"
       ],
-      "latency_ms": 1.2161000013293233
+      "latency_ms": 113.470000000234
     },
     {
       "id": "T05",
@@ -1010,8 +1054,7 @@
       "query": "what is the baseline model",
       "retrieved": [
         "m12",
-        "m16",
-        "m8"
+        "m16"
       ],
       "relevant": [
         "m12"
@@ -1019,7 +1062,7 @@
       "forbidden": [
         "m11"
       ],
-      "latency_ms": 1.1186000010638963
+      "latency_ms": 155.19480000148178
     },
     {
       "id": "T06",
@@ -1034,7 +1077,7 @@
       "forbidden": [
         "p7"
       ],
-      "latency_ms": 0.9219999992637895
+      "latency_ms": 99.95229999913136
     },
     {
       "id": "T07",
@@ -1049,14 +1092,16 @@
       "forbidden": [
         "s18"
       ],
-      "latency_ms": 1.294399997277651
+      "latency_ms": 73.02870000057737
     },
     {
       "id": "T08",
       "category": "temporal",
       "query": "is logistic regression still our baseline",
       "retrieved": [
-        "m12"
+        "m12",
+        "m5",
+        "m3"
       ],
       "relevant": [
         "m12"
@@ -1064,14 +1109,17 @@
       "forbidden": [
         "m11"
       ],
-      "latency_ms": 1.0958999991999008
+      "latency_ms": 189.80450000162818
     },
     {
       "id": "T09",
       "category": "temporal",
       "query": "are production deploys paused for the Postgres upgrade",
       "retrieved": [
-        "s24"
+        "s24",
+        "s6",
+        "s3",
+        "s9"
       ],
       "relevant": [
         "s24"
@@ -1079,7 +1127,7 @@
       "forbidden": [
         "s23"
       ],
-      "latency_ms": 1.121200002671685
+      "latency_ms": 80.15959999829647
     },
     {
       "id": "T10",
@@ -1094,7 +1142,7 @@
       "forbidden": [
         "p7"
       ],
-      "latency_ms": 0.9523000007902738
+      "latency_ms": 184.95940000138944
     },
     {
       "id": "I01",
@@ -1106,20 +1154,18 @@
         "s5",
         "s10"
       ],
-      "latency_ms": 0.6954999989829957
+      "latency_ms": 78.33640000171727
     },
     {
       "id": "I02",
       "category": "isolation",
       "query": "what database does the backend use",
-      "retrieved": [
-        "c5"
-      ],
+      "retrieved": [],
       "relevant": [],
       "forbidden": [
         "s2"
       ],
-      "latency_ms": 0.9556000004522502
+      "latency_ms": 48.487699998077005
     },
     {
       "id": "I03",
@@ -1130,27 +1176,26 @@
       "forbidden": [
         "m2"
       ],
-      "latency_ms": 0.6501000025309622
+      "latency_ms": 182.99520000073244
     },
     {
       "id": "I04",
       "category": "isolation",
       "query": "which crate parses command line arguments",
-      "retrieved": [
-        "p10"
-      ],
+      "retrieved": [],
       "relevant": [],
       "forbidden": [
         "c1"
       ],
-      "latency_ms": 0.9889000029943418
+      "latency_ms": 117.86320000101114
     },
     {
       "id": "I05",
       "category": "isolation",
       "query": "how do I run the unit tests",
       "retrieved": [
-        "m15"
+        "m15",
+        "m7"
       ],
       "relevant": [
         "m15"
@@ -1159,20 +1204,22 @@
         "s7",
         "c5"
       ],
-      "latency_ms": 0.7961000010254793
+      "latency_ms": 181.86830000195187
     },
     {
       "id": "I06",
       "category": "isolation",
       "query": "how do we deploy",
-      "retrieved": [],
+      "retrieved": [
+        "m16"
+      ],
       "relevant": [
         "m16"
       ],
       "forbidden": [
         "s8"
       ],
-      "latency_ms": 0.6270999983826187
+      "latency_ms": 56.51890000081039
     },
     {
       "id": "I07",
@@ -1183,7 +1230,7 @@
       "forbidden": [
         "s15"
       ],
-      "latency_ms": 0.5813999996462371
+      "latency_ms": 182.21379999886267
     },
     {
       "id": "I08",
@@ -1194,20 +1241,18 @@
       "forbidden": [
         "m4"
       ],
-      "latency_ms": 0.6073000004107598
+      "latency_ms": 98.90369999993709
     },
     {
       "id": "I09",
       "category": "isolation",
       "query": "where is training data versioned",
-      "retrieved": [
-        "c4"
-      ],
+      "retrieved": [],
       "relevant": [],
       "forbidden": [
         "m1"
       ],
-      "latency_ms": 1.5123999983188696
+      "latency_ms": 141.4634000029764
     },
     {
       "id": "I10",
@@ -1215,7 +1260,7 @@
       "query": "how do integration tests work",
       "retrieved": [
         "s6",
-        "s7"
+        "p6"
       ],
       "relevant": [
         "s6"
@@ -1223,7 +1268,7 @@
       "forbidden": [
         "c5"
       ],
-      "latency_ms": 1.4145999994070735
+      "latency_ms": 114.98200000278302
     },
     {
       "id": "N01",
@@ -1232,7 +1277,7 @@
       "retrieved": [],
       "relevant": [],
       "forbidden": [],
-      "latency_ms": 0.8533000000170432
+      "latency_ms": 60.95859999913955
     },
     {
       "id": "N02",
@@ -1241,7 +1286,7 @@
       "retrieved": [],
       "relevant": [],
       "forbidden": [],
-      "latency_ms": 0.8536999994248617
+      "latency_ms": 180.38349999915226
     },
     {
       "id": "N03",
@@ -1250,7 +1295,7 @@
       "retrieved": [],
       "relevant": [],
       "forbidden": [],
-      "latency_ms": 0.5780999999842606
+      "latency_ms": 97.11819999938598
     },
     {
       "id": "N04",
@@ -1259,7 +1304,7 @@
       "retrieved": [],
       "relevant": [],
       "forbidden": [],
-      "latency_ms": 0.676199997542426
+      "latency_ms": 191.41290000334266
     },
     {
       "id": "N05",
@@ -1268,7 +1313,7 @@
       "retrieved": [],
       "relevant": [],
       "forbidden": [],
-      "latency_ms": 0.638900000922149
+      "latency_ms": 78.8328000016918
     },
     {
       "id": "N06",
@@ -1277,7 +1322,7 @@
       "retrieved": [],
       "relevant": [],
       "forbidden": [],
-      "latency_ms": 0.5452000004879665
+      "latency_ms": 229.33479999846895
     },
     {
       "id": "N07",
@@ -1286,18 +1331,16 @@
       "retrieved": [],
       "relevant": [],
       "forbidden": [],
-      "latency_ms": 0.6100000027799979
+      "latency_ms": 75.0136000024213
     },
     {
       "id": "N08",
       "category": "negative",
       "query": "what color scheme does the marketing site use",
-      "retrieved": [
-        "m6"
-      ],
+      "retrieved": [],
       "relevant": [],
       "forbidden": [],
-      "latency_ms": 0.9312000001955312
+      "latency_ms": 175.6848999975773
     },
     {
       "id": "N09",
@@ -1306,7 +1349,7 @@
       "retrieved": [],
       "relevant": [],
       "forbidden": [],
-      "latency_ms": 0.7861000012781005
+      "latency_ms": 91.41639999870677
     },
     {
       "id": "N10",
@@ -1315,30 +1358,25 @@
       "retrieved": [],
       "relevant": [],
       "forbidden": [],
-      "latency_ms": 1.0326000010536518
+      "latency_ms": 169.93949999960023
     },
     {
       "id": "N11",
       "category": "negative",
       "query": "how do I set up the iOS signing certificates",
-      "retrieved": [
-        "s6",
-        "s8"
-      ],
+      "retrieved": [],
       "relevant": [],
       "forbidden": [],
-      "latency_ms": 1.9405999992159195
+      "latency_ms": 133.28550000005635
     },
     {
       "id": "N12",
       "category": "negative",
       "query": "what are the SLA targets for the search service",
-      "retrieved": [
-        "m9"
-      ],
+      "retrieved": [],
       "relevant": [],
       "forbidden": [],
-      "latency_ms": 1.6657999985909555
+      "latency_ms": 263.6606000014581
     }
   ]
 }

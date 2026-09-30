@@ -1,0 +1,707 @@
+{
+  "dataset": "mindtrail-retrieval-holdout v2",
+  "embedder": "fastembed:BAAI/bge-base-en-v1.5",
+  "reranker": null,
+  "k": 5,
+  "overall": {
+    "queries": 43,
+    "accuracy": 0.9302325581395349,
+    "recall_at_1": 0.9032258064516129,
+    "recall_at_k": 0.9354838709677419,
+    "mrr": 0.9193548387096774,
+    "ndcg_at_k": 0.9235783791474664,
+    "abstention": 1.0,
+    "violations": 0.0,
+    "latency_p50_ms": 31.0,
+    "latency_p95_ms": 42.21,
+    "ci": {
+      "accuracy": [
+        0.8372093023255814,
+        1.0
+      ],
+      "recall_at_1": [
+        0.7741935483870968,
+        1.0
+      ],
+      "recall_at_k": [
+        0.8387096774193549,
+        1.0
+      ],
+      "abstention": [
+        1.0,
+        1.0
+      ]
+    }
+  },
+  "by_category": {
+    "lexical": {
+      "queries": 10,
+      "accuracy": 1.0,
+      "recall_at_1": 1.0,
+      "recall_at_k": 1.0,
+      "mrr": 1.0,
+      "ndcg_at_k": 1.0,
+      "abstention": null,
+      "violations": null,
+      "latency_p50_ms": 31.0,
+      "latency_p95_ms": 53.0,
+      "ci": {
+        "accuracy": [
+          1.0,
+          1.0
+        ],
+        "recall_at_1": [
+          1.0,
+          1.0
+        ],
+        "recall_at_k": [
+          1.0,
+          1.0
+        ]
+      }
+    },
+    "paraphrase": {
+      "queries": 18,
+      "accuracy": 0.8333333333333334,
+      "recall_at_1": 0.8333333333333334,
+      "recall_at_k": 0.8888888888888888,
+      "mrr": 0.8611111111111112,
+      "ndcg_at_k": 0.8683849863095254,
+      "abstention": null,
+      "violations": null,
+      "latency_p50_ms": 33.69,
+      "latency_p95_ms": 47.12,
+      "ci": {
+        "accuracy": [
+          0.6666666666666666,
+          1.0
+        ],
+        "recall_at_1": [
+          0.6666666666666666,
+          1.0
+        ],
+        "recall_at_k": [
+          0.7222222222222222,
+          1.0
+        ]
+      }
+    },
+    "temporal": {
+      "queries": 4,
+      "accuracy": 1.0,
+      "recall_at_1": 1.0,
+      "recall_at_k": 1.0,
+      "mrr": 1.0,
+      "ndcg_at_k": 1.0,
+      "abstention": 1.0,
+      "violations": 0.0,
+      "latency_p50_ms": 26.85,
+      "latency_p95_ms": 29.6,
+      "ci": {
+        "accuracy": [
+          1.0,
+          1.0
+        ],
+        "recall_at_1": [
+          1.0,
+          1.0
+        ],
+        "recall_at_k": [
+          1.0,
+          1.0
+        ],
+        "abstention": [
+          1.0,
+          1.0
+        ]
+      }
+    },
+    "isolation": {
+      "queries": 4,
+      "accuracy": 1.0,
+      "recall_at_1": null,
+      "recall_at_k": null,
+      "mrr": null,
+      "ndcg_at_k": null,
+      "abstention": 1.0,
+      "violations": 0.0,
+      "latency_p50_ms": 29.22,
+      "latency_p95_ms": 32.91,
+      "ci": {
+        "accuracy": [
+          1.0,
+          1.0
+        ],
+        "abstention": [
+          1.0,
+          1.0
+        ]
+      }
+    },
+    "negative": {
+      "queries": 7,
+      "accuracy": 1.0,
+      "recall_at_1": null,
+      "recall_at_k": null,
+      "mrr": null,
+      "ndcg_at_k": null,
+      "abstention": 1.0,
+      "violations": null,
+      "latency_p50_ms": 28.71,
+      "latency_p95_ms": 33.08,
+      "ci": {
+        "accuracy": [
+          1.0,
+          1.0
+        ],
+        "abstention": [
+          1.0,
+          1.0
+        ]
+      }
+    }
+  },
+  "results": [
+    {
+      "id": "VL01",
+      "category": "lexical",
+      "query": "which render pipeline does the game use",
+      "retrieved": [
+        "g1",
+        "g9",
+        "g4",
+        "g6",
+        "g5"
+      ],
+      "relevant": [
+        "g1"
+      ],
+      "forbidden": [],
+      "latency_ms": 32.84979999989446
+    },
+    {
+      "id": "VL02",
+      "category": "lexical",
+      "query": "how are large binary assets tracked",
+      "retrieved": [
+        "g3",
+        "g5"
+      ],
+      "relevant": [
+        "g3"
+      ],
+      "forbidden": [],
+      "latency_ms": 29.156600000533217
+    },
+    {
+      "id": "VL03",
+      "category": "lexical",
+      "query": "what is the target frame rate on Steam Deck",
+      "retrieved": [
+        "g6",
+        "g4",
+        "g1"
+      ],
+      "relevant": [
+        "g6"
+      ],
+      "forbidden": [],
+      "latency_ms": 36.503799999991315
+    },
+    {
+      "id": "VL04",
+      "category": "lexical",
+      "query": "where does the double-entry ledger live",
+      "retrieved": [
+        "f4"
+      ],
+      "relevant": [
+        "f4"
+      ],
+      "forbidden": [],
+      "latency_ms": 53.00459999943996
+    },
+    {
+      "id": "VL05",
+      "category": "lexical",
+      "query": "how is database access code generated",
+      "retrieved": [
+        "f6"
+      ],
+      "relevant": [
+        "f6"
+      ],
+      "forbidden": [],
+      "latency_ms": 27.549200000066776
+    },
+    {
+      "id": "VL06",
+      "category": "lexical",
+      "query": "where is the documentation site deployed",
+      "retrieved": [
+        "w1",
+        "w5"
+      ],
+      "relevant": [
+        "w1"
+      ],
+      "forbidden": [],
+      "latency_ms": 27.40170000015496
+    },
+    {
+      "id": "VL07",
+      "category": "lexical",
+      "query": "how are diagrams written in the docs",
+      "retrieved": [
+        "w4",
+        "w3",
+        "w1",
+        "w5",
+        "w2"
+      ],
+      "relevant": [
+        "w4"
+      ],
+      "forbidden": [],
+      "latency_ms": 34.15839999979653
+    },
+    {
+      "id": "VL08",
+      "category": "lexical",
+      "query": "how do I submit jobs to the Slurm cluster",
+      "retrieved": [
+        "r1"
+      ],
+      "relevant": [
+        "r1"
+      ],
+      "forbidden": [],
+      "latency_ms": 32.40600000026461
+    },
+    {
+      "id": "VL09",
+      "category": "lexical",
+      "query": "how are figures generated",
+      "retrieved": [
+        "r5"
+      ],
+      "relevant": [
+        "r5"
+      ],
+      "forbidden": [],
+      "latency_ms": 25.609499999518448
+    },
+    {
+      "id": "VL10",
+      "category": "lexical",
+      "query": "does the user want explanations of Go idioms",
+      "retrieved": [
+        "v2",
+        "v1"
+      ],
+      "relevant": [
+        "v2"
+      ],
+      "forbidden": [],
+      "latency_ms": 30.99610000026587
+    },
+    {
+      "id": "VP01",
+      "category": "paraphrase",
+      "query": "what should I avoid doing every frame in gameplay code",
+      "retrieved": [
+        "g6",
+        "g2",
+        "g1"
+      ],
+      "relevant": [
+        "g2"
+      ],
+      "forbidden": [],
+      "latency_ms": 31.11780000017461
+    },
+    {
+      "id": "VP02",
+      "category": "paraphrase",
+      "query": "how do players keep their save data across devices",
+      "retrieved": [
+        "g5"
+      ],
+      "relevant": [
+        "g5"
+      ],
+      "forbidden": [],
+      "latency_ms": 30.07179999985965
+    },
+    {
+      "id": "VP03",
+      "category": "paraphrase",
+      "query": "which CI system makes the daily builds for the store",
+      "retrieved": [
+        "g4"
+      ],
+      "relevant": [
+        "g4"
+      ],
+      "forbidden": [],
+      "latency_ms": 31.426700000338315
+    },
+    {
+      "id": "VP04",
+      "category": "paraphrase",
+      "query": "where do translators edit the in-game text",
+      "retrieved": [
+        "g7"
+      ],
+      "relevant": [
+        "g7"
+      ],
+      "forbidden": [],
+      "latency_ms": 30.783600000177103
+    },
+    {
+      "id": "VP05",
+      "category": "paraphrase",
+      "query": "can I use a floating point type for prices",
+      "retrieved": [
+        "f2"
+      ],
+      "relevant": [
+        "f2"
+      ],
+      "forbidden": [],
+      "latency_ms": 31.003600000076403
+    },
+    {
+      "id": "VP06",
+      "category": "paraphrase",
+      "query": "how do we make sure a retried charge isn't applied twice",
+      "retrieved": [],
+      "relevant": [
+        "f3"
+      ],
+      "forbidden": [],
+      "latency_ms": 41.715700000168
+    },
+    {
+      "id": "VP07",
+      "category": "paraphrase",
+      "query": "do we ever store customers' credit card numbers",
+      "retrieved": [
+        "f5"
+      ],
+      "relevant": [
+        "f5"
+      ],
+      "forbidden": [],
+      "latency_ms": 33.86910000062926
+    },
+    {
+      "id": "VP08",
+      "category": "paraphrase",
+      "query": "how do internal services prove who they are to each other",
+      "retrieved": [
+        "f7"
+      ],
+      "relevant": [
+        "f7"
+      ],
+      "forbidden": [],
+      "latency_ms": 35.652399999889894
+    },
+    {
+      "id": "VP09",
+      "category": "paraphrase",
+      "query": "what language and protocol does the money service use",
+      "retrieved": [
+        "f1",
+        "f7",
+        "f2"
+      ],
+      "relevant": [
+        "f1"
+      ],
+      "forbidden": [],
+      "latency_ms": 33.20629999961966
+    },
+    {
+      "id": "VP10",
+      "category": "paraphrase",
+      "query": "how long can the summary text for search engines be",
+      "retrieved": [
+        "w2"
+      ],
+      "relevant": [
+        "w2"
+      ],
+      "forbidden": [],
+      "latency_ms": 34.740099999908125
+    },
+    {
+      "id": "VP11",
+      "category": "paraphrase",
+      "query": "how do we make sure examples in the guides actually work",
+      "retrieved": [
+        "w3"
+      ],
+      "relevant": [
+        "w3"
+      ],
+      "forbidden": [],
+      "latency_ms": 35.57619999992312
+    },
+    {
+      "id": "VP12",
+      "category": "paraphrase",
+      "query": "how many old product versions keep their own manuals",
+      "retrieved": [
+        "w5"
+      ],
+      "relevant": [
+        "w5"
+      ],
+      "forbidden": [],
+      "latency_ms": 34.547899999779474
+    },
+    {
+      "id": "VP13",
+      "category": "paraphrase",
+      "query": "can I upload participant recordings to Google Drive",
+      "retrieved": [],
+      "relevant": [
+        "r4"
+      ],
+      "forbidden": [],
+      "latency_ms": 32.737900000029185
+    },
+    {
+      "id": "VP14",
+      "category": "paraphrase",
+      "query": "what do I need to record so a result can be traced back to its code version",
+      "retrieved": [
+        "r2"
+      ],
+      "relevant": [
+        "r2"
+      ],
+      "forbidden": [],
+      "latency_ms": 42.20960000020568
+    },
+    {
+      "id": "VP15",
+      "category": "paraphrase",
+      "query": "what tool do we use to co-author the manuscript",
+      "retrieved": [
+        "r3"
+      ],
+      "relevant": [
+        "r3"
+      ],
+      "forbidden": [],
+      "latency_ms": 33.91459999966173
+    },
+    {
+      "id": "VP16",
+      "category": "paraphrase",
+      "query": "where do I run heavy compute experiments",
+      "retrieved": [
+        "r1"
+      ],
+      "relevant": [
+        "r1"
+      ],
+      "forbidden": [],
+      "latency_ms": 27.57759999985865
+    },
+    {
+      "id": "VP17",
+      "category": "paraphrase",
+      "query": "how should I walk the user through shell commands",
+      "retrieved": [
+        "v1",
+        "v2"
+      ],
+      "relevant": [
+        "v1"
+      ],
+      "forbidden": [],
+      "latency_ms": 47.11769999994431
+    },
+    {
+      "id": "VP18",
+      "category": "paraphrase",
+      "query": "when is it a bad time to schedule a call with the user",
+      "retrieved": [
+        "v3"
+      ],
+      "relevant": [
+        "v3"
+      ],
+      "forbidden": [],
+      "latency_ms": 33.686300000226765
+    },
+    {
+      "id": "VT01",
+      "category": "temporal",
+      "query": "what networking library does multiplayer use",
+      "retrieved": [
+        "g9"
+      ],
+      "relevant": [
+        "g9"
+      ],
+      "forbidden": [
+        "g8"
+      ],
+      "latency_ms": 26.85029999975086
+    },
+    {
+      "id": "VT02",
+      "category": "temporal",
+      "query": "when is the PCI audit",
+      "retrieved": [
+        "f9"
+      ],
+      "relevant": [
+        "f9"
+      ],
+      "forbidden": [
+        "f8"
+      ],
+      "latency_ms": 26.404899999761255
+    },
+    {
+      "id": "VT03",
+      "category": "temporal",
+      "query": "can refunds be processed right now",
+      "retrieved": [],
+      "relevant": [],
+      "forbidden": [
+        "f10"
+      ],
+      "latency_ms": 27.913900000385183
+    },
+    {
+      "id": "VT04",
+      "category": "temporal",
+      "query": "are we still on Photon Fusion",
+      "retrieved": [
+        "g9"
+      ],
+      "relevant": [
+        "g9"
+      ],
+      "forbidden": [
+        "g8"
+      ],
+      "latency_ms": 29.604299999846262
+    },
+    {
+      "id": "VI01",
+      "category": "isolation",
+      "query": "where does the double-entry ledger live",
+      "retrieved": [],
+      "relevant": [],
+      "forbidden": [
+        "f4"
+      ],
+      "latency_ms": 30.9901999999056
+    },
+    {
+      "id": "VI02",
+      "category": "isolation",
+      "query": "how do I submit jobs to the Slurm cluster",
+      "retrieved": [],
+      "relevant": [],
+      "forbidden": [
+        "r1"
+      ],
+      "latency_ms": 32.90569999990112
+    },
+    {
+      "id": "VI03",
+      "category": "isolation",
+      "query": "which render pipeline does the game use",
+      "retrieved": [],
+      "relevant": [],
+      "forbidden": [
+        "g1"
+      ],
+      "latency_ms": 27.500099999997474
+    },
+    {
+      "id": "VI04",
+      "category": "isolation",
+      "query": "where is the documentation site deployed",
+      "retrieved": [],
+      "relevant": [],
+      "forbidden": [
+        "w1"
+      ],
+      "latency_ms": 29.221200000392855
+    },
+    {
+      "id": "VN01",
+      "category": "negative",
+      "query": "what is the office parking policy",
+      "retrieved": [],
+      "relevant": [],
+      "forbidden": [],
+      "latency_ms": 29.316200000721437
+    },
+    {
+      "id": "VN02",
+      "category": "negative",
+      "query": "which React component library does the dashboard use",
+      "retrieved": [],
+      "relevant": [],
+      "forbidden": [],
+      "latency_ms": 28.710399999908987
+    },
+    {
+      "id": "VN03",
+      "category": "negative",
+      "query": "how do I file an expense report",
+      "retrieved": [],
+      "relevant": [],
+      "forbidden": [],
+      "latency_ms": 27.477100000396604
+    },
+    {
+      "id": "VN04",
+      "category": "negative",
+      "query": "what is the conference travel budget",
+      "retrieved": [],
+      "relevant": [],
+      "forbidden": [],
+      "latency_ms": 29.59380000083911
+    },
+    {
+      "id": "VN05",
+      "category": "negative",
+      "query": "which vendor supplies the office coffee",
+      "retrieved": [],
+      "relevant": [],
+      "forbidden": [],
+      "latency_ms": 27.325000000018917
+    },
+    {
+      "id": "VN06",
+      "category": "negative",
+      "query": "how do I configure the Elasticsearch cluster",
+      "retrieved": [],
+      "relevant": [],
+      "forbidden": [],
+      "latency_ms": 33.08240000023943
+    },
+    {
+      "id": "VN07",
+      "category": "negative",
+      "query": "who approves vacation requests",
+      "retrieved": [],
+      "relevant": [],
+      "forbidden": [],
+      "latency_ms": 25.148900000203867
+    }
+  ]
+}

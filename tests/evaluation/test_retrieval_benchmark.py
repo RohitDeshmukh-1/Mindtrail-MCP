@@ -18,8 +18,16 @@ from mindtrail.evaluation import BenchDataset, load_dataset, run_benchmark
 from mindtrail.evaluation.metrics import ndcg_at_k, percentile, recall_at_k, reciprocal_rank
 
 # (dataset, recall@1, recall@5, abstention) minimums
-HASHING_GATES = [("dev", 0.60, 0.64, 0.64), ("holdout", 0.60, 0.70, 0.75)]
-SEMANTIC_GATES = [("dev", 0.70, 0.85, 0.85), ("holdout", 0.72, 0.85, 0.85)]
+HASHING_GATES = [
+    ("dev", 0.60, 0.64, 0.64),
+    ("holdout", 0.60, 0.70, 0.75),
+    ("holdout-v2", 0.52, 0.62, 0.90),
+]
+SEMANTIC_GATES = [
+    ("dev", 0.78, 0.90, 0.88),
+    ("holdout", 0.75, 0.88, 0.90),
+    ("holdout-v2", 0.82, 0.88, 0.90),
+]
 
 
 def _check(dataset: str, embedder: EmbeddingProvider, gates: tuple[float, float, float]) -> None:
@@ -47,7 +55,7 @@ def test_semantic_embedder_quality(dataset: str, r1: float, r5: float, abstentio
     _check(dataset, FastEmbedProvider(), (r1, r5, abstention))
 
 
-@pytest.mark.parametrize("dataset", ["dev", "holdout"])
+@pytest.mark.parametrize("dataset", ["dev", "holdout", "holdout-v2"])
 def test_bundled_datasets_are_valid(dataset: str) -> None:
     data = load_dataset(dataset)
     assert len(data.queries) >= 30

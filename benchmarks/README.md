@@ -8,17 +8,21 @@ Reproduce everything here with:
 
 ```bash
 mindtrail bench --embedder hashing --failures      # default install
-mindtrail bench --embedder fastembed --failures    # with mindtrail[semantic]
+mindtrail bench --embedder fastembed --failures    # with mindtrail[semantic] (bge-base)
+MINDTRAIL_EMBEDDING_MODEL=BAAI/bge-small-en-v1.5 mindtrail bench --embedder fastembed
+mindtrail bench --dataset holdout-v2 locomo:test   # other sets
 ```
 
 ## Datasets
 
-Both datasets ship inside the package (`src/mindtrail/evaluation/data/`).
+The first three datasets ship inside the package (`src/mindtrail/evaluation/data/`).
 
 | Dataset | Memories | Queries | Domains | Role |
 |---|---:|---:|---|---|
 | `dev` (mindtrail-retrieval v1) | 57 | 92 | web shop, ML pipeline, Rust CLI, personal | Default thresholds were tuned on this |
 | `holdout` (mindtrail-retrieval-holdout v1) | 30 | 39 | mobile app, data platform, infrastructure, personal | Written **after** tuning and never used to tune |
+| `holdout-v2` (mindtrail-retrieval-holdout v2) | 32 | 43 | game, payments, lab, docs, personal | Sealed in git before the model and reranker work, evaluated only at the end |
+| `locomo:test` ([LoCoMo](https://github.com/snap-research/locomo), CC BY-NC 4.0) | 4431 turns | 1152 | long personal conversations | External check; downloaded on demand, not tuned on |
 
 Each query belongs to one of five categories:
 
@@ -46,53 +50,80 @@ would in real use.
 
 ## Results
 
-Measured on 2026-09-29 on a laptop with a 13th-gen Intel CPU (Raptor Lake) running Windows 11 with Python 3.13,
-fastembed 0.8.1 and onnxruntime 1.30.0, single-threaded. Full per-query output is in
-[`results/`](results).
+Measured on 2026-09-30 on a laptop with a 13th-gen Intel CPU (Raptor Lake) running Windows 11
+with Python 3.13, fastembed 0.8.1 and onnxruntime 1.30.0. Full per-query output is in
+[`results/`](results) (`semantic*` = bge-base, `semantic-small*` = bge-small).
 
-### Holdout (never tuned on)
+### Held-out sets (never tuned on)
 
-| Embedder | recall@1 | recall@5 | MRR | paraphrase recall@5 | abstention | leaks | p50 |
-|---|---:|---:|---:|---:|---:|---:|---:|
-| hashing (default, offline) | 64% | 75% | 0.696 | 46% | 82% | **0%** | 0.8 ms |
-| **bge-small via fastembed** (`[semantic]`) | **79%** | **89%** | **0.839** | **77%** | **91%** | **0%** | 9.4 ms |
+| Embedder | set | recall@1 | recall@5 | MRR | paraphrase recall@5 | abstention | leaks |
+|---|---|---:|---:|---:|---:|---:|---:|
+| hashing (default, offline) | holdout | 64% | 75% | 0.696 | 46% | 82% | **0%** |
+| bge-small (`MINDTRAIL_EMBEDDING_MODEL`) | holdout | 75% | 82% | 0.786 | 62% | 100% | **0%** |
+| **bge-base** (`[semantic]` default) | holdout | **82%** | **93%** | **0.875** | **85%** | **100%** | **0%** |
+| hashing (default, offline) | holdout-v2 | 58% | 68% | 0.618 | 44% | 100% | **0%** |
+| bge-small (`MINDTRAIL_EMBEDDING_MODEL`) | holdout-v2 | 81% | 90% | 0.855 | 83% | 100% | **0%** |
+| **bge-base** (`[semantic]` default) | holdout-v2 | **90%** | **94%** | **0.919** | **89%** | **100%** | **0%** |
 
 ### Dev (thresholds tuned here)
 
-| Embedder | recall@1 | recall@5 | MRR | paraphrase recall@5 | abstention | leaks | p50 |
-|---|---:|---:|---:|---:|---:|---:|---:|
-| hashing (default, offline) | 63% | 67% | 0.651 | 27% | 68% | **0%** | 1.0 ms |
-| **bge-small via fastembed** (`[semantic]`) | **74%** | **89%** | **0.804** | **73%** | **89%** | **0%** | 10.3 ms |
+| Embedder | recall@1 | recall@5 | MRR | paraphrase recall@5 | abstention | leaks |
+|---|---:|---:|---:|---:|---:|---:|
+| hashing (default, offline) | 63% | 67% | 0.651 | 27% | 68% | **0%** |
+| bge-small | 75% | 84% | 0.788 | 63% | 100% | **0%** |
+| **bge-base** | **85%** | **96%** | **0.902** | **90%** | 95% | **0%** |
+
+### LoCoMo test split (1152 questions)
+
+| Embedder | recall@5 | recall@10 | hit@1 | hit@5 |
+|---|---:|---:|---:|---:|
+| hashing | 50.6% | 60.1% | 31.9% | 56.9% |
+| bge-small | 55.5% | 64.4% | 34.9% | 63.3% |
+| bge-base | 55.7% | 63.9% | 37.0% | 63.4% |
+
+Search latency with bge-base is about 30 ms p50 per query on the bundled sets, most of it query
+embedding. Hashing is about 1 ms.
 
 What this shows:
 
-- **Isolation and staleness held on every query:** all 29 queries with a replaced, expired
-  or other-project memory to avoid returned zero leaks. These guarantees are enforced
-  structurally (SQL scope filters, supersession), not by ranking luck.
-- **Wording-matched queries are solved** by both embedders (100% recall@5).
-- **Paraphrase is where the neural model earns its download:** recall@5 roughly doubles
-  (46% → 77% on holdout).
-- **Holdout scores match dev**, so the tuned thresholds did not overfit.
+- **Isolation and staleness held on every query:** no replaced, expired or other-project memory
+  was returned on any set. These guarantees are enforced structurally (SQL scope filters,
+  supersession), not by ranking luck.
+- **Wording-matched queries are solved** by every embedder (100% recall@5).
+- **Paraphrase is where the neural model earns its download,** and bge-base is clearly ahead of
+  bge-small on developer memory (85% vs 62% paraphrase recall@5 on holdout).
+- **On LoCoMo the two bge models are tied** within the confidence interval. Long chat logs
+  about people's lives are a different domain, and multi-hop questions need more than one
+  retrieval step.
+- **Held-out scores match or beat dev**, so the tuned thresholds did not overfit.
 
 ## Calibration
 
 Three candidate gates control what counts as relevant (`RankingWeights` in
-`src/mindtrail/memory/retrieval.py`):
+`src/mindtrail/memory/retrieval.py`, per-model values in
+`src/mindtrail/embeddings/fastembed_provider.py`):
 
 1. keyword hits below 40% of the best BM25 score are dropped;
 2. keyword hits whose vector similarity is below a support floor are dropped as incidental
-   word overlap (hashing 0.10, bge-small 0.60);
-3. vector-only hits need a minimum cosine similarity (hashing 0.30, bge-small 0.65).
+   word overlap (hashing 0.10, bge-small 0.57, bge-base 0.50);
+3. vector-only hits need a minimum cosine similarity (hashing 0.30, bge-small 0.62,
+   bge-base 0.53).
 
-These were chosen by grid search on `dev`, trading recall against abstention. The main change
-from the uncalibrated defaults was a large gain in abstention: bge-small went from 32% to 89%
-on dev at the cost of 8 points of recall@5. A 0.05 step in the bge-small thresholds moves
-abstention sharply, so if you change the embedding model, recalibrate it with
-`mindtrail bench`.
+These were chosen by grid search on `dev` only, trading recall against abstention. For
+bge-base, `min_similarity` is flat between 0.51 and 0.54, but the keyword support floor
+matters: at 0.48 abstention drops to 89%, and above 0.505 recall@5 starts to fall. 0.50 is the
+middle of that plateau. If you change the embedding model, recalibrate with `mindtrail bench`.
+
+## Rerankers
+
+A cross-encoder stage exists (`MINDTRAIL_RERANKER=<fastembed model id>`) but is **off by
+default**. On the dev set, every small reranker available through fastembed (MS MARCO
+MiniLM-L-6/L-12 and Jina v1 tiny/turbo) ranked developer memories worse than the embeddings
+alone. The MS MARCO models reward word overlap over meaning on short, technical text.
 
 ## Limitations
 
-- **Small and synthetic:** 131 hand-written queries by the Mindtrail authors. Treat the numbers
+- **Small and synthetic:** 174 hand-written queries by the Mindtrail authors. Treat the numbers
   as a regression baseline, not a claim about your data.
 - **English only**, and focused on software-project memory.
 - **No end-to-end agent evaluation yet.** Better retrieval does not by itself prove agents

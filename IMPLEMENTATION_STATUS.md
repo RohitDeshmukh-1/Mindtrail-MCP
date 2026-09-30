@@ -11,7 +11,7 @@ A transport-independent engine (`MemoryService`) that every interface calls.
   metadata, normalized space ids).
 - SQLite backend: FTS5 keyword index, float32 vectors, version history, `secure_delete`, WAL,
   migrations. Every query is tenant-bound.
-- Embeddings: offline hashing embedder (default) and optional fastembed (`bge-small-en-v1.5`).
+- Embeddings: offline hashing embedder (default) and optional fastembed (`bge-base-en-v1.5`, or `bge-small-en-v1.5`).
 - Hybrid ranking (RRF plus importance, confidence and recency boosts), with the signals returned
   alongside each result.
 - Token-budgeted context inside an untrusted-data boundary that stored content cannot escape.
@@ -69,8 +69,22 @@ fastembed 0.8.1. `ruff` and `mypy --strict` pass.
 **Known limitations**
 - The benchmark is small, synthetic and written by the authors. There is no agent-in-the-loop
   evaluation yet.
-- The bge-small thresholds are sensitive: a 0.05 step changes abstention sharply.
+- The embedding thresholds are sensitive: for bge-base, moving the keyword support floor by
+  0.02 costs either abstention or recall.
 - The default install (hashing) is weak on paraphrase (46% recall@5 on holdout).
+
+## ✅ Milestone 3.5 — Model selection, reranker screen, external benchmark
+
+- `[semantic]` now defaults to `bge-base-en-v1.5` (210 MB); `bge-small-en-v1.5` stays available
+  through `MINDTRAIL_EMBEDDING_MODEL`. Thresholds for both were tuned on dev only.
+- On the sealed holdout v2 set, bge-base reaches 90% recall@1, 94% recall@5 and 100%
+  abstention (bge-small: 81%, 90%, 100%).
+- Memories embedded with a different model are re-embedded when the server starts; keyword
+  search keeps finding them in the meantime.
+- Optional cross-encoder reranking stage. Off by default: no small fastembed reranker beat the
+  embeddings alone on dev.
+- LoCoMo (test split) as an external benchmark: bge-base 55.7% recall@5, hashing 50.6%.
+- Batch import and bootstrap confidence intervals in every benchmark report.
 
 ## Next — Milestone 4: agent-in-the-loop evaluation
 - Scripted multi-session tasks run against a real agent, with and without Mindtrail: does the

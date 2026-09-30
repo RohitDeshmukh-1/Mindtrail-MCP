@@ -77,7 +77,9 @@ class MemoryService:
         config = config or MindtrailConfig.from_env()
         return cls(
             SQLiteMemoryRepository(config.db_path),
-            create_embedder(config.embedder, cache_dir=config.model_dir),
+            create_embedder(
+                config.embedder, model=config.embedding_model, cache_dir=config.model_dir
+            ),
             default_space=config.default_space,
             reranker=create_reranker(config.reranker, cache_dir=config.model_dir),
         )

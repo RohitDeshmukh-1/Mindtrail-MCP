@@ -81,10 +81,15 @@ def _print_records(records: Sequence[MemoryRecord], as_json: bool) -> None:
 
 
 def _warm_up(service: MemoryService) -> None:
+    """Load models, then embed any memories stored under a different embedding model (for
+    example after an upgrade). Until that finishes, keyword search still finds them."""
+    log = logging.getLogger(__name__)
     try:
         service.warm_up()
+        if count := service.reindex_embeddings():
+            log.info("re-embedded %d memories with %s", count, service.embedding_model)
     except Exception:
-        logging.getLogger(__name__).exception("model warm-up failed; will retry on first use")
+        log.exception("model warm-up failed; will retry on first use")
 
 
 # -- commands ------------------------------------------------------------------------------
@@ -296,7 +301,9 @@ def cmd_bench(args: argparse.Namespace) -> int:
     from mindtrail.evaluation.locomo import fetch_locomo, run_locomo
 
     config = MindtrailConfig.from_env()
-    embedder = create_embedder(args.embedder, cache_dir=config.model_dir)
+    embedder = create_embedder(
+        args.embedder, model=config.embedding_model, cache_dir=config.model_dir
+    )
     reranker = create_reranker(args.reranker, cache_dir=config.model_dir)
     for source in args.dataset:
         if source.startswith("locomo"):

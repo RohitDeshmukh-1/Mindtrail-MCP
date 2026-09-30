@@ -7,6 +7,11 @@ All notable changes are documented here. The format follows
 ## [Unreleased]
 
 ### Changed
+- `mindtrail[semantic]` now uses `BAAI/bge-base-en-v1.5` (210 MB) by default. It is ahead on
+  every bundled set (holdout v2: 94% recall@5, 100% abstention). Choose another model with
+  `MINDTRAIL_EMBEDDING_MODEL`, for example `BAAI/bge-small-en-v1.5` (67 MB). Existing memories
+  are re-embedded automatically when the server starts.
+- Cross-encoder reranking is off by default; enable it with `MINDTRAIL_RERANKER=<model id>`.
 - Renamed the project from CogMem to **Mindtrail** (package, CLI, `MINDTRAIL_*` variables,
   `~/.mindtrail`).
 - The `local-embeddings` extra is now `semantic`. Neural models are stored in
@@ -16,6 +21,8 @@ All notable changes are documented here. The format follows
   is far more likely to return nothing.
 
 ### Added
+- `holdout-v2` retrieval set and LoCoMo (`mindtrail bench --dataset locomo:test`), with
+  bootstrap confidence intervals in every report.
 - Retrieval benchmark (`mindtrail bench`) with bundled dev and held-out datasets: recall@k,
   MRR, nDCG, abstention, stale/foreign leak rate and latency. CI gates on the results.
 - Core memory engine: validated immutable memory records, SQLite storage with FTS5, hybrid

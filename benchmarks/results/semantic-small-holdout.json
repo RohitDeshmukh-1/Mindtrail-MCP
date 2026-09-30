@@ -1,31 +1,31 @@
 {
   "dataset": "mindtrail-retrieval-holdout v1",
-  "embedder": "fastembed:BAAI/bge-base-en-v1.5",
+  "embedder": "fastembed:BAAI/bge-small-en-v1.5",
   "reranker": null,
   "k": 5,
   "overall": {
     "queries": 39,
-    "accuracy": 0.8717948717948718,
-    "recall_at_1": 0.8214285714285714,
-    "recall_at_k": 0.9285714285714286,
-    "mrr": 0.875,
-    "ndcg_at_k": 0.8890281878826561,
+    "accuracy": 0.8205128205128205,
+    "recall_at_1": 0.75,
+    "recall_at_k": 0.8214285714285714,
+    "mrr": 0.7857142857142857,
+    "ndcg_at_k": 0.7950664109693898,
     "abstention": 1.0,
     "violations": 0.0,
-    "latency_p50_ms": 32.02,
-    "latency_p95_ms": 36.12,
+    "latency_p50_ms": 100.04,
+    "latency_p95_ms": 251.6,
     "ci": {
       "accuracy": [
-        0.7692307692307693,
-        0.9743589743589743
+        0.6923076923076923,
+        0.9487179487179487
       ],
       "recall_at_1": [
-        0.6785714285714286,
-        0.9642857142857143
+        0.5714285714285714,
+        0.8928571428571429
       ],
       "recall_at_k": [
-        0.8214285714285714,
-        1.0
+        0.6785714285714286,
+        0.9642857142857143
       ],
       "abstention": [
         1.0,
@@ -43,8 +43,8 @@
       "ndcg_at_k": 0.9692441461309548,
       "abstention": null,
       "violations": null,
-      "latency_p50_ms": 29.91,
-      "latency_p95_ms": 36.12,
+      "latency_p50_ms": 100.04,
+      "latency_p95_ms": 183.96,
       "ci": {
         "accuracy": [
           0.75,
@@ -62,27 +62,27 @@
     },
     "paraphrase": {
       "queries": 13,
-      "accuracy": 0.6923076923076923,
-      "recall_at_1": 0.6923076923076923,
-      "recall_at_k": 0.8461538461538461,
-      "mrr": 0.7692307692307693,
-      "ndcg_at_k": 0.7893738082417627,
+      "accuracy": 0.5384615384615384,
+      "recall_at_1": 0.5384615384615384,
+      "recall_at_k": 0.6153846153846154,
+      "mrr": 0.5769230769230769,
+      "ndcg_at_k": 0.5869945964285737,
       "abstention": null,
       "violations": null,
-      "latency_p50_ms": 33.59,
-      "latency_p95_ms": 35.89,
+      "latency_p50_ms": 91.49,
+      "latency_p95_ms": 198.55,
       "ci": {
         "accuracy": [
-          0.46153846153846156,
-          0.9230769230769231
+          0.23076923076923078,
+          0.7692307692307693
         ],
         "recall_at_1": [
-          0.46153846153846156,
-          0.9230769230769231
+          0.23076923076923078,
+          0.7692307692307693
         ],
         "recall_at_k": [
-          0.6153846153846154,
-          1.0
+          0.3076923076923077,
+          0.8461538461538461
         ]
       }
     },
@@ -95,8 +95,8 @@
       "ndcg_at_k": 1.0,
       "abstention": 1.0,
       "violations": 0.0,
-      "latency_p50_ms": 34.56,
-      "latency_p95_ms": 38.03,
+      "latency_p50_ms": 75.73,
+      "latency_p95_ms": 170.33,
       "ci": {
         "accuracy": [
           1.0,
@@ -125,8 +125,8 @@
       "ndcg_at_k": null,
       "abstention": 1.0,
       "violations": 0.0,
-      "latency_p50_ms": 29.09,
-      "latency_p95_ms": 35.88,
+      "latency_p50_ms": 78.27,
+      "latency_p95_ms": 172.59,
       "ci": {
         "accuracy": [
           1.0,
@@ -147,8 +147,8 @@
       "ndcg_at_k": null,
       "abstention": 1.0,
       "violations": null,
-      "latency_p50_ms": 31.97,
-      "latency_p95_ms": 33.88,
+      "latency_p50_ms": 96.11,
+      "latency_p95_ms": 256.12,
       "ci": {
         "accuracy": [
           1.0,
@@ -174,7 +174,7 @@
         "a1"
       ],
       "forbidden": [],
-      "latency_ms": 32.645899999806716
+      "latency_ms": 100.04369999660412
     },
     {
       "id": "HL02",
@@ -187,7 +187,7 @@
         "a3"
       ],
       "forbidden": [],
-      "latency_ms": 28.299600000536884
+      "latency_ms": 49.337000000377884
     },
     {
       "id": "HL03",
@@ -200,7 +200,7 @@
         "a5"
       ],
       "forbidden": [],
-      "latency_ms": 31.5377000006265
+      "latency_ms": 156.51249999791617
     },
     {
       "id": "HL04",
@@ -213,7 +213,7 @@
         "a6"
       ],
       "forbidden": [],
-      "latency_ms": 31.992799999898125
+      "latency_ms": 63.93029999890132
     },
     {
       "id": "HL05",
@@ -226,7 +226,7 @@
         "a8"
       ],
       "forbidden": [],
-      "latency_ms": 36.12129999964964
+      "latency_ms": 73.50600000063423
     },
     {
       "id": "HL06",
@@ -239,7 +239,7 @@
         "d1"
       ],
       "forbidden": [],
-      "latency_ms": 29.905600000347476
+      "latency_ms": 162.11330000078306
     },
     {
       "id": "HL07",
@@ -252,7 +252,7 @@
         "d2"
       ],
       "forbidden": [],
-      "latency_ms": 32.019299999774375
+      "latency_ms": 43.30800000025192
     },
     {
       "id": "HL08",
@@ -260,14 +260,13 @@
       "query": "what tests do dbt models need",
       "retrieved": [
         "d7",
-        "d3",
-        "d1"
+        "d3"
       ],
       "relevant": [
         "d3"
       ],
       "forbidden": [],
-      "latency_ms": 31.59499999947002
+      "latency_ms": 146.989200002281
     },
     {
       "id": "HL09",
@@ -280,7 +279,7 @@
         "d4"
       ],
       "forbidden": [],
-      "latency_ms": 27.39449999990029
+      "latency_ms": 183.96189999839407
     },
     {
       "id": "HL10",
@@ -288,14 +287,13 @@
       "query": "where is Terraform state stored",
       "retrieved": [
         "i1",
-        "i2",
-        "i3"
+        "i2"
       ],
       "relevant": [
         "i1"
       ],
       "forbidden": [],
-      "latency_ms": 27.979499999673862
+      "latency_ms": 100.31489999892074
     },
     {
       "id": "HL11",
@@ -308,7 +306,7 @@
         "i4"
       ],
       "forbidden": [],
-      "latency_ms": 27.7790999998615
+      "latency_ms": 140.57139999931678
     },
     {
       "id": "HL12",
@@ -321,20 +319,21 @@
         "i6"
       ],
       "forbidden": [],
-      "latency_ms": 28.986000000259082
+      "latency_ms": 98.21450000163168
     },
     {
       "id": "HP01",
       "category": "paraphrase",
       "query": "how do we ship builds to Apple's store",
       "retrieved": [
-        "a4"
+        "a4",
+        "a11"
       ],
       "relevant": [
         "a4"
       ],
       "forbidden": [],
-      "latency_ms": 35.38490000028105
+      "latency_ms": 55.726899998262525
     },
     {
       "id": "HP02",
@@ -348,7 +347,7 @@
         "a11"
       ],
       "forbidden": [],
-      "latency_ms": 34.763399999974354
+      "latency_ms": 191.71039999855566
     },
     {
       "id": "HP03",
@@ -359,61 +358,58 @@
         "a7"
       ],
       "forbidden": [],
-      "latency_ms": 33.655000000180735
+      "latency_ms": 78.72969999880297
     },
     {
       "id": "HP04",
       "category": "paraphrase",
       "query": "what is the oldest iPhone OS version we support",
-      "retrieved": [
-        "a2"
-      ],
+      "retrieved": [],
       "relevant": [
         "a2"
       ],
       "forbidden": [],
-      "latency_ms": 33.59389999968698
+      "latency_ms": 88.27369999926304
     },
     {
       "id": "HP05",
       "category": "paraphrase",
       "query": "how do I check only the transformations I touched",
       "retrieved": [
-        "d7",
-        "d1"
+        "d7"
       ],
       "relevant": [
         "d7"
       ],
       "forbidden": [],
-      "latency_ms": 34.47599999981321
+      "latency_ms": 173.54899999918416
     },
     {
       "id": "HP06",
       "category": "paraphrase",
       "query": "how is sensitive customer information hidden in the warehouse",
       "retrieved": [
-        "d1",
-        "d6"
+        "d1"
       ],
       "relevant": [
         "d6"
       ],
       "forbidden": [],
-      "latency_ms": 32.77600000001257
+      "latency_ms": 69.94620000114082
     },
     {
       "id": "HP07",
       "category": "paraphrase",
       "query": "what tool do business users look at charts in",
       "retrieved": [
-        "d5"
+        "d5",
+        "u2"
       ],
       "relevant": [
         "d5"
       ],
       "forbidden": [],
-      "latency_ms": 31.96399999978894
+      "latency_ms": 198.5528000004706
     },
     {
       "id": "HP08",
@@ -426,7 +422,7 @@
         "i3"
       ],
       "forbidden": [],
-      "latency_ms": 29.54760000011447
+      "latency_ms": 81.45800000056624
     },
     {
       "id": "HP09",
@@ -437,7 +433,7 @@
         "i5"
       ],
       "forbidden": [],
-      "latency_ms": 33.65849999954662
+      "latency_ms": 144.12110000193934
     },
     {
       "id": "HP10",
@@ -450,34 +446,31 @@
         "i2"
       ],
       "forbidden": [],
-      "latency_ms": 35.889599999791244
+      "latency_ms": 125.94410000019707
     },
     {
       "id": "HP11",
       "category": "paraphrase",
       "query": "which programming language should code samples be in",
-      "retrieved": [
-        "u1"
-      ],
+      "retrieved": [],
       "relevant": [
         "u1"
       ],
       "forbidden": [],
-      "latency_ms": 33.224100000552426
+      "latency_ms": 53.36199999874225
     },
     {
       "id": "HP12",
       "category": "paraphrase",
       "query": "how should I structure my explanations",
       "retrieved": [
-        "u2",
-        "d1"
+        "u2"
       ],
       "relevant": [
         "u2"
       ],
       "forbidden": [],
-      "latency_ms": 31.781100000443985
+      "latency_ms": 141.12150000073598
     },
     {
       "id": "HP13",
@@ -490,7 +483,7 @@
         "u3"
       ],
       "forbidden": [],
-      "latency_ms": 33.34230000018579
+      "latency_ms": 91.49200000319979
     },
     {
       "id": "HT01",
@@ -505,7 +498,7 @@
       "forbidden": [
         "a9"
       ],
-      "latency_ms": 34.779700000399316
+      "latency_ms": 75.7305000006454
     },
     {
       "id": "HT02",
@@ -520,7 +513,7 @@
       "forbidden": [
         "d8"
       ],
-      "latency_ms": 34.5644999997603
+      "latency_ms": 170.3280999972776
     },
     {
       "id": "HT03",
@@ -531,15 +524,14 @@
       "forbidden": [
         "d10"
       ],
-      "latency_ms": 38.02540000015142
+      "latency_ms": 64.46209999921848
     },
     {
       "id": "HT04",
       "category": "temporal",
       "query": "is SDK 26 still supported",
       "retrieved": [
-        "a10",
-        "a2"
+        "a10"
       ],
       "relevant": [
         "a10"
@@ -547,7 +539,7 @@
       "forbidden": [
         "a9"
       ],
-      "latency_ms": 30.14470000016445
+      "latency_ms": 163.18329999921843
     },
     {
       "id": "HI01",
@@ -558,7 +550,7 @@
       "forbidden": [
         "a5"
       ],
-      "latency_ms": 27.652499999931024
+      "latency_ms": 71.95859999774257
     },
     {
       "id": "HI02",
@@ -569,7 +561,7 @@
       "forbidden": [
         "d2"
       ],
-      "latency_ms": 30.300800000077288
+      "latency_ms": 172.58660000152304
     },
     {
       "id": "HI03",
@@ -580,7 +572,7 @@
       "forbidden": [
         "i1"
       ],
-      "latency_ms": 29.08819999993284
+      "latency_ms": 78.27200000247103
     },
     {
       "id": "HI04",
@@ -591,7 +583,7 @@
       "forbidden": [
         "a1"
       ],
-      "latency_ms": 35.87900000002264
+      "latency_ms": 162.8134000020509
     },
     {
       "id": "HN01",
@@ -600,7 +592,7 @@
       "retrieved": [],
       "relevant": [],
       "forbidden": [],
-      "latency_ms": 33.483399999568064
+      "latency_ms": 44.040500000846805
     },
     {
       "id": "HN02",
@@ -609,7 +601,7 @@
       "retrieved": [],
       "relevant": [],
       "forbidden": [],
-      "latency_ms": 33.88170000016544
+      "latency_ms": 256.1249999998836
     },
     {
       "id": "HN03",
@@ -618,7 +610,7 @@
       "retrieved": [],
       "relevant": [],
       "forbidden": [],
-      "latency_ms": 32.878099999834376
+      "latency_ms": 251.598599999852
     },
     {
       "id": "HN04",
@@ -627,7 +619,7 @@
       "retrieved": [],
       "relevant": [],
       "forbidden": [],
-      "latency_ms": 31.214399999953457
+      "latency_ms": 93.49849999853177
     },
     {
       "id": "HN05",
@@ -636,7 +628,7 @@
       "retrieved": [],
       "relevant": [],
       "forbidden": [],
-      "latency_ms": 31.974699999409495
+      "latency_ms": 229.58060000019032
     },
     {
       "id": "HN06",
@@ -645,7 +637,7 @@
       "retrieved": [],
       "relevant": [],
       "forbidden": [],
-      "latency_ms": 26.796100000865408
+      "latency_ms": 96.10939999765833
     }
   ]
 }

@@ -86,6 +86,8 @@ Set these as environment variables in the client's server config (for example
 | `MINDTRAIL_TOOLS` | `core` | `core` = remember/recall/forget; `full` adds search_memory, get_context, update_memory, get_memory |
 | `MINDTRAIL_HOME` | `~/.mindtrail` | Where the database lives |
 | `MINDTRAIL_EMBEDDER` | `auto` | `auto`, `hashing` or `fastembed` |
+| `MINDTRAIL_EMBEDDING_MODEL` | `BAAI/bge-base-en-v1.5` | fastembed model id; `BAAI/bge-small-en-v1.5` is the smaller calibrated option |
+| `MINDTRAIL_RERANKER` | `auto` (off) | A fastembed cross-encoder id to enable reranking; none has beaten the embeddings yet |
 | `MINDTRAIL_PROJECT` | detected from git | Force a project name |
 | `MINDTRAIL_LOG_LEVEL` | `WARNING` | Logs go to stderr |
 
