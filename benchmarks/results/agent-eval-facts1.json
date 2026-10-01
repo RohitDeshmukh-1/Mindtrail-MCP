@@ -1,0 +1,184 @@
+{
+  "model": "sonnet",
+  "facts": "1",
+  "rows": [
+    {
+      "fact": "release",
+      "phase": "teach",
+      "tools": [
+        "recall",
+        "remember"
+      ],
+      "answer": "Noted, and I've saved it to project memory. Releases go out by pushing a tag like `v1.2.3`, and CI publishes from that tag. I won't run the publish script by hand."
+    },
+    {
+      "fact": "pkg",
+      "phase": "teach",
+      "tools": [
+        "Glob",
+        "Write",
+        "Write",
+        "remember"
+      ],
+      "answer": "Understood. I'll use only pnpm in this project and never npm or yarn. I saved this to project memory so it carries over to future sessions. The file-based memory write was disabled, so I stored it through mindtrail instead."
+    },
+    {
+      "fact": "db-port",
+      "phase": "teach",
+      "tools": [
+        "remember"
+      ],
+      "answer": "Noted. I've saved that staging Postgres uses port 5433, so it will carry over to future sessions."
+    },
+    {
+      "fact": "commits",
+      "phase": "teach",
+      "tools": [
+        "remember"
+      ],
+      "answer": "I've saved that to project memory. Future commit messages here will use Conventional Commits (`feat:`, `fix:`, `chore:` and so on)."
+    },
+    {
+      "fact": "owner",
+      "phase": "teach",
+      "tools": [
+        "remember"
+      ],
+      "answer": "Noted, and I've saved it to project memory. Any change under `src/payments` will need a review from @payments-team. I'll flag that when I touch that directory, for example in PR descriptions."
+    },
+    {
+      "fact": "flags",
+      "phase": "teach",
+      "tools": [
+        "remember"
+      ],
+      "answer": "Noted, and I saved it to project memory: feature flags go in `config/flags.yaml`, and I won't hardcode them in code. What would you like to work on?"
+    },
+    {
+      "fact": "release",
+      "phase": "ask-mindtrail",
+      "correct": true,
+      "tools": [
+        "recall",
+        "Glob",
+        "Grep"
+      ],
+      "answer": "Per the project's stored convention, releases are cut by pushing a version tag. CI publishes from the tag, so you don't run any publish script by hand.\n\nSteps:\n\n1. **Get your feature onto the main branch.** Your current branch is `master`, but the main branch is listed as `main`. Merge or push the feature so the code you want released is on `main`. Commit with Conventional Commits messages (`feat:`, `fix:`, `chore:`, and so on).\n2. **Pick the version.** Use semver. A new feature usually means a minor bump, for example `v1.2.0` to `v1.3.0`.\n3. **Tag the release commit:**\n   ```\n   git tag v1.3.0\n   ```\n4. **Push the tag:**\n   ```\n   git push origin v1.3.0\n   ```\n5. **Watch the CI run** triggered by the tag. It does the publishing.\n\nThe repo has no commits yet, and `README.md` is untracked. I also found no release scripts or CI config in the working directory. So I can't see your current version or what the CI workflow does. That config may live on the remote.\n\nI haven't tagged or pushed anything. Pushing a tag triggers a publish, so tell me the version and I'll run the tag and push if you want."
+    },
+    {
+      "fact": "release",
+      "phase": "ask-control",
+      "correct": false,
+      "tools": [
+        "Glob",
+        "Glob",
+        "Grep",
+        "Read"
+      ],
+      "answer": "This repo has no release setup yet, so there's no project-specific process to follow. It contains only an untracked `README.md` that holds a title line. It has no commits, no source code, no package manifest (`package.json`, `pyproject.toml` and so on), no CI workflows, no changelog, and no version tags. The current branch is `master`, but your main branch is `main`.\n\nTwo things need sorting out before a release makes sense:\n\n1. **Your feature isn't in this repo's history.** Nothing is committed here. If the work lives in another directory or branch, point me to it. Otherwise it needs to be committed first.\n2. **Branch naming.** You're on `master` and your main branch is `main`. Decide which one you're releasing from and rename or merge as needed.\n\nOnce the code is committed, a minimal release flow looks like this:\n\n1. Make sure the work is merged into the main branch and tests pass.\n2. Pick a version following [semver](https://semver.org). A new feature without breaking changes is a minor bump, and the first release is typically `v0.1.0` or `v1.0.0`.\n3. Update the version in your manifest and add a changelog entry, if you keep those.\n4. Commit that change, for example `git commit -am \"Release v0.1.0\"`.\n5. Tag it with `git tag -a v0.1.0 -m \"v0.1.0\"`.\n6. Push the commit and tag with `git push origin main --follow-tags`.\n7. Create the release on your host, for example `gh release create v0.1.0 --generate-notes` on GitHub.\n8. Publish the package to a registry (npm, PyPI and so on) if it applies.\n\nTwo details I'd need from you to be more specific: what language and stack the project uses, and where it's hosted and distributed. I can also set up a manifest, changelog, or a tag-triggered release workflow for you. I won't tag or push anything until you tell me to."
+    },
+    {
+      "fact": "pkg",
+      "phase": "ask-mindtrail",
+      "correct": true,
+      "tools": [
+        "recall",
+        "Glob",
+        "Bash",
+        "Bash",
+        "recall"
+      ],
+      "answer": "This project uses pnpm, so run:\n\n```\npnpm add lodash\n```\n\nIf you also want types for TypeScript, run `pnpm add -D @types/lodash`."
+    },
+    {
+      "fact": "pkg",
+      "phase": "ask-control",
+      "correct": false,
+      "tools": [],
+      "answer": "```\nnpm install lodash\n```\n\nIf the project uses another package manager, use `yarn add lodash` or `pnpm add lodash`."
+    },
+    {
+      "fact": "db-port",
+      "phase": "ask-mindtrail",
+      "correct": true,
+      "tools": [
+        "recall",
+        "Grep"
+      ],
+      "answer": "Use this connection string:\n\n```\npostgresql://<user>:<password>@staging.internal:5433/app\n```\n\nStaging Postgres listens on port **5433**, not the default 5432, according to a stored project note. The note doesn't say whether staging needs SSL. If it does, append `?sslmode=require`.\n\nI found no existing connection strings or `DATABASE_URL` settings in the repo. The username and password are placeholders, so use your staging credentials. I'd keep them in an environment variable or `.env` file and not commit them."
+    },
+    {
+      "fact": "db-port",
+      "phase": "ask-control",
+      "correct": false,
+      "tools": [
+        "Grep",
+        "Glob"
+      ],
+      "answer": "The repo doesn't say which database engine you use, so I can't tell you the exact string. Here are the common formats for host `staging.internal` and database `app`:\n\n- **PostgreSQL:** `postgresql://USER:PASSWORD@staging.internal:5432/app`\n- **MySQL/MariaDB:** `mysql://USER:PASSWORD@staging.internal:3306/app`\n- **SQL Server:** `Server=staging.internal,1433;Database=app;User Id=USER;Password=PASSWORD;Encrypt=true;`\n- **MongoDB:** `mongodb://USER:PASSWORD@staging.internal:27017/app`\n\nReplace `USER` and `PASSWORD` with your staging credentials. The ports shown are the defaults, so change them if your staging instance uses different ones. If staging requires TLS, add the option for your driver. For Postgres that's `?sslmode=require`.\n\nDon't commit the credentials. Put the string in an untracked `.env` file as `DATABASE_URL`, or in your secrets manager. The repo has no `.env` or config files yet, so you'd be adding the first one.\n\nIf you tell me the engine and the language or ORM you're using, I can give you the exact format and help wire it in."
+    },
+    {
+      "fact": "commits",
+      "phase": "ask-mindtrail",
+      "correct": true,
+      "tools": [
+        "recall"
+      ],
+      "answer": "```\nfix(auth): resolve login redirect loop\n```"
+    },
+    {
+      "fact": "commits",
+      "phase": "ask-control",
+      "correct": false,
+      "tools": [],
+      "answer": "Fix login redirect loop by preventing authenticated users from being redirected back to the login page"
+    },
+    {
+      "fact": "owner",
+      "phase": "ask-mindtrail",
+      "correct": true,
+      "tools": [
+        "recall",
+        "Glob",
+        "Grep"
+      ],
+      "answer": "Two things from project memory, and one problem with the repo.\n\n**From memory**\n- **Ownership:** `src/payments` belongs to the payments team. Every change there needs a review from @payments-team. Tell them about the refactor before you start, so a large diff doesn't surprise them.\n- **Commits:** Use Conventional Commits. A refactor would be `refactor:`, or `chore:` for non-functional cleanup.\n\n**In the repo**\n- `src/payments/charge.ts` isn't in this checkout. A glob of `src/payments/**` found nothing, and nothing imports from `payments/charge`.\n- The only change in git status is an untracked `README.md`, and there are no recent commits.\n- The file may be on another branch. The current branch is `master`, but the main branch is listed as `main`. It may also not have been committed yet, or the path may be different.\n\nI couldn't look at the code, so I can't tell you about callers, tests, or risky spots in it. If you point me to the right branch or path, I can go through the file and its dependents before you start."
+    },
+    {
+      "fact": "owner",
+      "phase": "ask-control",
+      "correct": false,
+      "tools": [
+        "Read",
+        "Grep",
+        "Glob",
+        "Glob",
+        "Read"
+      ],
+      "answer": "I can't tell you anything about `src/payments/charge.ts` because it isn't in this checkout. The repo has no commits and no source files. The only file in it is a README that contains just the title `# acme-shop`. There's no `src/` directory, no callers, no tests and no git history to look at.\n\nSome possible reasons:\n- The code is on another branch or in another clone. The current branch is `master`, but your main branch is `main`, and neither has any commits.\n- The file hasn't been pulled or copied into this directory yet.\n- The path is slightly different from what you remembered.\n\nIf you can point me to the right clone or branch, I'll read the file and its callers and tell you what to watch for. That would include its public surface, test coverage, and how it handles money, retries and idempotency.\n\nIn the meantime, these checks apply to any payment-charging refactor:\n- **Pin the behavior first.** Write characterization tests before changing anything. Cover the success, decline, timeout and partial-failure paths.\n- **Check idempotency.** Find out whether retries reuse idempotency keys. A refactor that changes when or how keys are generated can cause double charges.\n- **Look at amount handling.** Check for integer cents versus floats, currency rounding, and where tax and discounts are applied.\n- **Find all the callers.** This includes webhooks, background jobs and admin tools, not only the checkout path.\n- **Check the error contract.** Callers may depend on specific error types or messages, and logging or metrics may depend on them too.\n- **Ship it safely.** Put the change behind a flag or roll it out gradually, and keep the old path around until the new one is verified."
+    },
+    {
+      "fact": "flags",
+      "phase": "ask-mindtrail",
+      "correct": true,
+      "tools": [
+        "recall",
+        "Grep",
+        "Glob"
+      ],
+      "answer": "Add it to `config/flags.yaml`. A stored project convention says feature flags live there and must never be hardcoded in code.\n\nThat file doesn't exist in the repo yet, and I found no existing flag code. You'd need to create `config/flags.yaml` and put the dark mode flag in it, for example `dark_mode: false`. Code should then read the flag from that file.\n\nI can create the file and add the flag if you'd like. Tell me the flag name and default you want."
+    },
+    {
+      "fact": "flags",
+      "phase": "ask-control",
+      "correct": false,
+      "tools": [
+        "Grep",
+        "Glob",
+        "Glob",
+        "Read"
+      ],
+      "answer": "There's nowhere to add it yet. The repo has no source code, no existing feature-flag system, and no config files. It holds only a `README.md` containing the title `# acme-shop`, and the git history has no commits.\n\nOnce the project has code, the right spot depends on the stack. These are the usual options:\n\n- **Single central module**, such as `src/config/featureFlags.ts` or `flags.py`. This is the simplest choice: one typed object like `{ darkMode: false }` that the rest of the app imports. It suits a small app where flags change with deploys.\n- **Environment variables**, such as `FEATURE_DARK_MODE=true`, read through that central module. This lets you toggle per environment without a code change.\n- **A flag service**, such as LaunchDarkly, Unleash, or GrowthBook. Use one if you need runtime toggling, percentage rollouts, or per-user targeting.\n\nDark mode is mostly a front-end concern. I'd put the flag in the front-end config, and have the theme provider or root layout read it to decide whether to show the theme toggle.\n\nIf you tell me the stack (React, Next.js, Django, and so on), or point me to the right directory if the code lives elsewhere, I can suggest an exact file and set it up. If you'd rather start from scratch, I can scaffold a minimal flags module."
+    }
+  ]
+}

@@ -37,9 +37,8 @@ CI runs the same checks on Linux, macOS and Windows with Python 3.11–3.13.
 
 ## Where to start
 
-Issues labelled `good first issue` are scoped to be finishable in an afternoon. The roadmap is in
-[IMPLEMENTATION_STATUS.md](IMPLEMENTATION_STATUS.md) and the full design is in
-[docs/design/specification.md](docs/design/specification.md).
+Issues labelled `good first issue` are scoped to be finishable in an afternoon. The roadmap is in the
+[README](README.md#roadmap).
 
 ## Commit messages
 

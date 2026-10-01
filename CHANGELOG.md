@@ -12,6 +12,9 @@ All notable changes are documented here. The format follows
   `MINDTRAIL_EMBEDDING_MODEL`, for example `BAAI/bge-small-en-v1.5` (67 MB). Existing memories
   are re-embedded automatically when the server starts.
 - Cross-encoder reranking is off by default; enable it with `MINDTRAIL_RERANKER=<model id>`.
+- Server instructions now tell agents to call `recall` before any project-specific answer,
+  even a one-line one. In the agent evaluation this fixed the cases where the agent answered
+  from habit (`npm install`, `str | None` on a Python 3.9 project) instead of checking memory.
 - Renamed the project from CogMem to **Mindtrail** (package, CLI, `MINDTRAIL_*` variables,
   `~/.mindtrail`).
 - The `local-embeddings` extra is now `semantic`. Neural models are stored in
@@ -20,7 +23,15 @@ All notable changes are documented here. The format follows
   support) and uses calibrated similarity floors per embedder, so a query with no stored answer
   is far more likely to return nothing.
 
+### Fixed
+- Clones of the same repository in differently named folders now share one project space.
+  The space name came from the folder instead of the git remote. In a repository whose folder
+  name differs from its remote's repo name, memories stored before this fix stay under the
+  old space id.
+
 ### Added
+- Agent-in-the-loop evaluation (`benchmarks/agent_eval.py`): real Claude Code sessions,
+  with and without Mindtrail.
 - `holdout-v2` retrieval set and LoCoMo (`mindtrail bench --dataset locomo:test`), with
   bootstrap confidence intervals in every report.
 - Retrieval benchmark (`mindtrail bench`) with bundled dev and held-out datasets: recall@k,

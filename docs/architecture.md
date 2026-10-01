@@ -51,6 +51,3 @@ the vector later. No LLM call is involved.
   more reliably. Power users can opt into the full set.
 - **Project identity from the git remote:** the same repo gets the same memory in every tool
   and every clone, and credentials in remote URLs are stripped before hashing.
-
-The original product specification (written under the working name CogMem) is in
-[design/specification.md](design/specification.md).

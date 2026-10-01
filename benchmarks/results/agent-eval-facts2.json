@@ -1,0 +1,181 @@
+{
+  "model": "sonnet",
+  "facts": "2",
+  "rows": [
+    {
+      "fact": "test-cmd",
+      "phase": "teach",
+      "tools": [
+        "remember"
+      ],
+      "answer": "Noted. I'll run `make check` for tests and won't call pytest directly. I've also saved this to project memory for future sessions."
+    },
+    {
+      "fact": "deploy-branch",
+      "phase": "teach",
+      "tools": [
+        "remember"
+      ],
+      "answer": "Noted: production deploys come from the `release` branch, not `main`. I've saved that to project memory for future sessions."
+    },
+    {
+      "fact": "py39",
+      "phase": "teach",
+      "tools": [
+        "remember"
+      ],
+      "answer": "Understood. I'll use `Optional[...]` and `Union[...]` from `typing` instead of the `X | Y` syntax, and I've saved this as a project note for future sessions."
+    },
+    {
+      "fact": "logging",
+      "phase": "teach",
+      "tools": [
+        "remember"
+      ],
+      "answer": "Noted, and I've saved it for future sessions. From now on I'll route all logging through `log_event()` in `utils/telemetry.py`, not `print()` or the `logging` module."
+    },
+    {
+      "fact": "timestamps",
+      "phase": "teach",
+      "tools": [
+        "remember"
+      ],
+      "answer": "Noted. I've saved it as a project convention: API response timestamps are Unix epoch milliseconds, never ISO strings."
+    },
+    {
+      "fact": "oncall",
+      "phase": "teach",
+      "tools": [
+        "remember"
+      ],
+      "answer": "Noted: the checkout service's on-call channel is #shop-oncall on Slack. I saved that to project memory, so it will be available in future sessions."
+    },
+    {
+      "fact": "test-cmd",
+      "phase": "ask-mindtrail",
+      "correct": true,
+      "tools": [
+        "recall",
+        "Glob",
+        "Grep"
+      ],
+      "answer": "Run `make check`. It runs lint and tests together, so it covers what you need before a PR. Don't call `pytest` directly. That guidance comes from a saved project note.\n\nI couldn't confirm it in the repo. There's no `Makefile` in the working directory, and the untracked `README.md` doesn't mention tests. The note may be out of date, or the Makefile may be on another branch or not committed yet. If `make check` reports that it can't find a target or Makefile, tell me and I'll look into it.\n\nOn Windows, `make` may not be installed. If it isn't, you'll need to get it, for example through WSL, Git Bash with make, or `choco install make`."
+    },
+    {
+      "fact": "test-cmd",
+      "phase": "ask-control",
+      "correct": false,
+      "tools": [
+        "Glob",
+        "Read"
+      ],
+      "answer": "I can't tell how to run the tests, because the project doesn't say. The only file I found is `README.md`, and it contains just the title `# acme-shop`. There's no `package.json`, `Makefile`, `pyproject.toml`, `go.mod`, CI workflow or contributing guide. The repo also has no commits yet, and the README is untracked.\n\nOnce you add the project's code, the test command will depend on the stack. These are the usual ones:\n\n- **Node:** `npm test`\n- **Python:** `pytest`\n- **Go:** `go test ./...`\n- **Rust:** `cargo test`\n- **Java:** `mvn test` or `./gradlew test`\n\nIf the code is somewhere else, such as another branch or directory, tell me where. If you tell me the stack, I can set up a test script and document it in the README."
+    },
+    {
+      "fact": "deploy-branch",
+      "phase": "ask-mindtrail",
+      "correct": true,
+      "tools": [
+        "recall",
+        "Glob",
+        "Grep",
+        "Bash"
+      ],
+      "answer": "I can't give you a date, because I couldn't find one.\n\n- **Production deploys from the `release` branch, not `main`.** This comes from a stored project note. Merging to `main` doesn't ship anything by itself. Your change reaches production once `main` is merged or promoted into `release` and that branch deploys.\n- **I couldn't find the schedule.** The repo has no CI or workflow files and no deploy docs. I also couldn't run git commands in this session, so I couldn't check whether your commit is already on `release`.\n\nTo check, run `git branch -r --contains <your-merge-commit>` and look for `origin/release`. If it's there, the change is already queued or deployed. If not, it's waiting on the next promotion from `main`. Whoever manages releases can tell you when that happens.\n\nIf you tell me the cadence or process, I can save it so I can answer this directly next time."
+    },
+    {
+      "fact": "deploy-branch",
+      "phase": "ask-control",
+      "correct": false,
+      "tools": [
+        "Glob",
+        "Glob",
+        "Read"
+      ],
+      "answer": "I can't tell from the repo when your change will reach production. It has no deployment information I can read.\n\n- There are no CI/CD configs: no GitHub Actions workflows, GitLab CI, CircleCI, Jenkinsfile, Dockerfile, or platform files such as Vercel, Netlify or Fly.\n- The README is untracked and contains only the title `# acme-shop`.\n- Your checkout is on `master` and shows no commits. The main branch is `main`, so this checkout may not have your merge.\n\nProduction deploys are probably set up somewhere outside this repo, such as a hosting platform's dashboard, a separate infra repo, or a release process your team runs by hand.\n\nTo find out, you could:\n- Check the merged PR or the commit on `main` for a deploy status or a linked pipeline run.\n- Ask your team how releases work. For example, does every merge to `main` deploy automatically, or do releases go out on a schedule or when someone tags one?\n- Point me to the infra repo or deploy docs, and I'll read them."
+    },
+    {
+      "fact": "py39",
+      "phase": "ask-mindtrail",
+      "correct": true,
+      "tools": [
+        "recall"
+      ],
+      "answer": "Since this project still supports Python 3.9, use `Optional`:\n\n```python\nfrom typing import Optional\n\ndef func(name: Optional[str] = None) -> None:\n    ...\n```\n\n`Optional[str]` is equivalent to `Union[str, None]`. Avoid `str | None` here, because that syntax needs Python 3.10 or later."
+    },
+    {
+      "fact": "py39",
+      "phase": "ask-control",
+      "correct": false,
+      "tools": [],
+      "answer": "```python\ndef greet(name: str | None = None) -> None:\n    ...\n```\n\nThe parameter hint is `name: str | None` (Python 3.10+). On older versions, use `Optional[str]` from `typing`:\n\n```python\nfrom typing import Optional\n\ndef greet(name: Optional[str] = None) -> None:\n    ...\n```\n\nThe `= None` default is optional. Include it only if the argument can be omitted."
+    },
+    {
+      "fact": "logging",
+      "phase": "ask-mindtrail",
+      "correct": true,
+      "tools": [
+        "recall",
+        "Grep",
+        "Glob",
+        "Grep"
+      ],
+      "answer": "The repo has no Python files, no checkout code, and no `log_event()` definition. The only untracked file is `README.md`. So I can't match the real signature or find where checkout starts. Here is what to write, based on a stored project note.\n\nThat note says all logging goes through `log_event()` in `utils/telemetry.py`, and that you shouldn't use `print()` or the `logging` module directly. Assuming it takes an event name plus keyword fields, the line would look like this:\n\n```python\nfrom utils.telemetry import log_event\n\ndef start_checkout(user, cart):\n    log_event(\"checkout_started\", level=\"debug\", user_id=user.id)\n    ...\n```\n\nCheck these against the real helper:\n- **Signature:** I guessed that it takes an event name and keyword fields. I also guessed that it has a `level` argument. If it doesn't, drop `level=\"debug\"` or use whatever its debug mechanism is.\n- **User id source:** `user.id` is a placeholder. Use whatever your checkout function has, such as `session[\"user_id\"]` or `request.user.id`.\n- **Placement:** put it at the top of the checkout entry point, before any work that could fail. That way the line is logged even when checkout errors out.\n\nIf the code lives on another branch or in another directory, tell me where and I'll add the line to the real function."
+    },
+    {
+      "fact": "logging",
+      "phase": "ask-control",
+      "correct": false,
+      "tools": [
+        "Grep",
+        "Grep",
+        "Glob"
+      ],
+      "answer": "I can't point you to an exact spot yet. The repo has no source code, only `README.md`, and no checkout code or logging setup. Here are snippets for common stacks. Put the line at the top of your checkout handler or function, once the user is known.\n\n**JavaScript/TypeScript (Node)**\n```js\nlogger.debug({ userId: user.id }, \"checkout started\");\n// or, with no logger:\nconsole.debug(`[checkout] started userId=${user.id}`);\n```\n\n**Python**\n```python\nimport logging\nlogger = logging.getLogger(__name__)\n\nlogger.debug(\"checkout started user_id=%s\", user.id)\n```\n\n**Java**\n```java\nlog.debug(\"checkout started userId={}\", user.getId());\n```\n\n**Go**\n```go\nslog.Debug(\"checkout started\", \"userId\", user.ID)\n```\n\nSome notes:\n- Use the logger's parameterized form (`%s`, `{}`, or structured fields) instead of string concatenation. The message is then only built when debug logging is on.\n- Log the user id, not the email or other personal data.\n- Don't log before authentication. If `user` can be null, use something like `user?.id`.\n\nIf you tell me the language and where the checkout code lives, or add the source files to the repo, I'll put the line in the right place in your existing logging style."
+    },
+    {
+      "fact": "timestamps",
+      "phase": "ask-mindtrail",
+      "correct": true,
+      "tools": [
+        "recall",
+        "Grep"
+      ],
+      "answer": "`created_at` should be a Unix epoch timestamp in milliseconds, returned as a number and not an ISO string. This is a stored project convention: all API response timestamps in acme-shop use epoch milliseconds.\n\nFor example: `\"created_at\": 1759303438894`.\n\nThe codebase has no existing `created_at` or `createdAt` fields to check this against. The convention comes only from the stored memory, which could be out of date. If the `/orders` spec says otherwise, tell me and I'll update the memory."
+    },
+    {
+      "fact": "timestamps",
+      "phase": "ask-control",
+      "correct": false,
+      "tools": [
+        "Grep",
+        "Grep",
+        "Read"
+      ],
+      "answer": "I can't answer this from the repo. There's no `/orders` endpoint, no `created_at` or `createdAt` field, and no spec or convention to follow. The README contains only the title, `# acme-shop`.\n\nIf you're choosing the format yourself, I'd use **ISO 8601 / RFC 3339 in UTC**, for example `\"2026-10-01T14:30:00Z\"`. Reasons:\n- It's unambiguous and sorts correctly as a string.\n- It's supported natively by `JSON.parse` reviver patterns, `datetime.fromisoformat`, and most client libraries.\n- It avoids the timezone and precision problems that Unix timestamps and locale-formatted strings bring.\n\nIf another service or client already expects a specific format, such as epoch seconds or milliseconds, match that instead. If there's a spec or ticket for the endpoint, point me to it and I'll follow it."
+    },
+    {
+      "fact": "oncall",
+      "phase": "ask-mindtrail",
+      "correct": true,
+      "tools": [
+        "recall",
+        "Grep",
+        "Glob"
+      ],
+      "answer": "Alert the on-call for checkout in **#shop-oncall** on Slack. That's the on-call channel for the checkout service, according to a stored project memory.\n\nI couldn't find anything else to go on. The repo has no CODEOWNERS file, and the README doesn't mention on-call, owners, PagerDuty or escalation. So I don't have a named person, a paging rotation, or an escalation path. If the channel doesn't get a quick response, you'll need to use whatever your team's usual paging process is."
+    },
+    {
+      "fact": "oncall",
+      "phase": "ask-control",
+      "correct": false,
+      "tools": [
+        "Glob",
+        "Grep",
+        "Read",
+        "Glob"
+      ],
+      "answer": "I can't tell you who to alert from this repo. It has no ownership or on-call information:\n\n- There's no CODEOWNERS, OWNERS, runbook, or on-call file.\n- `README.md` contains only the title \"acme-shop\", and it's untracked.\n- A search for on-call, PagerDuty, owner, escalation, and Slack references found nothing.\n- There's no checkout service code here, and no commits whose authors I could use as a hint.\n\nFor a production incident, I'd go through these in order:\n\n1. Page the on-call for the checkout service through your paging tool (PagerDuty, Opsgenie, or whatever your org uses). Use the service's escalation policy if it has one.\n2. If you don't know who owns it, check your service catalog (Backstage or similar), the checkout service's own repo, or your incident channel's pinned messages.\n3. Tell whoever runs incidents, such as an incident commander or the SRE/platform on-call. Checkout 500s are usually customer-facing and revenue-impacting.\n4. Loop in the owners of likely dependencies, such as payments and inventory, if the errors point to them.\n\nIf the checkout service's code is in another repo, give me the path and I can look for CODEOWNERS or recent committers there. If you paste the error logs or stack traces, I can also help work out where the failure is coming from."
+    }
+  ]
+}

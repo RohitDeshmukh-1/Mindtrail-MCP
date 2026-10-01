@@ -31,6 +31,10 @@ Mindtrail is persistent memory that survives across sessions and across coding t
 
 - At the start of a task, call `recall` with a short description of the task to load relevant
   preferences, project conventions and past decisions.
+- Also call `recall` before any answer that depends on how this project or this user does
+  things, even a one-line answer: which command or tool to use, how to write a commit message,
+  where code or config belongs, who owns what, how releases work. These often differ from
+  common defaults, and one quick recall is cheaper than a confident wrong answer.
 - Call `remember` when you learn something worth keeping for future sessions: a user
   preference, a project convention, an architectural decision, the cause and fix of a tricky
   bug. Store one self-contained fact per call, phrased so it makes sense without this chat.
@@ -168,6 +172,7 @@ def create_server(
     ) -> RecallOutput:
         """Find memories relevant to a query, from this project and the user's personal space.
 
+        Use before answering anything that depends on this project's or user's conventions.
         Returns an empty list when nothing relevant is stored.
         """
         hits = await _run(lambda: service.search(query, space_ids=readable, limit=limit))

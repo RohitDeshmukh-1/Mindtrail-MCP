@@ -11,3 +11,7 @@ build/
 *.db-wal
 *.db-shm
 .env
+
+# Planning documents (kept local)
+IMPLEMENTATION_STATUS.md
+docs/design/

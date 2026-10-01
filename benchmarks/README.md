@@ -1,8 +1,11 @@
 # Retrieval benchmark
 
-This measures one thing: **given a question, does Mindtrail return the right stored memory,
-and nothing it shouldn't?** It does not measure end-to-end agent task success. That needs
-agent-in-the-loop experiments, which are on the roadmap.
+This measures two things:
+
+1. **Retrieval:** given a question, does Mindtrail return the right stored memory, and nothing
+   it shouldn't? (`mindtrail bench`, below.)
+2. **Agent in the loop:** does a real coding agent store facts on its own and use them in a
+   later session? ([Agent evaluation](#agent-evaluation).)
 
 Reproduce everything here with:
 
@@ -121,13 +124,59 @@ default**. On the dev set, every small reranker available through fastembed (MS 
 MiniLM-L-6/L-12 and Jina v1 tiny/turbo) ranked developer memories worse than the embeddings
 alone. The MS MARCO models reward word overlap over meaning on short, technical text.
 
+## Agent evaluation
+
+`benchmarks/agent_eval.py` runs real Claude Code sessions (`claude -p`). Each session is a
+separate process, so nothing carries over except what Mindtrail stored.
+
+1. **Teach:** the user mentions a project fact in passing ("FYI, this project uses pnpm").
+   The agent is never told to use Mindtrail.
+2. **Ask:** a new session gets a task that depends on the fact, worded differently ("How do I
+   add lodash? Just give me the command").
+3. **Control:** the same ask sessions with no Mindtrail server.
+
+An answer counts as correct only if it *applies* the fact: the command starts with `pnpm`, the
+commit message starts with `fix:`, the type hint is `Optional[str]` on a Python 3.9 project.
+Fact set 2 was written before any results were seen, as a held-out check on the instruction
+change below.
+
+Results with Claude Sonnet, 12 facts. The current-instruction row combines two runs on
+2026-09-30 and one on 2026-10-01. The 2026-10-01 run's per-session answers and tool calls
+are in [`results/agent-eval-facts1.json`](results/agent-eval-facts1.json) and
+[`results/agent-eval-facts2.json`](results/agent-eval-facts2.json).
+
+| | stored the fact unprompted | correct in a later session | called `recall` |
+|---|---:|---:|---:|
+| No Mindtrail (2026-10-01) | – | 0/12 | – |
+| Mindtrail, original server instructions | 12/12 | 10/12 | 10/12 |
+| **Mindtrail, current server instructions** | **36/36** | **36/36** | **36/36** |
+
+The control row was 1/12 before a scorer fix. For the timestamp fact, the control agent
+recommended ISO 8601 and listed epoch milliseconds only as a fallback, and the first scorer
+counted any mention. An answer now counts only if it recommends epoch milliseconds ahead of
+ISO 8601.
+
+Both misses with the original instructions happened when the agent answered a quick
+question from habit, without calling `recall` (`npm install lodash`, and `str | None` for a
+Python 3.9 project). The server instructions now tell agents to recall before any
+project-specific answer, even a one-line one. That fixed both held-out misses as well.
+
+What this does **not** show: the repository is empty, the facts are stated explicitly, and
+the sample is small (one model, 12 facts). Longer sessions with real code, facts mixed into
+unrelated work, and other agents (Cursor, Codex) are untested.
+
+```bash
+python benchmarks/agent_eval.py --facts 1 --control   # 18 agent sessions
+python benchmarks/agent_eval.py --facts 2
+```
+
 ## Limitations
 
 - **Small and synthetic:** 174 hand-written queries by the Mindtrail authors. Treat the numbers
   as a regression baseline, not a claim about your data.
 - **English only**, and focused on software-project memory.
-- **No end-to-end agent evaluation yet.** Better retrieval does not by itself prove agents
-  perform better; that experiment is next on the roadmap.
+- **The agent evaluation is small** (see above). It shows agents use the tools and apply what
+  they recall. It does not yet measure task success on real codebases.
 - **Latency comes from brute-force vector search** over a small corpus on one laptop. It says
   nothing about large stores.
 
