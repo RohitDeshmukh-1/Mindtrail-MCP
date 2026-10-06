@@ -6,7 +6,7 @@ isolation and memory poisoning as security issues.
 ## Reporting a vulnerability
 
 Please **do not open a public issue**. Report privately through
-[GitHub security advisories](https://github.com/OWNER/mindtrail/security/advisories/new).
+[GitHub security advisories](https://github.com/RohitDeshmukh-1/Mindtrail-MCP/security/advisories/new).
 We aim to acknowledge reports within 3 business days.
 
 Especially in scope:

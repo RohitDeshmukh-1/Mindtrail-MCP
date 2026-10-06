@@ -6,6 +6,10 @@ All notable changes are documented here. The format follows
 
 ## [Unreleased]
 
+## [0.1.0] - 2026-10-06
+
+First public release on PyPI and the MCP Registry.
+
 ### Changed
 - `mindtrail[semantic]` now uses `BAAI/bge-base-en-v1.5` (210 MB) by default. It is ahead on
   every bundled set (holdout v2: 94% recall@5, 100% abstention). Choose another model with

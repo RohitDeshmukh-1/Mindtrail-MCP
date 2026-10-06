@@ -5,7 +5,7 @@ Thanks for helping. Small, focused pull requests get reviewed fastest.
 ## Setup
 
 ```bash
-git clone https://github.com/OWNER/mindtrail && cd mindtrail
+git clone https://github.com/RohitDeshmukh-1/Mindtrail-MCP && cd Mindtrail-MCP
 python -m venv .venv
 source .venv/bin/activate          # Windows: .venv\Scripts\activate
 pip install -e ".[dev]"

@@ -7,7 +7,7 @@
 Persistent, local-first memory for coding agents over MCP. Tell your agent something once,
 and every future session remembers it.
 
-[![CI](https://github.com/OWNER/mindtrail/actions/workflows/ci.yml/badge.svg)](https://github.com/OWNER/mindtrail/actions/workflows/ci.yml)
+[![CI](https://github.com/RohitDeshmukh-1/Mindtrail-MCP/actions/workflows/ci.yml/badge.svg)](https://github.com/RohitDeshmukh-1/Mindtrail-MCP/actions/workflows/ci.yml)
 [![Python 3.11+](https://img.shields.io/badge/python-3.11%2B-blue)](https://www.python.org/)
 [![MCP](https://img.shields.io/badge/MCP-compatible-8A2BE2)](https://modelcontextprotocol.io)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
@@ -57,6 +57,13 @@ an empty repository), not a measure of task success on large codebases.
 pipx install "mindtrail[semantic]"                         # or: uv tool install "mindtrail[semantic]"
 mindtrail init                                             # downloads the embedding model once (~210 MB)
 claude mcp add mindtrail --scope user -- mindtrail serve   # Claude Code
+```
+
+Have [uv](https://docs.astral.sh/uv/)? Skip the install step; `uvx` fetches Mindtrail on first
+run (the embedding model downloads in the background the first time the server starts):
+
+```bash
+claude mcp add mindtrail --scope user -- uvx --from "mindtrail[semantic]" mindtrail serve
 ```
 
 Cursor, VS Code, Codex and custom clients are covered in
@@ -187,3 +194,5 @@ helps others find it.
 ## License
 
 [MIT](LICENSE)
+
+<!-- mcp-name: io.github.rohitdeshmukh-1/mindtrail -->

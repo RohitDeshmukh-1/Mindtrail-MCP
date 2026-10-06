@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "mindtrail"
-version = "0.1.0.dev0"
+version = "0.1.0"
 description = "Persistent, local-first memory for AI coding agents over MCP."
 readme = "README.md"
 requires-python = ">=3.11"
@@ -31,10 +31,10 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/OWNER/mindtrail"
-Documentation = "https://github.com/OWNER/mindtrail/tree/main/docs"
-Issues = "https://github.com/OWNER/mindtrail/issues"
-Changelog = "https://github.com/OWNER/mindtrail/blob/main/CHANGELOG.md"
+Homepage = "https://github.com/RohitDeshmukh-1/Mindtrail-MCP"
+Documentation = "https://github.com/RohitDeshmukh-1/Mindtrail-MCP/tree/main/docs"
+Issues = "https://github.com/RohitDeshmukh-1/Mindtrail-MCP/issues"
+Changelog = "https://github.com/RohitDeshmukh-1/Mindtrail-MCP/blob/main/CHANGELOG.md"
 
 [project.scripts]
 mindtrail = "mindtrail.cli.main:main"
@@ -47,7 +47,7 @@ dev = ["pytest>=8", "ruff>=0.6", "mypy>=1.11", "pre-commit>=3.7"]
 packages = ["src/mindtrail"]
 
 [tool.hatch.build.targets.sdist]
-include = ["src/mindtrail", "tests", "README.md", "LICENSE", "CHANGELOG.md"]
+include = ["src/mindtrail", "tests", "README.md", "LICENSE", "CHANGELOG.md", "server.json"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
