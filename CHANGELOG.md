@@ -6,6 +6,14 @@ All notable changes are documented here. The format follows
 
 ## [Unreleased]
 
+## [0.1.1] - 2026-10-09
+
+### Fixed
+- MCP Registry name now matches the GitHub owner's casing (`io.github.RohitDeshmukh-1/mindtrail`), so the release can be listed there.
+
+### Changed
+- README rewritten for installing from PyPI and the MCP Registry, with `uvx` setups and one-click buttons for Cursor and VS Code.
+
 ## [0.1.0] - 2026-10-09
 
 First public release on PyPI and the MCP Registry.

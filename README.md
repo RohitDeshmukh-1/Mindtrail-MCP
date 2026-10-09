@@ -8,7 +8,7 @@ Persistent, local-first memory for coding agents over MCP. Tell your agent somet
 and every future session remembers it.
 
 [![PyPI](https://img.shields.io/pypi/v/mindtrail)](https://pypi.org/project/mindtrail/)
-[![MCP Registry](https://img.shields.io/badge/MCP_Registry-mindtrail-8A2BE2)](https://registry.modelcontextprotocol.io/v0/servers?search=io.github.rohitdeshmukh-1/mindtrail)
+[![MCP Registry](https://img.shields.io/badge/MCP_Registry-mindtrail-8A2BE2)](https://registry.modelcontextprotocol.io/v0/servers?search=io.github.RohitDeshmukh-1/mindtrail)
 [![CI](https://github.com/RohitDeshmukh-1/Mindtrail-MCP/actions/workflows/ci.yml/badge.svg)](https://github.com/RohitDeshmukh-1/Mindtrail-MCP/actions/workflows/ci.yml)
 [![Python](https://img.shields.io/pypi/pyversions/mindtrail)](https://pypi.org/project/mindtrail/)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green)](https://github.com/RohitDeshmukh-1/Mindtrail-MCP/blob/main/LICENSE)
@@ -244,4 +244,4 @@ helps others find it.
 
 [MIT](https://github.com/RohitDeshmukh-1/Mindtrail-MCP/blob/main/LICENSE)
 
-<!-- mcp-name: io.github.rohitdeshmukh-1/mindtrail -->
+<!-- mcp-name: io.github.RohitDeshmukh-1/mindtrail -->
