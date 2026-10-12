@@ -55,9 +55,9 @@ jobs:
   semantic:
     name: retrieval benchmark (neural embeddings)
     runs-on: ubuntu-latest
-    env:
-      MINDTRAIL_HOME: ${{ runner.temp }}/mindtrail
     steps:
+      # The runner context isn't available in job-level env, so export it here.
+      - run: echo "MINDTRAIL_HOME=$RUNNER_TEMP/mindtrail" >> "$GITHUB_ENV"
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
@@ -74,7 +74,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: benchmark-results
-          path: bench-*.json
+          path: bench.json
 
   build:
     runs-on: ubuntu-latest
